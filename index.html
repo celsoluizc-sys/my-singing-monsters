@@ -1543,120 +1543,25 @@ function showTab(t){
   document.getElementById('i-tab').classList.toggle('active',t==='i');
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['m','i'][i]===t));
 }
-function stopIslAud(){const a=document.getElementById('isle-aud');if(a){a.pause();a.currentTime=0;}}
-function cls(id,e){if(!e||e.target.classList.contains('overlay')){document.getElementById(id).classList.remove('open');if(id==='iOv')stopIslPlayer();}}
-function closeAll(){document.getElementById('mOv').classList.remove('open');document.getElementById('iOv').classList.remove('open');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
-
-
-// ── YOUTUBE ISLAND PLAYER ─────────────────────────────────────────────────────
-let _ytReady=false,_ytPending=null,_islPlayer=null,_islTimer=null;
-
-function _loadYTAPI(){
-  if(document.getElementById('yt-api-script'))return;
-  const s=document.createElement('script');
-  s.id='yt-api-script';
-  s.src='https://www.youtube.com/iframe_api';
-  document.head.appendChild(s);
-}
-
-window.onYouTubeIframeAPIReady=function(){
-  _ytReady=true;
-  if(_ytPending){_ytPending();_ytPending=null;}
-};
-
-function initIslPlayer(vidId){
-  _loadYTAPI();
-  const build=()=>{
-    if(_islPlayer){try{_islPlayer.destroy();}catch(e){}}
-    _islPlayer=null;
-    const host=document.getElementById('yt-host');
-    if(!host)return;
-    // Criar iframe manualmente com allow="autoplay" — obrigatório para o Chrome
-    // liberar áudio de iframes cross-origin mesmo quando acionado por clique
-    host.innerHTML='';
-    const fr=document.createElement('iframe');
-    fr.id='yt-inner';
-    fr.width='320';fr.height='180';
-    fr.frameBorder='0';
-    fr.allow='autoplay; encrypted-media; picture-in-picture';
-    fr.src='https://www.youtube.com/embed/'+vidId
-      +'?enablejsapi=1&autoplay=0&controls=0&disablekb=1'
-      +'&iv_load_policy=3&modestbranding=1&rel=0&start=0&end=15&fs=0&playsinline=1';
-    host.appendChild(fr);
-    // Passar o elemento iframe (não ID) ao YT.Player — mantém o allow que setamos
-    _islPlayer=new YT.Player(fr,{
-      events:{
-        onReady:()=>{
-          const btn=document.getElementById('isl-play-btn');
-          if(btn){
-            btn.textContent='▶';btn.disabled=false;
-            btn.style.background='var(--gold)';
-            btn.style.color='#0b0718';btn.style.cursor='pointer';
-          }
-        },
-        onStateChange:ev=>{
-          if(ev.data===YT.PlayerState.ENDED){
-            _stopProgress();
-            const btn=document.getElementById('isl-play-btn');
-            const bar=document.getElementById('isl-bar');
-            const tmr=document.getElementById('isl-timer');
-            if(btn)btn.textContent='▶';
-            if(bar)bar.style.width='0%';
-            if(tmr)tmr.textContent='0:00 / 0:15';
-          }
-        }
-      }
-    });
-  };
-  if(_ytReady)build();else _ytPending=build;
-}
-
-function _stopProgress(){clearInterval(_islTimer);_islTimer=null;}
-
-function islPlayMusic(){
-  if(!_islPlayer)return;
-  const btn=document.getElementById('isl-play-btn');
-  const state=_islPlayer.getPlayerState();
-  if(state===1){
-    _islPlayer.pauseVideo();
-    _stopProgress();
-    if(btn)btn.textContent='▶';
-  }else{
-    try{_islPlayer.seekTo(0,true);}catch(e){}
-    try{_islPlayer.unMute();}catch(e){}
-    try{_islPlayer.setVolume(100);}catch(e){}
-    _islPlayer.playVideo();
-    if(btn)btn.textContent='⏸';
-    _stopProgress();
-    let t=0;
-    _islTimer=setInterval(()=>{
-      t+=0.25;
-      const bar=document.getElementById('isl-bar');
-      const tmr=document.getElementById('isl-timer');
-      const s=Math.min(Math.floor(t),15);
-      if(bar)bar.style.width=Math.min(t/15*100,100)+'%';
-      if(tmr)tmr.textContent='0:'+String(s).padStart(2,'0')+' / 0:15';
-      if(t>=15){_stopProgress();}
-    },250);
-  }
-}
-
-function stopIslPlayer(){
-  _stopProgress();
-  if(_islPlayer){try{_islPlayer.pauseVideo();}catch(e){}}
-  const btn=document.getElementById('isl-play-btn');
-  const bar=document.getElementById('isl-bar');
-  if(btn)btn.textContent='▶';
-  if(bar)bar.style.width='0%';
+function stopIslAud(){
   const a=document.getElementById('isle-aud');
   if(a){a.pause();a.currentTime=0;}
 }
+function cls(id,e){
+  if(!e||e.target.classList.contains('overlay')){
+    document.getElementById(id).classList.remove('open');
+    if(id==='iOv')stopIslAud();
+  }
+}
+function closeAll(){
+  document.getElementById('mOv').classList.remove('open');
+  document.getElementById('iOv').classList.remove('open');
+  stopIslAud();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 renderFilters();renderM();renderI();
 </script>
-<!-- YouTube player host: off-screen, proper size so browser allows audio -->
-<div id="yt-host" style="position:fixed;top:-9999px;left:-9999px;width:320px;height:180px;pointer-events:none" aria-hidden="true"></div>
 </body>
 </html>
