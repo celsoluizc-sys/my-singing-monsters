@@ -175,6 +175,16 @@ const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+encodeURIComponent(wn.replac
 const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
 const eImg=n=>W+encodeURIComponent('Epic_'+n.replace(/ /g,'_')+'.png');
 const iImg=f=>W+encodeURIComponent(f);
+const ytThumb=id=>id?`https://img.youtube.com/vi/${id}/maxresdefault.jpg`:'';
+function iImgTag(isl){
+  const src1=isl.ytId?ytThumb(isl.ytId):iImg(isl.imgFile);
+  const src2=isl.ytId?iImg(isl.imgFile):'';
+  const fb=isl.emoji;
+  if(src2){
+    return `<img src="${src1}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${src2}';this.onerror=function(){this.style.display='none';this.nextSibling.style.display='block'}"><span class="fb" style="display:none">${fb}</span>`;
+  }
+  return imgTag(src1,fb);
+}
 
 function imgTag(src,fb,cls=''){
   return `<img src="${src}" alt="" loading="lazy" class="${cls}" onerror="this.style.display='none';this.nextSibling.style.display='block'"><span class="fb" style="display:none">${fb}</span>`;
@@ -1279,95 +1289,95 @@ const monsters=[
 
 // ── ISLANDS ──────────────────────────────────────────────────────────────────
 const islands=[
-{id:'plant',name:'Ilha das Plantas',imgFile:'Plant_Island.png',emoji:'🌿',color:'#14532d',
+{id:'plant',name:'Ilha das Plantas',imgFile:'Plant_Island.png',emoji:'🌿',color:'#14532d',ytId:'u5lQrtlwuf4',castle:'Castle_(Plant)',
  desc:'A primeira ilha do jogo, rica em vegetação tropical. Onde toda aventura musical começa.',
  monsters:['Noggin','Mammott','Toe Jammer','Tweedle','Potbelly','Furcorn','Oaktopus','Maw','Fwog','Drumpler','Shrubb','Dandidoo','Cybop','Pango','Reedling','Quibble','Bowgart','T-Rox','Congle','PomPom','Spunge','Shellbeat','Pummel','Thumpies','Scups','Deedge','Clamble','Quarrister','Entbrat','Wubbox','Ghazt','Shugabush',"G'joob",'Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'cold',name:'Ilha do Frio',imgFile:'Cold_Island.png',emoji:'❄️',color:'#1e3a5f',
+{id:'cold',name:'Ilha do Frio',imgFile:'Cold_Island.png',emoji:'❄️',color:'#1e3a5f',ytId:'QUnkXKJ-aO0',castle:'Castle_(Cold)',
  desc:'Coberta de neve e gelo eterno. Lar de criaturas adaptadas ao frio extremo.',
  monsters:['Mammott','Tweedle','Potbelly','Toe Jammer','Furcorn','Oaktopus','Maw','Dandidoo','Pango','Reedling','Quibble','Bowgart','Spunge','Thumpies','Deedge','Wubbox','Grumpyre','Strombonin','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'air',name:'Ilha do Ar',imgFile:'Air_Island.png',emoji:'💨',color:'#374151',
+{id:'air',name:'Ilha do Ar',imgFile:'Air_Island.png',emoji:'💨',color:'#374151',ytId:'Ncos2KQhX3s',castle:'Castle_(Air)',
  desc:'Ilha flutuante nas nuvens, habitada por criaturas do vento e do céu.',
  monsters:['Tweedle','Noggin','Mammott','Toe Jammer','Maw','Fwog','Drumpler','Cybop','Pango','Reedling','Quibble','T-Rox','Congle','Scups','Quarrister','Wubbox','Reebro','Whisp','Yawstrich','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'water',name:'Ilha da Água',imgFile:'Water_Island.png',emoji:'🌊',color:'#164e63',
+{id:'water',name:'Ilha da Água',imgFile:'Water_Island.png',emoji:'🌊',color:'#164e63',ytId:'no0Ksnf5Eqw',castle:'Castle_(Water)',
  desc:'Recife tropical com criaturas aquáticas e das profundezas marinhas.',
  monsters:['Toe Jammer','Tweedle','Potbelly','Noggin','Oaktopus','Fwog','Shrubb','Dandidoo','Cybop','Reedling','PomPom','Spunge','Shellbeat','Scups','Wubbox','Jeeode','Anglow','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'earth',name:'Ilha da Terra',imgFile:'Earth_Island.png',emoji:'⛰️',color:'#451a03',
+{id:'earth',name:'Ilha da Terra',imgFile:'Earth_Island.png',emoji:'⛰️',color:'#451a03',ytId:'AfmckwTkiJs',castle:'Castle_(Earth)',
  desc:'Ilha vulcânica de penhascos e grutas onde ressoam as batidas mais pesadas.',
  monsters:['Noggin','Mammott','Tweedle','Potbelly','Furcorn','Shrubb','Drumpler','Dandidoo','Cybop','Pango','Congle','PomPom','Pummel','Thumpies','Deedge','Clamble','Quarrister','Wubbox','Humbug','Hyehehe','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'gold',name:'Ilha de Ouro',imgFile:'Gold_Island.png',emoji:'🏆',color:'#78350f',
+{id:'gold',name:'Ilha de Ouro',imgFile:'Gold_Island.png',emoji:'🏆',color:'#78350f',ytId:'',castle:'Castle_(Gold)',
  desc:'A ilha mais valiosa, onde todos os monstros naturais convivem em harmonia dourada.',
  monsters:['Noggin','Mammott','Toe Jammer','Tweedle','Potbelly','Furcorn','Oaktopus','Maw','Fwog','Drumpler','Shrubb','Dandidoo','Cybop','Pango','Reedling','Quibble','Bowgart','T-Rox','Congle','PomPom','Spunge','Shellbeat','Pummel','Thumpies','Scups','Deedge','Clamble','Quarrister','Entbrat','Wubbox','Shugabush','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'ethereal',name:'Ilha Etérea',imgFile:'Ethereal_Island.png',emoji:'👻',color:'#2e1065',
+{id:'ethereal',name:'Ilha Etérea',imgFile:'Ethereal_Island.png',emoji:'👻',color:'#2e1065',ytId:'',castle:'Castle_(Ethereal)',
  desc:'Dimensão mística acessível por portal. Lar dos raríssimos monstros etéreos.',
  monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Nebulob','Whisp','Wubbox','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'shugabush',name:'Ilha Shugabush',imgFile:'Shugabush_Island.png',emoji:'🎸',color:'#365314',
+{id:'shugabush',name:'Ilha Shugabush',imgFile:'Shugabush_Island.png',emoji:'🎸',color:'#365314',ytId:'',castle:'',
  desc:'Ilha secreta de música country, acessível levando o Shugabush da Ilha das Plantas.',
  monsters:['Shugabush','Shugabass','Shugabeats','Shugavox','Shugabuzz','Shugitar','Shugajo','Shugarock']},
 
-{id:'tribal',name:'Ilha Tribal',imgFile:'Tribal_Island.png',emoji:'🥁',color:'#7c2d12',
+{id:'tribal',name:'Ilha Tribal',imgFile:'Tribal_Island.png',emoji:'🥁',color:'#7c2d12',ytId:'',castle:'Castle_(Tribal)',
  desc:'Ilha cerimonial onde você posiciona monstros para compor músicas tribais únicas.',
  monsters:['Noggin','Mammott','Toe Jammer','Tweedle','Potbelly','Furcorn','Oaktopus','Maw','Fwog','Drumpler','Shrubb','Dandidoo','Cybop','Pango','Reedling']},
 
-{id:'wublin',name:'Ilha Wublin',imgFile:'Wublin_Island.png',emoji:'⚙️',color:'#1e293b',
+{id:'wublin',name:'Ilha Wublin',imgFile:'Wublin_Island.png',emoji:'⚙️',color:'#1e293b',ytId:'',castle:'Castle_(Wublin)',
  desc:'Ilha mecânica dos Wublins — 49 autômatos musicais ativados por ovos de monstros.',
  monsters:['Zynth','Poewk','Thwok','Dwumrohl','Zuuker','Screemu','Tympa','Dermit','Gheegur','Whajje','Creepuscule','Blipsqueak','Scargo','Astropod','Pixolotl','Bona-Petite','Maulch','Fleechwurm','Brump','Wubbox']},
 
-{id:'faerie',name:'Ilha das Fadas',imgFile:'Faerie_Island.png',emoji:'🧚',color:'#4a044e',
+{id:'faerie',name:'Ilha das Fadas',imgFile:'Faerie_Island.png',emoji:'🧚',color:'#4a044e',ytId:'',castle:'Castle_(Faerie)',
  desc:'Ilha Mágica dos elementos Terra, Frio, Fogo e Fada. Habitada por criaturas feéricas encantadas.',
- monsters:['Noggin','Mammott','Kayna','Floot Fly','Larvaluss','Frondley','Bridg-it','Cantorell','Mushaboom','Clavi Gnat','Ziggurab','Ffidyll','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Noggin','Mammott','Drumpler','Kayna','Floot Fly','Larvaluss','Frondley','Bridg-it','Cantorell','Mushaboom','Clavi Gnat','Ziggurab','Ffidyll','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'bone',name:'Ilha dos Ossos',imgFile:'Bone_Island.png',emoji:'💀',color:'#1c1917',
+{id:'bone',name:'Ilha dos Ossos',imgFile:'Bone_Island.png',emoji:'💀',color:'#1c1917',ytId:'',castle:'Castle_(Bone)',
  desc:'Ilha Mágica dos elementos Terra, Água, Fogo e Osso. Lar de criaturas esqueléticas místicas.',
- monsters:['Noggin','Toe Jammer','Kayna','Clackula','Phangler','Yelmut','Tiawa','Drummidary','Incisaur','Clavavera','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Noggin','Toe Jammer','Fwog','Kayna','Clackula','Phangler','Yelmut','Tiawa','Drummidary','Incisaur','Clavavera','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'light',name:'Ilha da Luz',imgFile:'Light_Island.png',emoji:'✨',color:'#422006',
+{id:'light',name:'Ilha da Luz',imgFile:'Light_Island.png',emoji:'✨',color:'#422006',ytId:'',castle:'Castle_(Light)',
  desc:'Ilha Mágica dos elementos Planta, Frio, Fogo e Luz. Permanentemente iluminada, sem elementos de Ar, Água ou Terra.',
- monsters:['Potbelly','Mammott','Kayna','Fluoress','Gob','Bulbo','Pluckbill','TooToo','Spytrap','Fiddlement',"Blow't",'Whiz-bang','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Potbelly','Mammott','Furcorn','Kayna','Fluoress','Gob','Bulbo','Pluckbill','TooToo','Spytrap','Fiddlement',"Blow't",'Whiz-bang','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'psychic',name:'Ilha Psíquica',imgFile:'Psychic_Island.png',emoji:'🔮',color:'#500724',
+{id:'psychic',name:'Ilha Psíquica',imgFile:'Psychic_Island.png',emoji:'🔮',color:'#500724',ytId:'',castle:'Castle_(Psychic)',
  desc:'Ilha Mágica dos elementos Planta, Água, Fogo e Psíquico. Sem elementos de Frio, Ar ou Terra.',
- monsters:['Potbelly','Toe Jammer','Kayna','Theremind','Boskus','Sooza','Flowah','Bisonorus',"Boo'qwurm",'Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Potbelly','Toe Jammer','Oaktopus','Phangler','Kayna','Theremind','Boskus','Sooza','Flowah','Bisonorus',"Boo'qwurm",'Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'celestial',name:'Ilha Celestial',imgFile:'Celestial_Island.png',emoji:'🌙',color:'#0c0a1e',
+{id:'celestial',name:'Ilha Celestial',imgFile:'Celestial_Island.png',emoji:'🌙',color:'#0c0a1e',ytId:'',castle:'Castle_(Celestial)',
  desc:'Ilha sideral desbloqueada com o Nexo Mágico. Os 12 Celestiais (um por mês do ano) são ativados depositando ovos de outras ilhas — similar aos Wublins.',
  monsters:['Hornacle','Furnoss','Glaishur','Blasoom','Syncopite','Vhamp','Galvana','Scaratar','Torrt','Loodvigg','Attmoz','Plixie']},
 
-{id:'firehaven',name:'Refúgio de Fogo',imgFile:'Fire_Haven.png',emoji:'🔥',color:'#450a0a',
+{id:'firehaven',name:'Refúgio de Fogo',imgFile:'Fire_Haven.png',emoji:'🔥',color:'#450a0a',ytId:'RSZuY_6ynR8',castle:'Castle_(Haven)',
  desc:'Primeira ilha de Fogo (v2.2.4). Lar de monstros vulcânicos com elementos Ar, Planta, Terra, Água e Fogo.',
  monsters:['Kayna','Stogg','Glowl','Repatillo','Floogull','Barrb','Candelavra','Buzzinga','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'fireoasis',name:'Oásis de Fogo',imgFile:'Fire_Oasis.png',emoji:'🌋',color:'#7c1d1d',
+{id:'fireoasis',name:'Oásis de Fogo',imgFile:'Fire_Oasis.png',emoji:'🌋',color:'#7c1d1d',ytId:'',castle:'Castle_(Oasis)',
  desc:'Segunda ilha de Fogo (v2.3.0). Apresenta Phangler (Água+Fogo) e o Mítico Cherubble.',
  monsters:['Kayna','Phangler','Woolabee','Cherubble','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'amber',name:'Ilha de Âmbar',imgFile:'Amber_Island.png',emoji:'🟠',color:'#78350f',
+{id:'amber',name:'Ilha de Âmbar',imgFile:'Amber_Island.png',emoji:'🟠',color:'#78350f',ytId:'',castle:'Castle_(Amber)',
  desc:'Ilha pré-histórica encrustada em âmbar com criaturas ancestrais únicas.',
  monsters:['Kayna','Repatillo','Candelavra','Barrb','Woolabee','Ziggurab','Yelmut','Incisaur','Bisonorus','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
-{id:'seasonal',name:'Mansão Sazonal',imgFile:'Seasonal_Shanty.png',emoji:'🎉',color:'#1e1b4b',
+{id:'seasonal',name:'Mansão Sazonal',imgFile:'Seasonal_Shanty.png',emoji:'🎉',color:'#1e1b4b',ytId:'',castle:'Castle_(Seasonal_Shanty)',
  desc:'Ilha de eventos. Todos os monstros sazonais ficam disponíveis aqui o ano todo — ao contrário de outras ilhas onde aparecem apenas em eventos.',
  monsters:['Yool','Punkleton','Schmoochle','Blabbit','Hoola','Gobbleygourd','Clavavera','Viveine','Carillong','Jam Boree','Whiz-bang','Ffidyll',"Boo'qwurm"]},
 
-{id:'mythical',name:'Ilha Mítica',imgFile:'Mythical_Island.png',emoji:'🐉',color:'#3b0764',
+{id:'mythical',name:'Ilha Mítica',imgFile:'Mythical_Island.png',emoji:'🐉',color:'#3b0764',ytId:'',castle:'Castle_(Mythical)',
  desc:'Desbloqueada após comprar o Oásis de Fogo. Recebe Míticos teleportados ao nível 15. Cataliszt + Míticos criam os Dreamythicals exclusivos desta ilha.',
  monsters:["G'joob",'Strombonin','Yawstrich','Anglow','Hyehehe','Buzzinga','Cherubble','Cataliszt','Bleatnik','Cranchee','Sporerow','Pinghound','Wheezel','Knurv','shLep']},
 
-{id:'magical-sanctum',name:'Santuário Mágico',imgFile:'Magical_Sanctum.png',emoji:'🌟',color:'#3b0048',
+{id:'magical-sanctum',name:'Santuário Mágico',imgFile:'Magical_Sanctum.png',emoji:'🌟',color:'#3b0048',ytId:'',castle:'Castle_(Magical_Sanctum)',
  desc:'Desbloqueado após obter o Refúgio de Fogo. Ilha Teleportadora dos híbridos mágicos — recebe monstros com 2+ elementos mágicos. Os elementos Naturais e Fogo estão ausentes. Monstros produzem Fragmentos (Shards) em vez de moedas.',
  monsters:['Floot Fly','Fluoress','Theremind','Clackula','Cahoot','Roarick','Knucklehead','Déjà-Jin',"G'day",'Enchantling']},
 
-{id:'ethereal-workshop',name:'Ateliê Etéreo',imgFile:'Ethereal_Workshop.png',emoji:'🔬',color:'#1e1b4b',
+{id:'ethereal-workshop',name:'Ateliê Etéreo',imgFile:'Ethereal_Workshop.png',emoji:'🔬',color:'#1e1b4b',ytId:'',castle:'Castle_(Ethereal_Workshop)',
  desc:'Ilha exclusiva para etéreos de múltiplos elementos. Adicionada na versão 4.1.0. Etéreos simples se combinam aqui para criar criaturas triplas, quádruplas e quíntuplas inéditas.',
  monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Yooreek','Meebkin','Blarret','Gaddzooks','Auglur','Flasque','Nitebear','Piplash','Whaill','Vhenshun','Pentumbra']},
 
-{id:'magical-nexus',name:'Nexo Mágico',imgFile:'Magical_Nexus.png',emoji:'🌐',color:'#1a0533',
+{id:'magical-nexus',name:'Nexo Mágico',imgFile:'Magical_Nexus.png',emoji:'🌐',color:'#1a0533',ytId:'',castle:'Castle_(Magical_Nexus)',
  desc:'Desbloqueado no nível 18. Recebe todos os monstros mágicos (Fada, Luz, Psíquico, Osso) transpostos de suas ilhas ao nível 18. Similar à Ilha de Ouro, mas para monstros mágicos.',
  monsters:['Floot Fly','Larvaluss','Frondley','Bridg-it','Cantorell','Mushaboom','Clavi Gnat','Fluoress','Gob','Bulbo','Pluckbill','TooToo','Spytrap','Fiddlement',"Blow't",'Theremind','Boskus','Sooza','Flowah','Bisonorus','Clackula','Yelmut','Tiawa','Drummidary','Incisaur']},
 ];
@@ -1422,7 +1432,7 @@ function setF(f){activeFilter=f;renderFilters();renderM();}
 function renderI(){
   document.getElementById('igrid').innerHTML=islands.map(isl=>`
     <div class="icard" onclick="openI('${isl.id}')" style="background:linear-gradient(145deg,${isl.color}44,var(--card));border-color:${isl.color}77">
-      <div class="icard-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
+      <div class="icard-img">${iImgTag(isl)}</div>
       <div class="icard-name">${isl.name}</div>
       <div class="icard-desc">${isl.desc}</div>
       <div class="icard-count">${isl.monsters.length>0?`🎵 ${isl.monsters.length} monstros`:'🔍 Variável por evento'}</div>
@@ -1494,13 +1504,27 @@ function openI(id){
       }).join('')
     :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
 
+  const musicHtml=isl.castle
+    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
+        <audio id="isle-aud" controls preload="none" style="width:100%;border-radius:10px;margin-top:4px;accent-color:#f5c518">
+          <source src="${W}${encodeURIComponent(isl.castle+'.mp3')}" type="audio/mpeg">
+          <source src="${W}${encodeURIComponent(isl.castle+'.ogg')}" type="audio/ogg">
+        </audio></div>`
+    :isl.ytId
+    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
+        <a href="https://youtube.com/watch?v=${isl.ytId}" target="_blank"
+          style="display:inline-flex;align-items:center;gap:8px;background:#b91c1c;color:#fff;padding:9px 18px;border-radius:30px;font-weight:700;font-size:.85rem;text-decoration:none;margin-top:4px">
+          ▶ Ouvir no YouTube</a></div>`
+    :'';
+
   document.getElementById('iMod').innerHTML=`
-    <button class="mcls" onclick="cls('iOv')">✕</button>
+    <button class="mcls" onclick="cls('iOv');stopIslAud()">✕</button>
     <div class="imhdr">
-      <div class="imhdr-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
+      <div class="imhdr-img">${iImgTag(isl)}</div>
       <div class="imhdr-title">${isl.name}</div>
       <div class="imhdr-desc">${isl.desc}</div>
     </div>
+    ${musicHtml}
     <div class="msec"><h3>${isl.monsters.length>0?isl.monsters.length+' monstros — clique para ver detalhes':'Monstros variados por evento'}</h3>
       <div class="imgrid">${msHtml}</div></div>`;
   document.getElementById('iOv').classList.add('open');
@@ -1512,7 +1536,8 @@ function showTab(t){
   document.getElementById('i-tab').classList.toggle('active',t==='i');
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['m','i'][i]===t));
 }
-function cls(id,e){if(!e||e.target.classList.contains('overlay'))document.getElementById(id).classList.remove('open');}
+function stopIslAud(){const a=document.getElementById('isle-aud');if(a){a.pause();a.currentTime=0;}}
+function cls(id,e){if(!e||e.target.classList.contains('overlay')){document.getElementById(id).classList.remove('open');if(id==='iOv')stopIslAud();}}
 function closeAll(){document.getElementById('mOv').classList.remove('open');document.getElementById('iOv').classList.remove('open');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
 
