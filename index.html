@@ -1504,24 +1504,20 @@ function openI(id){
       }).join('')
     :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
 
-  const musicHtml=isl.ytId
+  const musicHtml=isl.castle
     ?`<div class="msec"><h3>🎵 Música da ilha</h3>
-        <div style="margin-top:10px;border-radius:12px;overflow:hidden;background:#000">
-          <iframe
-            src="https://www.youtube.com/embed/${isl.ytId}?rel=0&modestbranding=1&iv_load_policy=3&color=white"
-            width="100%" height="120"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowfullscreen
-            style="border:none;display:block"
-            loading="lazy"
-          ></iframe>
+        <audio id="isle-aud" controls preload="none" style="width:100%;border-radius:10px;margin-top:8px;accent-color:var(--gold)">
+          <source src="${W}${encodeURIComponent(isl.castle+'.mp3')}" type="audio/mpeg">
+          <source src="${W}${encodeURIComponent(isl.castle+'.ogg')}" type="audio/ogg">
+        </audio>
+        ${isl.ytId?`<div style="margin-top:8px;text-align:right"><a href="https://www.youtube.com/watch?v=${isl.ytId}" target="_blank" rel="noopener" style="font-size:.72rem;color:var(--dim);text-decoration:none">▶ Ouvir música completa no YouTube ↗</a></div>`:''}
+      </div>`
+    :isl.ytId
+    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
+        <div style="margin-top:8px;padding:14px;background:var(--card);border-radius:12px;text-align:center">
+          <a href="https://www.youtube.com/watch?v=${isl.ytId}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#ff0000;color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:.85rem">▶ Ouvir no YouTube</a>
         </div>
       </div>`
-    :isl.castle
-    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
-        <audio id="isle-aud" controls preload="none" style="width:100%;border-radius:10px;margin-top:4px;accent-color:var(--gold)">
-          <source src="${W}${encodeURIComponent(isl.castle+'.mp3')}" type="audio/mpeg">
-        </audio></div>`
     :'';
 
   document.getElementById('iMod').innerHTML=`
