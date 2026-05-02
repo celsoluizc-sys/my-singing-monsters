@@ -1432,7 +1432,7 @@ function setF(f){activeFilter=f;renderFilters();renderM();}
 function renderI(){
   document.getElementById('igrid').innerHTML=islands.map(isl=>`
     <div class="icard" onclick="openI('${isl.id}')" style="background:linear-gradient(145deg,${isl.color}44,var(--card));border-color:${isl.color}77">
-      <div class="icard-img">${iImgTag(isl)}</div>
+      <div class="icard-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
       <div class="icard-name">${isl.name}</div>
       <div class="icard-desc">${isl.desc}</div>
       <div class="icard-count">${isl.monsters.length>0?`🎵 ${isl.monsters.length} monstros`:'🔍 Variável por evento'}</div>
@@ -1504,23 +1504,28 @@ function openI(id){
       }).join('')
     :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
 
-  const musicHtml=isl.castle
+  const musicHtml=isl.ytId
+    ?`<div class="msec"><h3>🎵 Trecho da música — 15 segundos</h3>
+        <div style="margin-top:8px;border-radius:12px;overflow:hidden;background:#000">
+          <iframe width="100%" height="160"
+            src="https://www.youtube.com/embed/${isl.ytId}?end=15&modestbranding=1&rel=0&color=white"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen style="display:block">
+          </iframe>
+        </div></div>`
+    :isl.castle
     ?`<div class="msec"><h3>🎵 Música da ilha</h3>
         <audio id="isle-aud" controls preload="none" style="width:100%;border-radius:10px;margin-top:4px;accent-color:#f5c518">
           <source src="${W}${encodeURIComponent(isl.castle+'.mp3')}" type="audio/mpeg">
           <source src="${W}${encodeURIComponent(isl.castle+'.ogg')}" type="audio/ogg">
         </audio></div>`
-    :isl.ytId
-    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
-        <a href="https://youtube.com/watch?v=${isl.ytId}" target="_blank"
-          style="display:inline-flex;align-items:center;gap:8px;background:#b91c1c;color:#fff;padding:9px 18px;border-radius:30px;font-weight:700;font-size:.85rem;text-decoration:none;margin-top:4px">
-          ▶ Ouvir no YouTube</a></div>`
     :'';
 
   document.getElementById('iMod').innerHTML=`
-    <button class="mcls" onclick="cls('iOv');stopIslAud()">✕</button>
+    <button class="mcls" onclick="cls('iOv')">✕</button>
     <div class="imhdr">
-      <div class="imhdr-img">${iImgTag(isl)}</div>
+      <div class="imhdr-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
       <div class="imhdr-title">${isl.name}</div>
       <div class="imhdr-desc">${isl.desc}</div>
     </div>
