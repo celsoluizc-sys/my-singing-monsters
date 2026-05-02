@@ -1505,16 +1505,18 @@ function openI(id){
     :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
 
   const musicHtml=isl.ytId
-    ?`<div class="msec"><h3>🎵 Trecho da música — 15 seg</h3>
-        <div style="margin-top:10px;background:var(--card);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px">
-          <button id="isl-play-btn" onclick="islPlayMusic()" disabled style="width:52px;height:52px;border-radius:50%;border:none;background:var(--card2);color:var(--dim);font-size:1.35rem;cursor:wait;flex-shrink:0;transition:all .15s">⟳</button>
-          <div style="flex:1;min-width:0">
-            <div style="height:6px;background:var(--card2);border-radius:3px;margin-bottom:7px;overflow:hidden">
-              <div id="isl-bar" style="width:0%;height:100%;background:var(--gold);border-radius:3px;transition:width .4s linear"></div>
-            </div>
-            <span id="isl-timer" style="font-size:.72rem;color:var(--dim)">0:00 / 0:15</span>
-          </div>
-        </div></div>`
+    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
+        <div style="margin-top:10px;border-radius:12px;overflow:hidden;background:#000">
+          <iframe
+            src="https://www.youtube.com/embed/${isl.ytId}?rel=0&modestbranding=1&iv_load_policy=3&color=white"
+            width="100%" height="120"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen
+            style="border:none;display:block"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>`
     :isl.castle
     ?`<div class="msec"><h3>🎵 Música da ilha</h3>
         <audio id="isle-aud" controls preload="none" style="width:100%;border-radius:10px;margin-top:4px;accent-color:var(--gold)">
@@ -1533,7 +1535,6 @@ function openI(id){
     <div class="msec"><h3>${isl.monsters.length>0?isl.monsters.length+' monstros — clique para ver detalhes':'Monstros variados por evento'}</h3>
       <div class="imgrid">${msHtml}</div></div>`;
   document.getElementById('iOv').classList.add('open');
-  if(isl.ytId) setTimeout(()=>initIslPlayer(isl.ytId),80);
 }
 
 // ── TABS / MODAL CONTROL ──────────────────────────────────────────────────────
