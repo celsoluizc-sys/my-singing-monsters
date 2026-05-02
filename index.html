@@ -1505,20 +1505,21 @@ function openI(id){
     :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
 
   const musicHtml=isl.ytId
-    ?`<div class="msec"><h3>🎵 Trecho da música — 15 segundos</h3>
-        <div style="margin-top:8px;border-radius:12px;overflow:hidden;background:#000">
-          <iframe width="100%" height="160"
-            src="https://www.youtube.com/embed/${isl.ytId}?end=15&modestbranding=1&rel=0&color=white"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen style="display:block">
-          </iframe>
+    ?`<div class="msec"><h3>🎵 Trecho da música — 15 seg</h3>
+        <div style="margin-top:10px;background:var(--card);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px">
+          <div id="isl-yt-player" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></div>
+          <button id="isl-play-btn" onclick="islPlayMusic()" style="width:52px;height:52px;border-radius:50%;border:none;background:var(--gold);color:#0b0718;font-size:1.35rem;cursor:pointer;flex-shrink:0;transition:transform .15s">▶</button>
+          <div style="flex:1;min-width:0">
+            <div style="height:6px;background:var(--card2);border-radius:3px;margin-bottom:7px;overflow:hidden">
+              <div id="isl-bar" style="width:0%;height:100%;background:var(--gold);border-radius:3px;transition:width .4s linear"></div>
+            </div>
+            <span id="isl-timer" style="font-size:.72rem;color:var(--dim)">0:00 / 0:15</span>
+          </div>
         </div></div>`
     :isl.castle
     ?`<div class="msec"><h3>🎵 Música da ilha</h3>
-        <audio id="isle-aud" controls preload="none" style="width:100%;border-radius:10px;margin-top:4px;accent-color:#f5c518">
+        <audio id="isle-aud" controls preload="none" style="width:100%;border-radius:10px;margin-top:4px;accent-color:var(--gold)">
           <source src="${W}${encodeURIComponent(isl.castle+'.mp3')}" type="audio/mpeg">
-          <source src="${W}${encodeURIComponent(isl.castle+'.ogg')}" type="audio/ogg">
         </audio></div>`
     :'';
 
@@ -1533,6 +1534,7 @@ function openI(id){
     <div class="msec"><h3>${isl.monsters.length>0?isl.monsters.length+' monstros — clique para ver detalhes':'Monstros variados por evento'}</h3>
       <div class="imgrid">${msHtml}</div></div>`;
   document.getElementById('iOv').classList.add('open');
+  if(isl.ytId) setTimeout(()=>initIslPlayer(isl.ytId),80);
 }
 
 // ── TABS / MODAL CONTROL ──────────────────────────────────────────────────────
@@ -1542,9 +1544,92 @@ function showTab(t){
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['m','i'][i]===t));
 }
 function stopIslAud(){const a=document.getElementById('isle-aud');if(a){a.pause();a.currentTime=0;}}
-function cls(id,e){if(!e||e.target.classList.contains('overlay')){document.getElementById(id).classList.remove('open');if(id==='iOv')stopIslAud();}}
+function cls(id,e){if(!e||e.target.classList.contains('overlay')){document.getElementById(id).classList.remove('open');if(id==='iOv')stopIslPlayer();}}
 function closeAll(){document.getElementById('mOv').classList.remove('open');document.getElementById('iOv').classList.remove('open');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+
+
+// ── YOUTUBE ISLAND PLAYER ─────────────────────────────────────────────────────
+let _ytReady=false,_ytPending=null,_islPlayer=null,_islTimer=null;
+
+function _loadYTAPI(){
+  if(document.getElementById('yt-api-script'))return;
+  const s=document.createElement('script');
+  s.id='yt-api-script';
+  s.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+}
+
+window.onYouTubeIframeAPIReady=function(){
+  _ytReady=true;
+  if(_ytPending){_ytPending();_ytPending=null;}
+};
+
+function initIslPlayer(vidId){
+  _loadYTAPI();
+  const build=()=>{
+    if(_islPlayer){try{_islPlayer.destroy();}catch(e){}}
+    _islPlayer=null;
+    const div=document.getElementById('isl-yt-player');
+    if(!div)return;
+    _islPlayer=new YT.Player('isl-yt-player',{
+      height:'1',width:'1',videoId:vidId,
+      playerVars:{autoplay:0,controls:0,disablekb:1,iv_load_policy:3,
+                  modestbranding:1,rel:0,start:0,end:15,fs:0,playsinline:1},
+      events:{onStateChange:e=>{
+        if(e.data===YT.PlayerState.ENDED){
+          _stopProgress();
+          const btn=document.getElementById('isl-play-btn');
+          const bar=document.getElementById('isl-bar');
+          const tmr=document.getElementById('isl-timer');
+          if(btn)btn.textContent='▶';
+          if(bar)bar.style.width='0%';
+          if(tmr)tmr.textContent='0:00 / 0:15';
+        }
+      }}
+    });
+  };
+  if(_ytReady)build();else _ytPending=build;
+}
+
+function _stopProgress(){clearInterval(_islTimer);_islTimer=null;}
+
+function islPlayMusic(){
+  if(!_islPlayer)return;
+  const btn=document.getElementById('isl-play-btn');
+  const state=_islPlayer.getPlayerState();
+  if(state===1){
+    _islPlayer.pauseVideo();
+    _stopProgress();
+    if(btn)btn.textContent='▶';
+  }else{
+    try{_islPlayer.seekTo(0,true);}catch(e){}
+    _islPlayer.playVideo();
+    if(btn)btn.textContent='⏸';
+    _stopProgress();
+    let t=0;
+    _islTimer=setInterval(()=>{
+      t+=0.25;
+      const bar=document.getElementById('isl-bar');
+      const tmr=document.getElementById('isl-timer');
+      const s=Math.min(Math.floor(t),15);
+      if(bar)bar.style.width=Math.min(t/15*100,100)+'%';
+      if(tmr)tmr.textContent='0:'+String(s).padStart(2,'0')+' / 0:15';
+      if(t>=15){_stopProgress();}
+    },250);
+  }
+}
+
+function stopIslPlayer(){
+  _stopProgress();
+  if(_islPlayer){try{_islPlayer.pauseVideo();}catch(e){}}
+  const btn=document.getElementById('isl-play-btn');
+  const bar=document.getElementById('isl-bar');
+  if(btn)btn.textContent='▶';
+  if(bar)bar.style.width='0%';
+  const a=document.getElementById('isle-aud');
+  if(a){a.pause();a.currentTime=0;}
+}
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 renderFilters();renderM();renderI();
