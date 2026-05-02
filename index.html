@@ -54,6 +54,7 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .chip[data-f="Mítico"]{border-color:#e879f9;color:#e879f9}.chip[data-f="Mítico"].on{background:#e879f9}
 .chip[data-f="Sonho"]{border-color:#93c5fd;color:#93c5fd}.chip[data-f="Sonho"].on{background:#93c5fd}
 .chip[data-f="Dipster"]{border-color:#d8b4fe;color:#d8b4fe}.chip[data-f="Dipster"].on{background:#d8b4fe}
+.chip[data-f="Celestial"]{border-color:#c4b5fd;color:#c4b5fd}.chip[data-f="Celestial"].on{background:#c4b5fd}
 
 /* Monster grid */
 .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:11px}
@@ -79,6 +80,7 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .el-Psíquico{background:#0c0a3e;color:#a5b4fc}.el-Osso{background:#1a1a14;color:#d4d4aa}
 .el-Mítico{background:#12001c;color:#e879f9}.el-Sonho{background:#0a0a2e;color:#93c5fd}
 .el-Dipster{background:#1a0a2e;color:#d8b4fe}
+.el-Celestial{background:#050520;color:#c4b5fd}
 
 /* Islands grid */
 .igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:15px}
@@ -161,7 +163,15 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 
 <script>
 const W='https://mysingingmonsters.fandom.com/wiki/Special:FilePath/';
-const mImg=n=>W+encodeURIComponent(n.replace(/ /g,'_')+'.png');
+const IMG_OVERRIDE={
+  'Dipster Dó':'Do','Dipster Ré':'Re','Dipster Mi':'Mi',
+  'Dipster Fá':'Fa','Dipster Sol':'Sol','Dipster Lá':'La','Dipster Ti':'Ti',
+  'Déjà-Jin':'Deja-Jin','shLep':'shLep','T-Rox':'T-Rox',
+  "G'joob":"G'joob","G'day":"G'day","Blow't":"Blow't","Boo'qwurm":"Boo'qwurm",
+  'Clavi Gnat':'Clavi_Gnat','Floot Fly':'Floot_Fly',
+  'Jam Boree':'Jam_Boree','Whiz-bang':'Whiz-bang',
+};
+const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+encodeURIComponent(wn.replace(/ /g,'_')+'.png');};
 const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
 const eImg=n=>W+encodeURIComponent('Epic_'+n.replace(/ /g,'_')+'.png');
 const iImg=f=>W+encodeURIComponent(f);
@@ -1192,6 +1202,79 @@ const monsters=[
  breeding:'Não pode ser procriado. Aparece espontaneamente em espaços livres.',breedTime:null,
  hasRare:false,hasEpic:false,
  notes:'Dipster nota Ti. O sétimo e mais agudo dos Dipsters. Surge automaticamente em espaços livres da ilha.'},
+// ═══ CELESTIAIS (12 monstros — Ilha Celestial) ════════════════════════════════
+// Ativados depositando ovos de outras ilhas, como os Wublins. Um por mês do ano.
+{id:'hornacle',name:'Hornacle',emoji:'🐚',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:`Não pode ser procriado.\n\n🔷 Como ativar:\n1. Compre o Hornacle na Loja com Diamantes.\n2. Deposite ovos específicos de monstros de outras ilhas até completar todos os slots.\n3. Quando ativado, começa a produzir Currency e pode ascender para a forma adulta.`,
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Janeiro. Criatura com chifres espirais que ressoa melodias do inverno profundo.'},
+
+{id:'furnoss',name:'Furnoss',emoji:'🔥',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Fevereiro. Ser de forno ardente que emite melodias quentes e pulsantes.'},
+
+{id:'glaishur',name:'Glaishur',emoji:'🧊',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Março. Criatura de gelo eterno que canta em frequências criogênicas.'},
+
+{id:'blasoom',name:'Blasoom',emoji:'🌺',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Abril. Flor explosiva que desabrocha em notas musicais vibrantes.'},
+
+{id:'syncopite',name:'Syncopite',emoji:'🎵',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Maio. Mestre do ritmo sincopado — altera o compasso de toda a ilha.'},
+
+{id:'vhamp',name:'Vhamp',emoji:'🦇',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Junho. Vampiro cósmico que suga energia sonora e a transforma em melodias.'},
+
+{id:'galvana',name:'Galvana',emoji:'⚡',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Julho. Ser galvânico que conduz eletricidade musical por toda a ilha.'},
+
+{id:'scaratar',name:'Scaratar',emoji:'🦂',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Agosto. Escorpião estelar cujo ferrão libera ondas sonoras devastadoras.'},
+
+{id:'torrt',name:'Torrt',emoji:'🌪️',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Setembro. Torrente de pedra e vento que ruge com baixos sísmicos.'},
+
+{id:'loodvigg',name:'Loodvigg',emoji:'🎻',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Outubro. Homenagem a Beethoven — toca sinfonias cósmicas de arco.'},
+
+{id:'attmoz',name:'Attmoz',emoji:'🌫️',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Novembro. Criatura atmosférica que ressoa com os ventos da estratosfera.'},
+
+{id:'plixie',name:'Plixie',emoji:'✨',elements:['Celestial'],
+ islands:['Ilha Celestial'],
+ breeding:'Não pode ser procriado. Ativado depositando ovos específicos na Ilha Celestial.',
+ breedTime:null,hasRare:false,hasEpic:false,
+ notes:'Celestial de Dezembro. Pixie estelar que espalha faíscas mágicas de melodia pelo cosmos.'},
 ];
 
 // ── ISLANDS ──────────────────────────────────────────────────────────────────
@@ -1253,8 +1336,8 @@ const islands=[
  monsters:['Potbelly','Toe Jammer','Kayna','Theremind','Boskus','Sooza','Flowah','Bisonorus',"Boo'qwurm",'Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
 {id:'celestial',name:'Ilha Celestial',imgFile:'Celestial_Island.png',emoji:'🌙',color:'#0c0a1e',
- desc:'Ilha sideral habitada por monstros Celestiais de altíssimo nível.',
- monsters:[]},
+ desc:'Ilha sideral desbloqueada com o Nexo Mágico. Os 12 Celestiais (um por mês do ano) são ativados depositando ovos de outras ilhas — similar aos Wublins.',
+ monsters:['Hornacle','Furnoss','Glaishur','Blasoom','Syncopite','Vhamp','Galvana','Scaratar','Torrt','Loodvigg','Attmoz','Plixie']},
 
 {id:'firehaven',name:'Refúgio de Fogo',imgFile:'Fire_Haven.png',emoji:'🔥',color:'#450a0a',
  desc:'Primeira ilha de Fogo (v2.2.4). Lar de monstros vulcânicos com elementos Ar, Planta, Terra, Água e Fogo.',
@@ -1294,7 +1377,7 @@ const ELEM_BG={Planta:'#052e16',Frio:'#082f49',Ar:'#1f2937',Água:'#082f49',Terr
   Fogo:'#1c0505',Plasma:'#1e1b4b',Sombra:'#0f0f1a',Meca:'#1a2a1a',Cristal:'#083344',
   Gosma:'#1a2e05',Etéreo:'#1e1b4b',Lendário:'#1c1003',Wublin:'#0f1729',Sazonal:'#2d0518',
   Fada:'#2d0a3e',Luz:'#1c1500',Psíquico:'#0c0a3e',Osso:'#1a1a14',
-  Mítico:'#12001c',Sonho:'#0a0a2e',Dipster:'#1a0a2e'};
+  Mítico:'#12001c',Sonho:'#0a0a2e',Dipster:'#1a0a2e',Celestial:'#050520'};
 
 let activeFilter='all';
 
@@ -1327,7 +1410,7 @@ function renderFilters(){
     {f:'Fada',l:'🧚 Fada'},{f:'Luz',l:'✨ Luz'},
     {f:'Psíquico',l:'🔮 Psíquico'},{f:'Osso',l:'💀 Osso'},
     {f:'Mítico',l:'🌟 Míticos'},{f:'Sonho',l:'💫 Sonho'},
-    {f:'Lendário',l:'🎸 Shugafam'},{f:'Wublin',l:'⚙️ Wublins'},{f:'Sazonal',l:'🎉 Sazonais'},{f:'Dipster',l:'🎵 Dipsters'}
+    {f:'Lendário',l:'🎸 Shugafam'},{f:'Wublin',l:'⚙️ Wublins'},{f:'Sazonal',l:'🎉 Sazonais'},{f:'Dipster',l:'🎵 Dipsters'},{f:'Celestial',l:'🌙 Celestiais'}
   ];
   document.getElementById('filterBar').innerHTML=opts.map(o=>
     `<button class="chip${activeFilter===o.f?' on':''}" data-f="${o.f}" onclick="setF('${o.f}')">${o.l}</button>`
