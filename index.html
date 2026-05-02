@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Singing Monsters – Guia Completo</title>
+<style>
+:root{
+  --bg:#0b0718;--bg2:#130d28;--card:#1c1238;--card2:#261a50;
+  --gold:#f5c518;--gold2:#ffe082;--purple:#7c3aed;--purple2:#a78bfa;
+  --text:#e8d9ff;--dim:#8b7ab8;--rare:#38bdf8;--epic:#fb923c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--card2);border-radius:3px}
+
+header{background:linear-gradient(135deg,#1a0a3e,#0b0718 60%,#1a0a3e);border-bottom:3px solid var(--gold);padding:20px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(245,197,24,.12) 0%,transparent 65%);pointer-events:none}
+.logo{font-size:2.1rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 14px rgba(245,197,24,.4))}
+.logo small{font-size:.82rem;display:block;-webkit-text-fill-color:var(--dim);filter:none;letter-spacing:3px;font-weight:400;margin-top:3px}
+
+.tabs{display:flex;justify-content:center;gap:10px;padding:14px;background:var(--bg2);border-bottom:2px solid var(--card2)}
+.tab-btn{padding:8px 24px;border:2px solid var(--purple);background:transparent;color:var(--purple2);border-radius:30px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+.tab-btn:hover{background:rgba(124,58,237,.15)}
+.tab-btn.active{background:var(--purple);color:#fff;box-shadow:0 0 16px rgba(124,58,237,.4)}
+
+.tab-content{display:none;padding:20px 16px;max-width:1300px;margin:0 auto}
+.tab-content.active{display:block}
+
+.search-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.search-row input{flex:1;min-width:200px;padding:9px 16px;border-radius:25px;border:2px solid var(--card2);background:var(--card);color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s}
+.search-row input:focus{border-color:var(--purple)}
+.search-row input::placeholder{color:var(--dim)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.chip{padding:5px 12px;border-radius:20px;border:2px solid;cursor:pointer;font-size:.72rem;font-weight:700;transition:all .17s;background:transparent;white-space:nowrap}
+.chip:hover,.chip.on{color:#0b0718 !important}
+
+/* Element colors */
+.chip[data-f="all"]{border-color:#f5c518;color:#f5c518}.chip[data-f="all"].on{background:#f5c518}
+.chip[data-f="Planta"]{border-color:#22c55e;color:#22c55e}.chip[data-f="Planta"].on{background:#22c55e}
+.chip[data-f="Frio"]{border-color:#60a5fa;color:#60a5fa}.chip[data-f="Frio"].on{background:#60a5fa}
+.chip[data-f="Ar"]{border-color:#94a3b8;color:#94a3b8}.chip[data-f="Ar"].on{background:#94a3b8}
+.chip[data-f="Água"]{border-color:#0ea5e9;color:#0ea5e9}.chip[data-f="Água"].on{background:#0ea5e9}
+.chip[data-f="Terra"]{border-color:#d97706;color:#d97706}.chip[data-f="Terra"].on{background:#d97706}
+.chip[data-f="Etéreo"]{border-color:#a855f7;color:#a855f7}.chip[data-f="Etéreo"].on{background:#a855f7}
+.chip[data-f="Fogo"]{border-color:#ef4444;color:#ef4444}.chip[data-f="Fogo"].on{background:#ef4444}
+.chip[data-f="Lendário"]{border-color:#fde68a;color:#fde68a}.chip[data-f="Lendário"].on{background:#fde68a}
+.chip[data-f="Wublin"]{border-color:#7dd3fc;color:#7dd3fc}.chip[data-f="Wublin"].on{background:#7dd3fc}
+.chip[data-f="Sazonal"]{border-color:#f472b6;color:#f472b6}.chip[data-f="Sazonal"].on{background:#f472b6}
+.chip[data-f="Fada"]{border-color:#f0abfc;color:#f0abfc}.chip[data-f="Fada"].on{background:#f0abfc}
+.chip[data-f="Luz"]{border-color:#fef08a;color:#fef08a}.chip[data-f="Luz"].on{background:#fef08a}
+.chip[data-f="Psíquico"]{border-color:#a5b4fc;color:#a5b4fc}.chip[data-f="Psíquico"].on{background:#a5b4fc}
+.chip[data-f="Osso"]{border-color:#d4d4aa;color:#d4d4aa}.chip[data-f="Osso"].on{background:#d4d4aa}
+.chip[data-f="Mítico"]{border-color:#e879f9;color:#e879f9}.chip[data-f="Mítico"].on{background:#e879f9}
+.chip[data-f="Sonho"]{border-color:#93c5fd;color:#93c5fd}.chip[data-f="Sonho"].on{background:#93c5fd}
+.chip[data-f="Dipster"]{border-color:#d8b4fe;color:#d8b4fe}.chip[data-f="Dipster"].on{background:#d8b4fe}
+
+/* Monster grid */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:11px}
+.mcard{background:var(--card);border-radius:14px;padding:12px 8px 10px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.mcard:hover{transform:translateY(-5px);border-color:var(--gold)}
+.mcard-img{width:70px;height:70px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.5)}
+.mcard-img img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.mcard-img .fb{font-size:2rem;display:none}
+.mcard-name{font-weight:700;font-size:.78rem;color:var(--gold2);margin-bottom:5px}
+.etags{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.etag{font-size:.58rem;padding:2px 6px;border-radius:10px;font-weight:700}
+
+/* Element tag colors */
+.el-Planta{background:#052e16;color:#4ade80}.el-Frio{background:#082f49;color:#93c5fd}
+.el-Ar{background:#1f2937;color:#9ca3af}.el-Água{background:#082f49;color:#38bdf8}
+.el-Terra{background:#1c0a00;color:#fb923c}.el-Fogo{background:#1c0505;color:#f87171}
+.el-Plasma{background:#1e1b4b;color:#c084fc}.el-Sombra{background:#0f0f1a;color:#94a3b8}
+.el-Meca{background:#1a2a1a;color:#86efac}.el-Cristal{background:#083344;color:#67e8f9}
+.el-Gosma{background:#1a2e05;color:#bef264}.el-Etéreo{background:#1e1b4b;color:#c084fc}
+.el-Lendário{background:#1c1003;color:#fde68a}.el-Wublin{background:#0f1729;color:#7dd3fc}
+.el-Sazonal{background:#2d0518;color:#f472b6}
+.el-Fada{background:#2d0a3e;color:#f0abfc}.el-Luz{background:#1c1500;color:#fef08a}
+.el-Psíquico{background:#0c0a3e;color:#a5b4fc}.el-Osso{background:#1a1a14;color:#d4d4aa}
+.el-Mítico{background:#12001c;color:#e879f9}.el-Sonho{background:#0a0a2e;color:#93c5fd}
+.el-Dipster{background:#1a0a2e;color:#d8b4fe}
+
+/* Islands grid */
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:15px}
+.icard{border-radius:16px;padding:18px 12px 14px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.icard:hover{transform:translateY(-5px)}
+.icard-img{width:100%;height:110px;border-radius:10px;margin:0 auto 11px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.icard-img img{width:100%;height:100%;object-fit:cover}
+.icard-img .fb{font-size:3rem;display:none;line-height:110px;text-align:center}
+.icard-name{font-size:.95rem;font-weight:700;color:var(--gold2);margin-bottom:5px}
+.icard-desc{font-size:.73rem;color:var(--dim);line-height:1.4}
+.icard-count{margin-top:7px;font-size:.7rem;color:var(--dim)}
+
+/* Modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(5,2,18,.9);z-index:999;justify-content:center;align-items:center;padding:12px;backdrop-filter:blur(5px)}
+.overlay.open{display:flex}
+.modal{background:var(--bg2);border-radius:20px;padding:24px 22px 20px;width:100%;max-width:650px;max-height:90vh;overflow-y:auto;border:2px solid var(--purple);position:relative;box-shadow:0 0 50px rgba(124,58,237,.25);animation:su .2s ease}
+@keyframes su{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.mcls{position:absolute;top:11px;right:13px;background:none;border:none;color:var(--dim);font-size:1.4rem;cursor:pointer;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .17s}
+.mcls:hover{background:rgba(255,255,255,.1)}
+.mhdr{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+.mhdr-img{width:82px;height:82px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 22px rgba(0,0,0,.5)}
+.mhdr-img img,.mhdr-img .fb{width:100%;height:100%}
+.mhdr-img img{object-fit:cover}
+.mhdr-img .fb{font-size:2.6rem;display:none;text-align:center;line-height:82px}
+.mhdr-title{font-size:1.45rem;font-weight:800;color:var(--gold)}
+.msec{margin-bottom:16px}
+.msec h3{font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple2);margin-bottom:8px;font-weight:700;border-bottom:1px solid var(--card2);padding-bottom:5px}
+.forms-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.fcard{background:var(--card);border-radius:12px;padding:11px 7px;text-align:center;border:2px solid #2a1f4a}
+.fcard.base{border-color:#f5c518}.fcard.rare{border-color:#38bdf8}.fcard.epic{border-color:#fb923c}
+.fbadge{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.fcard.base .fbadge{color:#f5c518}.fcard.rare .fbadge{color:#38bdf8}.fcard.epic .fbadge{color:#fb923c}
+.fimg{width:56px;height:56px;border-radius:50%;overflow:hidden;margin:0 auto 6px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.fimg img{width:100%;height:100%;object-fit:cover}
+.fimg .fb{font-size:1.6rem;display:none;line-height:56px;text-align:center}
+.fbreed{font-size:.66rem;color:var(--dim);line-height:1.3}
+.breed-box{background:var(--card);border-radius:10px;padding:12px 14px;font-size:.83rem;line-height:1.65}
+.combo{color:var(--gold2);font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{padding:5px 12px;border-radius:20px;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .17s;background:var(--card);border:2px solid var(--card2);color:var(--text)}
+.pill:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Island modal */
+.imhdr{text-align:center;margin-bottom:18px}
+.imhdr-img{width:100%;max-width:380px;height:130px;border-radius:12px;margin:0 auto 12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+.imhdr-img img{width:100%;height:100%;object-fit:cover}
+.imhdr-img .fb{font-size:4rem;display:none;line-height:130px}
+.imhdr-title{font-size:1.45rem;font-weight:800;color:var(--gold)}
+.imhdr-desc{color:var(--dim);font-size:.83rem;margin-top:5px}
+.imgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px}
+.ichip{background:var(--card);border-radius:10px;padding:8px 5px;text-align:center;cursor:pointer;transition:all .17s;border:2px solid transparent}
+.ichip:hover{border-color:var(--gold)}
+.ichip-img{width:46px;height:46px;border-radius:50%;overflow:hidden;margin:0 auto 4px;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.ichip-img img{width:100%;height:100%;object-fit:cover}
+.ichip-img .fb{font-size:1.4rem;display:none;line-height:46px}
+.ichip-name{font-size:.64rem;font-weight:600;color:var(--gold2)}
+
+.na-card{opacity:.38;pointer-events:none}
+@media(max-width:540px){.logo{font-size:1.4rem}.forms-row{grid-template-columns:1fr}.mgrid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr))}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🎵 My Singing Monsters<small>GUIA COMPLETO — PT-BR</small></div>
+</header>
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('m')">🐾 Monstros</button>
+  <button class="tab-btn" onclick="showTab('i')">🏝️ Ilhas</button>
+</nav>
+<div id="m-tab" class="tab-content active">
+  <div class="search-row"><input id="q" type="text" placeholder="🔍  Buscar monstro…" oninput="renderM()"></div>
+  <div class="filters" id="filterBar"></div>
+  <div class="mgrid" id="mgrid"></div>
+</div>
+<div id="i-tab" class="tab-content">
+  <div class="igrid" id="igrid"></div>
+</div>
+<div class="overlay" id="mOv" onclick="cls('mOv',event)"><div class="modal" id="mMod"></div></div>
+<div class="overlay" id="iOv" onclick="cls('iOv',event)"><div class="modal" id="iMod"></div></div>
+
+<script>
+const W='https://mysingingmonsters.fandom.com/wiki/Special:FilePath/';
+const mImg=n=>W+encodeURIComponent(n.replace(/ /g,'_')+'.png');
+const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
+const eImg=n=>W+encodeURIComponent('Epic_'+n.replace(/ /g,'_')+'.png');
+const iImg=f=>W+encodeURIComponent(f);
+
+function imgTag(src,fb,cls=''){
+  return `<img src="${src}" alt="" loading="lazy" class="${cls}" onerror="this.style.display='none';this.nextSibling.style.display='block'"><span class="fb" style="display:none">${fb}</span>`;
+}
+
+// Ethereal elements (all classified as "Etéreo" for filtering)
+const ETHEREAL_ELS=['Etéreo','Plasma','Sombra','Meca','Cristal','Gosma'];
+
+// ── MONSTERS ──────────────────────────────────────────────────────────────────
+const monsters=[
+// ═══ NATURAIS SIMPLES (1 elemento) ═══════════════════════════════════════════
+{id:'noggin',name:'Noggin',emoji:'💀',elements:['Terra'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível durante eventos de Raridade (Rare Event).',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais. Procriado na Ilha de Ouro durante eventos.',
+ notes:'Percutor que usa sua enorme cabeça como tambor.'},
+
+{id:'mammott',name:'Mammott',emoji:'🦣',elements:['Frio'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível durante eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Pequeno mamute peludo que canta melodias alegres de inverno.'},
+
+{id:'toe-jammer',name:'Toe Jammer',emoji:'🦶',elements:['Água'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha de Ouro'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível durante eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Produz sons graves e ritmados com seus enormes dedões do pé.'},
+
+{id:'tweedle',name:'Tweedle',emoji:'🐦',elements:['Ar'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível durante eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Pequeno pássaro gorjeador que trina melodias agudas.'},
+
+{id:'potbelly',name:'Potbelly',emoji:'🌿',elements:['Planta'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível durante eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Criatura rotunda coberta de vegetação que canta suavemente.'},
+
+// ═══ NATURAIS DUPLOS (2 elementos) ═══════════════════════════════════════════
+{id:'furcorn',name:'Furcorn',emoji:'🌲',elements:['Planta','Frio'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Potbelly + Mammott',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Potbelly + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Misto de pinha e mamífero peludo que habita florestas nevadas.'},
+
+{id:'oaktopus',name:'Oaktopus',emoji:'🐙',elements:['Planta','Água'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha da Água','Ilha de Ouro'],
+ breeding:'Potbelly + Toe Jammer',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Potbelly + Toe Jammer durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Carvalho-polvo que usa seus tentáculos-raízes para criar música.'},
+
+{id:'maw',name:'Maw',emoji:'🦷',elements:['Frio','Água'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha de Ouro'],
+ breeding:'Mammott + Toe Jammer',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Mammott + Toe Jammer durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Boca gigante de gelo que produz sons graves e gélidos.'},
+
+{id:'fwog',name:'Fwog',emoji:'🐸',elements:['Terra','Água'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha da Água','Ilha de Ouro'],
+ breeding:'Noggin + Toe Jammer',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Noggin + Toe Jammer durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Sapo de pedra que croisa ritmos e batidas de chão.'},
+
+{id:'drumpler',name:'Drumpler',emoji:'🥁',elements:['Terra','Frio'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Noggin + Mammott',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Noggin + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Pequeno baterista de pedra-gelo que percute tambores no próprio corpo.'},
+
+{id:'shrubb',name:'Shrubb',emoji:'🌳',elements:['Planta','Terra'],
+ islands:['Ilha das Plantas','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Potbelly + Noggin',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Potbelly + Noggin durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Arbusto vivo que usa galhos como instrumentos de percussão.'},
+
+{id:'dandidoo',name:'Dandidoo',emoji:'🌼',elements:['Planta','Ar'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Potbelly + Tweedle',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Potbelly + Tweedle durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dente-de-leão voador que assopra sementes e notas musicais pelo ar.'},
+
+{id:'cybop',name:'Cybop',emoji:'🤖',elements:['Ar','Terra'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Tweedle + Noggin',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Tweedle + Noggin durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Pássaro ciborgue com engrenagens de pedra que canta em tom metálico.'},
+
+{id:'pango',name:'Pango',emoji:'🐧',elements:['Ar','Frio'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Tweedle + Mammott',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Tweedle + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Pinguim-armadillo que desliza no gelo produzindo melodias geladas.'},
+
+{id:'reedling',name:'Reedling',emoji:'🎵',elements:['Ar','Água'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha de Ouro'],
+ breeding:'Tweedle + Toe Jammer',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Tweedle + Toe Jammer durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Ser de bambu e água que emite sons delicados de flauta.'},
+
+// ═══ NATURAIS TRIPLOS (3 elementos) ══════════════════════════════════════════
+{id:'bowgart',name:'Bowgart',emoji:'🎸',elements:['Planta','Frio','Água'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha de Ouro'],
+ breeding:'Furcorn + Maw  •  ou  •  Oaktopus + Mammott',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Furcorn + Maw durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais na Ilha de Ouro.',
+ notes:'Criatura de arco com cordas de videira que toca melodias de baixo.'},
+
+{id:'trox',name:'T-Rox',emoji:'🦖',elements:['Terra','Frio','Água'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha de Ouro'],
+ breeding:'Drumpler + Maw  •  ou  •  Fwog + Mammott',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Drumpler + Maw durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dinossauro de gelo e pedra com rugido profundo e ressonante.'},
+
+{id:'congle',name:'Congle',emoji:'🐚',elements:['Ar','Frio','Terra'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Pango + Drumpler  •  ou  •  Cybop + Mammott',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Pango + Drumpler durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Concha de areia-gelo que produz sons de vento ao soprar.'},
+
+{id:'pompom',name:'PomPom',emoji:'🎊',elements:['Ar','Terra','Planta'],
+ islands:['Ilha das Plantas','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Cybop + Dandidoo  •  ou  •  Shrubb + Tweedle',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Cybop + Dandidoo durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Bola de lã vivente que salta e canta melodias altas e alegres.'},
+
+{id:'spunge',name:'Spunge',emoji:'🧽',elements:['Ar','Planta','Água'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha da Água','Ilha de Ouro'],
+ breeding:'Dandidoo + Oaktopus  •  ou  •  Reedling + Potbelly',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Dandidoo + Oaktopus durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Esponja vegetal que absorve sons do ambiente e os re-emite musicalmente.'},
+
+{id:'shellbeat',name:'Shellbeat',emoji:'🦀',elements:['Terra','Planta','Água'],
+ islands:['Ilha das Plantas','Ilha da Água','Ilha de Ouro'],
+ breeding:'Oaktopus + Fwog  •  ou  •  Shrubb + Toe Jammer',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Oaktopus + Fwog durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Concha de coral com raízes que percute ritmos tropicais.'},
+
+{id:'pummel',name:'Pummel',emoji:'🔨',elements:['Frio','Terra','Planta'],
+ islands:['Ilha das Plantas','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Drumpler + Furcorn  •  ou  •  Shrubb + Mammott',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Drumpler + Furcorn durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Golem de pedra-gelo-musgo que usa seus punhos pesados para percutir.'},
+
+{id:'thumpies',name:'Thumpies',emoji:'🐰',elements:['Frio','Planta','Ar'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Furcorn + Pango  •  ou  •  Dandidoo + Mammott',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Furcorn + Pango durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Trio de coelhinhos nevados que batem e cantam em conjunto.'},
+
+{id:'scups',name:'Scups',emoji:'☕',elements:['Água','Terra','Ar'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha da Água','Ilha de Ouro'],
+ breeding:'Fwog + Reedling  •  ou  •  Cybop + Toe Jammer',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Fwog + Reedling durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Xícaras dançantes que giram e produzem sons de porcelana musical.'},
+
+{id:'deedge',name:'Deedge',emoji:'🎧',elements:['Frio','Ar','Planta'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Pango + Dandidoo  •  ou  •  Thumpies + Tweedle',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Pango + Dandidoo durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'DJ de neve que usa pratos de gelo para mixar batidas frias.'},
+
+{id:'clamble',name:'Clamble',emoji:'🦌',elements:['Terra','Frio','Planta'],
+ islands:['Ilha das Plantas','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Drumpler + Furcorn  •  ou  •  Pummel + Noggin',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Drumpler + Furcorn durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Criatura de chifres e pedra-gelo que ressoa como instrumento de sopro.'},
+
+{id:'quarrister',name:'Quarrister',emoji:'🎤',elements:['Ar','Frio','Terra'],
+ islands:['Ilha das Plantas','Ilha do Ar','Ilha da Terra','Ilha de Ouro'],
+ breeding:'Congle + Pango  •  ou  •  Drumpler + Tweedle',breedTime:'36–48 horas',
+ hasRare:true,rareBreed:'Congle + Pango durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Quarteto de pedras cantantes que forma um coral de quatro vozes.'},
+
+// ═══ NATURAIS QUÁDRUPLOS (4 elementos) ═══════════════════════════════════════
+{id:'entbrat',name:'Entbrat',emoji:'🌳',elements:['Planta','Frio','Terra','Água'],
+ islands:['Ilha das Plantas','Ilha de Ouro'],
+ breeding:'Bowgart + Noggin  •  ou  •  Potbelly + T-Rox',breedTime:'48 horas',
+ hasRare:true,rareBreed:'Bowgart + Noggin durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais na Ilha de Ouro.',
+ notes:'Enorme árvore vivente de quatro elementos com melodias profundas e majestosas.'},
+
+// ═══ WUBBOX ═══════════════════════════════════════════════════════════════════
+{id:'wubbox',name:'Wubbox',emoji:'📦',elements:['Planta','Frio','Ar','Água','Terra'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Ilha de Ouro'],
+ breeding:`Não pode ser procriado.\n\n🔷 Como ativar:\n1. Compre o Wubbox na Loja com Diamantes.\n2. Ele ficará "vazio" e inativo na ilha.\n3. Deposite (boxe) os ovos de cada tipo de monstro natural da ilha — esses monstros são consumidos permanentemente.\n4. São necessários 15 monstros nas Ilhas Naturais e Etérea, e 30 na Ilha de Ouro. Cada slot pode ser preenchido com Diamantes alternativamente.\n5. Quando todos os slots forem preenchidos, o Wubbox acorda e começa a cantar.\n\n⚠️ Os monstros depositados não podem ser recuperados.`,
+ breedTime:null,
+ hasRare:true,rareBreed:'Rare Wubbox: comprado com Diamantes. Ativado depositando monstros Raros de cada ilha.',
+ hasEpic:true,epicBreed:'Epic Wubbox: disponível na Ilha de Ouro, Ilha Etérea e Ilhas Espelhadas. Comprado com Diamantes.',
+ notes:'Poderosa máquina musical que absorve monstros para ganhar vida. Quanto mais monstros, mais rico o som.'},
+
+// ═══ ETÉREOS ══════════════════════════════════════════════════════════════════
+{id:'ghazt',name:'Ghazt',emoji:'👻',elements:['Plasma'],
+ islands:['Ilha Etérea','Ilha das Plantas'],
+ breeding:`Na Ilha das Plantas: tente com combos de monstros cobrindo 4+ elementos.\nMelhor combo: Bowgart + Entbrat  •  ou  •  Bowgart + T-Rox.\nChance muito baixa (~1%). Pode falhar centenas de vezes.`,breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Combos de 4+ elementos na Ilha das Plantas durante evento de Raridade.',
+ hasEpic:false,notes:'Fantasma de Plasma que flutua e emite sons espectrais hipnóticos.'},
+
+{id:'grumpyre',name:'Grumpyre',emoji:'🧛',elements:['Sombra'],
+ islands:['Ilha Etérea','Ilha do Frio'],
+ breeding:`Na Ilha do Frio: tente com combos cobrindo 4+ elementos.\nMelhor combo: Deedge + T-Rox  •  ou  •  Thumpies + Congle.\nChance muito baixa (~1%).`,breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Combos de 4+ elementos na Ilha do Frio durante evento de Raridade.',
+ hasEpic:false,notes:'Vampiro rabugento de Sombra que reclama enquanto produz harmonias sombrias.'},
+
+{id:'reebro',name:'Reebro',emoji:'🎷',elements:['Meca'],
+ islands:['Ilha Etérea','Ilha do Ar'],
+ breeding:`Na Ilha do Ar: tente com combos cobrindo 4+ elementos.\nMelhor combo: Congle + Scups  •  ou  •  Thumpies + Quarrister.\nChance muito baixa (~1%).`,breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Combos de 4+ elementos na Ilha do Ar durante evento de Raridade.',
+ hasEpic:false,notes:'Ser Mecânico de ar. Único etéreo que não voa ou flutua.'},
+
+{id:'jeeode',name:'Jeeode',emoji:'💎',elements:['Cristal'],
+ islands:['Ilha Etérea','Ilha da Água'],
+ breeding:`Na Ilha da Água: tente com combos cobrindo 4+ elementos.\nMelhor combo: Spunge + Shellbeat  •  ou  •  Oaktopus + Bowgart.\nChance muito baixa (~1%).`,breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Combos de 4+ elementos na Ilha da Água durante evento de Raridade.',
+ hasEpic:false,notes:'Geodo de Cristal que ressoa com timbres de sino de cristal.'},
+
+{id:'humbug',name:'Humbug',emoji:'🐛',elements:['Gosma'],
+ islands:['Ilha Etérea','Ilha da Terra'],
+ breeding:`Na Ilha da Terra: tente com combos cobrindo 4+ elementos.\nMelhor combo: Pummel + Quarrister  •  ou  •  Clamble + Scups.\nChance muito baixa (~1%).`,breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Combos de 4+ elementos na Ilha da Terra durante evento de Raridade.',
+ hasEpic:false,notes:'Besouro de Gosma que zumbe melodias viscosas e pegajosas.'},
+
+{id:'nebulob',name:'Nebulob',emoji:'🌌',elements:['Plasma','Sombra','Meca','Cristal','Gosma'],
+ islands:['Ilha Etérea'],
+ breeding:`Combine dois monstros etéreos de elementos diferentes na Ilha Etérea.\nExemplos: Ghazt + Grumpyre, Jeeode + Humbug, Reebro + Ghazt.\nChance muito baixa.`,breedTime:'48 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Nebulosa cósmica que combina todos os elementos etéreos.'},
+
+{id:'whisp',name:'Whisp',emoji:'💫',elements:['Plasma','Sombra'],
+ islands:['Ilha Etérea','Ilha do Ar'],
+ breeding:`Combine Ghazt + Grumpyre na Ilha Etérea.\nChance muito baixa.`,breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Ghazt + Grumpyre durante evento de Raridade.',
+ hasEpic:false,notes:'Fogo-fátuo espectral que combina Plasma e Sombra em trilhas fantasmagóricas.'},
+
+// ═══ FOGO ══════════════════════════════════════════════════════════════════════
+{id:'kayna',name:'Kayna',emoji:'🔥',elements:['Fogo'],
+ islands:['Refúgio de Fogo','Oásis de Fogo','Ilha de Âmbar','Ilha das Fadas','Ilha dos Ossos','Ilha da Luz','Ilha Psíquica'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja — aparece em todas as ilhas que têm o elemento Fogo.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade.',
+ hasEpic:true,epicBreed:'Epic Kayna: disponível em eventos especiais.',
+ notes:'A salamandra vulcânica pioneira. Presente em todas as ilhas com elemento Fogo, incluindo as 4 Ilhas Mágicas.'},
+
+{id:'stogg',name:'Stogg',emoji:'🪨',elements:['Terra','Fogo'],
+ islands:['Refúgio de Fogo'],
+ breeding:'Noggin + Kayna',breedTime:'10 horas',
+ hasRare:true,rareBreed:'Noggin + Kayna durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro duplo Terra+Fogo do Refúgio de Fogo. Instrumento de percussão que ressoa com ritmos sísmicos de lava.'},
+
+{id:'glowl',name:'Glowl',emoji:'🦉',elements:['Ar','Fogo'],
+ islands:['Refúgio de Fogo'],
+ breeding:'Tweedle + Kayna',breedTime:'10 horas',
+ hasRare:true,rareBreed:'Tweedle + Kayna durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Coruja ardente Ar+Fogo. Emite uivos flamejantes que ecoam pela noite vulcânica.'},
+
+{id:'repatillo',name:'Repatillo',emoji:'🦎',elements:['Planta','Terra','Fogo'],
+ islands:['Refúgio de Fogo','Ilha de Âmbar'],
+ breeding:'Stogg + Potbelly  •  ou  •  Kayna + Shrubb',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Stogg + Potbelly durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Lagarto de lava com folhas de brasa — monstro triplo Planta+Terra+Fogo do Refúgio de Fogo.'},
+
+{id:'floogull',name:'Floogull',emoji:'🦅',elements:['Ar','Terra','Fogo'],
+ islands:['Refúgio de Fogo'],
+ breeding:'Noggin + Glowl  •  ou  •  Stogg + Tweedle',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Noggin + Glowl durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Ave de brasa — monstro triplo Ar+Terra+Fogo que voa em redemoinhos de chama.'},
+
+{id:'phangler',name:'Phangler',emoji:'🎣',elements:['Água','Fogo'],
+ islands:['Oásis de Fogo','Ilha Psíquica','Ilha dos Ossos'],
+ breeding:'Toe Jammer + Kayna',breedTime:'10 horas',
+ hasRare:true,rareBreed:'Toe Jammer + Kayna durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Pescador aquático-ígneo — monstro duplo Água+Fogo encontrado no Oásis de Fogo e Ilhas Mágicas.'},
+
+{id:'candelavra',name:'Candelavra',emoji:'🕯️',elements:['Ar','Planta','Terra','Água','Fogo'],
+ islands:['Refúgio de Fogo','Ilha de Âmbar'],
+ breeding:'Monstro quíntuplo — combina todos os 5 elementos.\nEx: Repatillo + Floogull  •  ou  •  Floogull + Phangler + Stogg.',breedTime:'48 horas',
+ hasRare:true,rareBreed:'Combos de 5 elementos durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro quíntuplo do Refúgio de Fogo — combina Ar, Planta, Terra, Água e Fogo em uma criatura de vela colossal.'},
+
+{id:'cantorell',name:'Cantorell',emoji:'🎙️',elements:['Terra','Frio','Fada'],
+ islands:['Ilha das Fadas','Nexo Mágico'],
+ breeding:'Frondley + Mammott  •  ou  •  Larvaluss + Noggin na Ilha das Fadas.',breedTime:'16 horas',
+ hasRare:true,rareBreed:'Frondley + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Cantora feérica de Terra+Frio+Fada. Voz cristalina que ecoa pelas florestas de gelo encantado da Ilha das Fadas.'},
+
+// ═══ SHUGAFAM (Lendários — Ilha Shugabush) ════════════════════════════════════
+{id:'shugabush',name:'Shugabush',emoji:'🎸',elements:['Lendário'],
+ islands:['Ilha Shugabush','Ilha das Plantas','Ilha de Ouro'],
+ breeding:`Na Ilha das Plantas: Bowgart + Clamble\n(chance baixa — pode demorar várias tentativas).\nAlternativa: Potbelly + Quarrister.`,breedTime:'35 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Bowgart + Clamble durante evento de Raridade na Ilha das Plantas.',
+ hasEpic:false,notes:'A lendária guitarra vivente, pai/mãe de toda a família Shugafam.'},
+
+{id:'shugabass',name:'Shugabass',emoji:'🎵',elements:['Lendário'],
+ islands:['Ilha Shugabush'],
+ breeding:'Shugabush + Potbelly na Ilha Shugabush.',breedTime:'35 horas',
+ hasRare:true,rareBreed:'Shugabush + Potbelly durante evento de Raridade.',
+ hasEpic:false,notes:'Baixista da família Shugafam. Inspirado no baixo country.'},
+
+{id:'shugabeats',name:'Shugabeats',emoji:'🥁',elements:['Lendário'],
+ islands:['Ilha Shugabush'],
+ breeding:'Shugabush + Furcorn na Ilha Shugabush.',breedTime:'35 horas',
+ hasRare:true,rareBreed:'Shugabush + Furcorn durante evento de Raridade.',
+ hasEpic:false,notes:'Baterista da família Shugafam, cheio de energia rítmica.'},
+
+{id:'shugavox',name:'Shugavox',emoji:'🎤',elements:['Lendário'],
+ islands:['Ilha Shugabush'],
+ breeding:'Shugabush + Deedge na Ilha Shugabush.',breedTime:'35 horas',
+ hasRare:true,rareBreed:'Shugabush + Deedge durante evento de Raridade.',
+ hasEpic:false,notes:'Vocalista da família Shugafam. Único membro que canta sem tocar instrumento.'},
+
+{id:'shugabuzz',name:'Shugabuzz',emoji:'🎹',elements:['Lendário'],
+ islands:['Ilha Shugabush'],
+ breeding:'Shugabush + Quibble na Ilha Shugabush.',breedTime:'35 horas',
+ hasRare:true,rareBreed:'Shugabush + Quibble durante evento de Raridade.',
+ hasEpic:false,notes:'Tecladista da família Shugafam, produz sons de banjo e teclado.'},
+
+{id:'shugitar',name:'Shugitar',emoji:'🎸',elements:['Lendário'],
+ islands:['Ilha Shugabush'],
+ breeding:'Shugabush + PomPom na Ilha Shugabush.',breedTime:'35 horas',
+ hasRare:true,rareBreed:'Shugabush + PomPom durante evento de Raridade.',
+ hasEpic:false,notes:'Guitarrista da família Shugafam, toca solos country vibrantes.'},
+
+{id:'shugajo',name:'Shugajo',emoji:'🪗',elements:['Lendário'],
+ islands:['Ilha Shugabush'],
+ breeding:'Shugabush + Oaktopus na Ilha Shugabush.',breedTime:'35 horas',
+ hasRare:true,rareBreed:'Shugabush + Oaktopus durante evento de Raridade.',
+ hasEpic:false,notes:'Acordeonista da família Shugafam com ritmo de banjo country.'},
+
+{id:'shugarock',name:'Shugarock',emoji:'🎸',elements:['Lendário'],
+ islands:['Ilha Shugabush'],
+ breeding:'Shugabush + Mammott na Ilha Shugabush.',breedTime:'35 horas',
+ hasRare:true,rareBreed:'Shugabush + Mammott durante evento de Raridade.',
+ hasEpic:false,notes:'Guitarrista de rock da família Shugafam, o mais pesado da banda.'},
+
+// ═══ WUBLINS (Sobrenaturais — Ilha Wublin) ════════════════════════════════════
+{id:'zynth',name:'Zynth',emoji:'⚡',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:`Não pode ser procriado. Compre na Loja e ative depositando ovos específicos de monstros de outras ilhas.\nAtivação: zapp os ovos de monstros na Estrutura de Procriação de outra ilha para dentro do Zynth.`,breedTime:null,
+ hasRare:true,rareBreed:'Rare Zynth: também ativado por ovos específicos.',
+ hasEpic:true,epicBreed:'Epic Zynth: disponível desde a versão 4.8.0.',
+ notes:'Wublin de Eletricidade. Produz sons elétricos vibrantes.'},
+
+{id:'poewk',name:'Poewk',emoji:'🌀',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Poewk: ativado por ovos específicos.',
+ hasEpic:true,epicBreed:'Epic Poewk: disponível desde a versão 4.8.0.',
+ notes:'Wublin de redemoinho. Emite sons giratórios únicos.'},
+
+{id:'thwok',name:'Thwok',emoji:'💥',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Thwok: ativado por ovos específicos.',
+ hasEpic:true,epicBreed:'Epic Thwok: disponível desde a versão 4.8.0.',
+ notes:'Wublin explosivo com percussão de impacto.'},
+
+{id:'dwumrohl',name:'Dwumrohl',emoji:'🥁',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Dwumrohl: ativado por ovos específicos.',
+ hasEpic:true,epicBreed:'Epic Dwumrohl: disponível desde a versão 4.8.0.',
+ notes:'Wublin baterista. Produz ritmos de tambor profundos.'},
+
+{id:'zuuker',name:'Zuuker',emoji:'🎷',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Zuuker: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin de sopro. Toca acordes de baixo misterioso.'},
+
+{id:'screemu',name:'Screemu',emoji:'😱',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Screemu: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin que emite gritos e vocais agudos característicos.'},
+
+{id:'tympa',name:'Tympa',emoji:'🎵',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Tympa: ativado por ovos específicos.',
+ hasEpic:true,epicBreed:'Epic Tympa: adicionado em agosto de 2025.',
+ notes:'Wublin de tímpano. Percute com precisão melódica.'},
+
+{id:'dermit',name:'Dermit',emoji:'🎶',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Dermit: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin de percussão suave com sons únicos.'},
+
+{id:'gheegur',name:'Gheegur',emoji:'🌊',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Gheegur: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin aquático com sons burburinhos de fundo.'},
+
+{id:'whajje',name:'Whajje',emoji:'🌪️',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Whajje: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin de vento que cria turbilhões sonoros.'},
+
+{id:'creepuscule',name:'Creepuscule',emoji:'🌙',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Creepuscule: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin crepuscular com melodias misteriosas de crepúsculo.'},
+
+{id:'blipsqueak',name:'Blipsqueak',emoji:'🐭',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Blipsqueak: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin pequeno que emite bips agudos e sons de chip.'},
+
+{id:'scargo',name:'Scargo',emoji:'🐌',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Scargo: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin-caracol lento com sons graves e arrastados.'},
+
+{id:'astropod',name:'Astropod',emoji:'🐙',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Astropod: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin espacial que emite sons de cosmos e galáxias.'},
+
+{id:'pixolotl',name:'Pixolotl',emoji:'🦎',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Pixolotl: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin-axolote de pixel que pulsa melodias retrô.'},
+
+{id:'bona-petite',name:'Bona-Petite',emoji:'🦴',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Bona-Petite: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin esquelético que toca xilofone de ossos.'},
+
+{id:'maulch',name:'Maulch',emoji:'🌿',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Maulch: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin de folhas que produz sons de natureza e vento.'},
+
+{id:'fleechwurm',name:'Fleechwurm',emoji:'🐍',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Fleechwurm: ativado por ovos específicos.',
+ hasEpic:false,notes:'Wublin-verme que rasteja emitindo sons de baixo ondulante.'},
+
+{id:'brump',name:'Brump',emoji:'🐘',elements:['Wublin'],
+ islands:['Ilha Wublin'],
+ breeding:'Não pode ser procriado. Compre na Loja e ative depositando ovos específicos.',breedTime:null,
+ hasRare:true,rareBreed:'Rare Brump: ativado por ovos específicos.',
+ hasEpic:true,epicBreed:'Epic Brump: adicionado em abril de 2025 (versão 4.8.0).',
+ notes:'Wublin elefante que produz sons profundos e ressonantes de baixo.'},
+
+// ═══ SAZONAIS ══════════════════════════════════════════════════════════════════
+{id:'yool',name:'Yool',emoji:'🎄',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível apenas no evento de Natal (dezembro). Compre com moedas durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante o evento de Natal em versão Rara.',
+ hasEpic:false,notes:'Criatura natalina de abeto que canta carols de inverno.'},
+
+{id:'punkleton',name:'Punkleton',emoji:'🎃',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível apenas no evento de Halloween (outubro). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante o Halloween em versão Rara.',
+ hasEpic:false,notes:'Abóbora punk de Halloween que canta músicas de terror.'},
+
+{id:'schmoochle',name:'Schmoochle',emoji:'💕',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível apenas no Dia dos Namorados (fevereiro). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante o Dia dos Namorados em versão Rara.',
+ hasEpic:false,notes:'Criatura de amor com asas de borboleta que canta baladas românticas.'},
+
+{id:'gobbleygourd',name:'Gobbleygourd',emoji:'🦃',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível apenas no evento de Ação de Graças (novembro). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante Ação de Graças em versão Rara.',
+ hasEpic:false,notes:'Peru-abóbora de Ação de Graças com ritmos de outono.'},
+
+{id:'blabbit',name:'Blabbit',emoji:'🐰',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível apenas na Páscoa (março/abril). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante a Páscoa em versão Rara.',
+ hasEpic:false,notes:'Coelhinho da Páscoa que canta músicas primaverais.'},
+
+{id:'hoola',name:'Hoola',emoji:'🌺',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível apenas no verão (evento SummerSong). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante o SummerSong em versão Rara.',
+ hasEpic:false,notes:'Criatura tropical de verão que dança e canta melodias da praia.'},
+
+{id:'clavavera',name:'Clavavera',emoji:'💀',elements:['Sazonal'],
+ islands:['Mansão Sazonal','Ilha dos Ossos'],
+ breeding:'Disponível no evento Beat Hereafter (Dia dos Mortos). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante o Beat Hereafter em versão Rara.',
+ hasEpic:false,notes:'Esqueleto mexicano festivo do Dia dos Mortos. Canta com mariachi mágico.'},
+
+{id:'viveine',name:'Viveine',emoji:'🌿',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível no evento Echoes of Eco (Dia da Terra). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante Echoes of Eco em versão Rara.',
+ hasEpic:false,notes:'Criatura ecológica do Dia da Terra que canta em harmonia com a natureza.'},
+
+{id:'carillong',name:'Carillong',emoji:'🏮',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível no evento Crescendo Moon (Ano Novo Lunar). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante Crescendo Moon em versão Rara.',
+ hasEpic:false,notes:'Sino lunar do Ano Novo Chinês que ressoa com melodias de carrilhão celestial.'},
+
+{id:'jam-boree',name:'Jam Boree',emoji:'🎊',elements:['Sazonal'],
+ islands:['Mansão Sazonal'],
+ breeding:'Disponível no evento Anniversary Month (aniversário do jogo). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante Anniversary Month em versão Rara.',
+ hasEpic:false,notes:'Criatura de aniversário do jogo. Celebra cada ano com confetes musicais.'},
+
+{id:'whiz-bang',name:'Whiz-bang',emoji:'🌈',elements:['Sazonal'],
+ islands:['Mansão Sazonal','Ilha da Luz'],
+ breeding:'Disponível no evento SkyPainting (Pride Month). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante SkyPainting em versão Rara.',
+ hasEpic:false,notes:'Criatura arco-íris do Pride Month que pinta o céu com notas coloridas.'},
+
+{id:'ffidyll',name:'Ffidyll',emoji:'🍀',elements:['Sazonal'],
+ islands:['Mansão Sazonal','Ilha das Fadas'],
+ breeding:'Disponível no evento Cloverspell (Dia de São Patrício). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:'Comprado durante Cloverspell em versão Rara.',
+ hasEpic:false,notes:'Trevo feérico irlandês que toca flauta céltica com sorte e magia.'},
+
+{id:'booqwurm',name:"Boo'qwurm",emoji:'📚',elements:['Sazonal'],
+ islands:['Mansão Sazonal','Ilha Psíquica'],
+ breeding:'Disponível no evento MindBoggle (Volta às Aulas). Compre durante o evento.',breedTime:null,
+ hasRare:true,rareBreed:"Comprado durante MindBoggle em versão Rara.",
+ hasEpic:false,notes:'Minhoca-livro psíquica da Volta às Aulas que canta enquanto estuda.'},
+
+// ═══ MÁGICOS – FADA (Ilha das Fadas) ═════════════════════════════════════════
+{id:'floot-fly',name:'Floot Fly',emoji:'🧚',elements:['Fada'],
+ islands:['Ilha das Fadas','Santuário Mágico'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja (nível 9).',breedTime:null,
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade na Ilha das Fadas.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro-único do elemento Fada. Mosca feérica que flutua produzindo melodias mágicas.'},
+
+{id:'larvaluss',name:'Larvaluss',emoji:'🌸',elements:['Fada','Frio'],
+ islands:['Ilha das Fadas'],
+ breeding:'Floot Fly + Mammott',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Floot Fly + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Larva feérica de gelo que canta melodias suaves e geladas.'},
+
+{id:'frondley',name:'Frondley',emoji:'🍃',elements:['Fada','Terra'],
+ islands:['Ilha das Fadas'],
+ breeding:'Floot Fly + Noggin',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Floot Fly + Noggin durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Criatura de folhas feérica com sons de percussão mágica de pedra.'},
+
+{id:'bridg-it',name:'Bridg-it',emoji:'🌉',elements:['Fada','Fogo'],
+ islands:['Ilha das Fadas'],
+ breeding:'Floot Fly + Kayna',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Floot Fly + Kayna durante evento de Raridade.',
+ hasEpic:false,notes:'Monstro-ponte Fada+Fogo que conecta mundos com sons de arpa ígnea.'},
+
+{id:'mushaboom',name:'Mushaboom',emoji:'🍄',elements:['Fada','Frio','Terra'],
+ islands:['Ilha das Fadas'],
+ breeding:'Larvaluss + Noggin  •  ou  •  Floot Fly + Drumpler',breedTime:'16 horas',
+ hasRare:true,rareBreed:'Larvaluss + Noggin durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Cogumelo feérico musical que pulsa melodias de floresta encantada.'},
+
+{id:'clavi-gnat',name:'Clavi Gnat',emoji:'🎹',elements:['Fada','Terra','Fogo'],
+ islands:['Ilha das Fadas'],
+ breeding:'Frondley + Kayna  •  ou  •  Bridg-it + Noggin',breedTime:'16 horas',
+ hasRare:true,rareBreed:'Frondley + Kayna durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Inseto-teclado feérico que toca acordes mágicos com pequenas patinhas de pedra.'},
+
+// ═══ MÁGICOS – LUZ (Ilha da Luz) ══════════════════════════════════════════════
+{id:'fluoress',name:'Fluoress',emoji:'💡',elements:['Luz'],
+ islands:['Ilha da Luz','Santuário Mágico'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja (nível 9).',breedTime:null,
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade na Ilha da Luz.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro-único do elemento Luz. Criatura bioluminescente que ilumina a ilha.'},
+
+{id:'gob',name:'Gob',emoji:'💛',elements:['Luz','Planta'],
+ islands:['Ilha da Luz'],
+ breeding:'Fluoress + Potbelly',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Fluoress + Potbelly durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Bolha de Luz e Planta que brilha entre as folhas produzindo sons dourados.'},
+
+{id:'bulbo',name:'Bulbo',emoji:'🔦',elements:['Luz','Frio'],
+ islands:['Ilha da Luz'],
+ breeding:'Fluoress + Mammott',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Fluoress + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Bulbo luminoso de gelo que pisca ao ritmo de melodias frias.'},
+
+{id:'pluckbill',name:'Pluckbill',emoji:'🦆',elements:['Luz','Fogo'],
+ islands:['Ilha da Luz'],
+ breeding:'Fluoress + Kayna',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Fluoress + Kayna durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Bico-de-luz e fogo que arranca notas brilhantes com seu bico flamejante.'},
+
+{id:'tootoo',name:'TooToo',emoji:'🔔',elements:['Luz','Planta','Fogo'],
+ islands:['Ilha da Luz'],
+ breeding:'Pluckbill + Potbelly',breedTime:'16 horas',
+ hasRare:true,rareBreed:'Pluckbill + Potbelly durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Criatura tubular de Luz que ressoa como sino ao vento quente.'},
+
+{id:'spytrap',name:'Spytrap',emoji:'🌺',elements:['Luz','Planta','Frio'],
+ islands:['Ilha da Luz'],
+ breeding:'Gob + Mammott',breedTime:'16 horas',
+ hasRare:true,rareBreed:'Gob + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Planta carnívora de Luz que atrai presas com melodias luminosas hipnóticas.'},
+
+{id:'fiddlement',name:'Fiddlement',emoji:'🎻',elements:['Luz','Frio','Fogo'],
+ islands:['Ilha da Luz'],
+ breeding:'Pluckbill + Mammott',breedTime:'16 horas',
+ hasRare:true,rareBreed:'Pluckbill + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Violino vivente de Luz que combina frio e fogo em melodias dramáticas.'},
+
+{id:'blowt',name:"Blow't",emoji:'🌬️',elements:['Luz','Planta','Frio','Fogo'],
+ islands:['Ilha da Luz'],
+ breeding:"TooToo + Mammott  •  ou  •  Spytrap + Kayna",breedTime:'36 horas',
+ hasRare:true,rareBreed:"TooToo + Mammott durante evento de Raridade.",
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro supremo de Luz de quatro elementos. Combina Planta, Frio, Fogo e Luz.'},
+
+// ═══ MÁGICOS – PSÍQUICO (Ilha Psíquica) ════════════════════════════════════════
+{id:'theremind',name:'Theremind',emoji:'🔮',elements:['Psíquico'],
+ islands:['Ilha Psíquica','Santuário Mágico'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja (nível 9).',breedTime:null,
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade na Ilha Psíquica.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro-único Psíquico. Theremin vivo que emite ondas mentais musicais.'},
+
+{id:'boskus',name:'Boskus',emoji:'🌲',elements:['Psíquico','Planta'],
+ islands:['Ilha Psíquica'],
+ breeding:'Theremind + Potbelly',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Theremind + Potbelly durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Bosque Psíquico que interpreta os pensamentos das plantas e os converte em música.'},
+
+{id:'sooza',name:'Sooza',emoji:'🌊',elements:['Psíquico','Água'],
+ islands:['Ilha Psíquica'],
+ breeding:'Theremind + Toe Jammer',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Theremind + Toe Jammer durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Criatura Psíquica aquática que lê mentes e canta em ondas sonoras telepáticas.'},
+
+{id:'flowah',name:'Flowah',emoji:'🌸',elements:['Psíquico','Fogo'],
+ islands:['Ilha Psíquica'],
+ breeding:'Theremind + Kayna',breedTime:'8 horas',
+ hasRare:true,rareBreed:'Theremind + Kayna durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Flor Psíquica de fogo que projeta pétalas de chama ao cantar sua canção mental.'},
+
+{id:'bisonorus',name:'Bisonorus',emoji:'🐃',elements:['Psíquico','Planta','Água'],
+ islands:['Ilha Psíquica','Ilha de Âmbar'],
+ breeding:'Boskus + Kayna  •  ou  •  Sooza + Potbelly',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Boskus + Kayna durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Bisão Psíquico adicionado em Feast-Ember 2023. Sons graves e místicos de pradaria.'},
+
+// ═══ MÁGICOS – OSSO (Ilha dos Ossos) ══════════════════════════════════════════
+{id:'clackula',name:'Clackula',emoji:'🦴',elements:['Osso'],
+ islands:['Ilha dos Ossos','Santuário Mágico'],
+ breeding:'Não pode ser procriado. Compre com moedas na Loja (nível 9).',breedTime:null,
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade na Ilha dos Ossos.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro-único do elemento Osso. Vampiro esquelético que clica e canta com suas mandíbulas.'},
+
+{id:'yelmut',name:'Yelmut',emoji:'🎺',elements:['Osso','Fogo','Terra','Água'],
+ islands:['Ilha dos Ossos','Ilha da Luz','Ilha de Âmbar'],
+ breeding:'Combinações de quatro elementos incluindo Osso. Difícil de obter.',breedTime:'40 horas',
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro-quarteto de Osso de quatro elementos. Toca trombeta esquelética.'},
+
+{id:'tiawa',name:'Tiawa',emoji:'🪘',elements:['Osso','Fogo','Água'],
+ islands:['Ilha dos Ossos','Ilha da Luz'],
+ breeding:'Clackula + Kayna + Toe Jammer (combinar elementos)',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Criatura óssea de percussão com sons de tambor tribal e fogo aquático.'},
+
+{id:'drummidary',name:'Drummidary',emoji:'🐪',elements:['Osso','Terra','Água'],
+ islands:['Ilha dos Ossos','Ilha da Luz'],
+ breeding:'Clackula + Noggin + Toe Jammer (combinar elementos)',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dromedário esquelético que percute tambores com seus ossos ao andar.'},
+
+{id:'incisaur',name:'Incisaur',emoji:'🦕',elements:['Osso','Terra','Fogo','Água'],
+ islands:['Ilha dos Ossos','Ilha de Âmbar'],
+ breeding:'Monstro especial — não obtido por procriação normal na Ilha dos Ossos.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dinossauro esquelético de quatro elementos. Possui dentes afiados que cortam notas musicais.'},
+
+// ═══ MÍTICOS (um por ilha natural/fogo — teleportam para Ilha Mítica no nível 15) ══
+{id:'strombonin',name:'Strombonin',emoji:'🎺',elements:['Mítico','Frio'],
+ islands:['Ilha do Frio','Ilha Mítica'],
+ breeding:`Na Ilha do Frio: Spunge + Bowgart.\nChance baixa — podem ocorrer falhas.\n⚠️ Após atingir nível 15, teleporte para a Ilha Mítica.`,breedTime:'23 horas',
+ hasRare:true,rareBreed:'Spunge + Bowgart durante evento de Raridade na Ilha do Frio.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Trombone Mítico da Ilha do Frio. Sopra melodias glaciais com ressonância mística profunda.'},
+
+{id:'gjoob',name:"G'joob",emoji:'🐸',elements:['Mítico','Planta'],
+ islands:['Ilha das Plantas','Ilha Mítica'],
+ breeding:`Na Ilha das Plantas: Pummel + T-Rox.\nChance baixa — podem ocorrer falhas.\n⚠️ Após atingir nível 15, teleporte para a Ilha Mítica.`,breedTime:'23 horas',
+ hasRare:true,rareBreed:"Pummel + T-Rox durante evento de Raridade na Ilha das Plantas.",
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Sapo Mítico da Ilha das Plantas. Seu canto produz vibrações de baixo profundas e úmidas.'},
+
+{id:'yawstrich',name:'Yawstrich',emoji:'🦜',elements:['Mítico','Ar'],
+ islands:['Ilha do Ar','Ilha Mítica'],
+ breeding:`Na Ilha do Ar: Scups + T-Rox.\nChance baixa.\n⚠️ Teleporte para a Ilha Mítica no nível 15.`,breedTime:'23 horas',
+ hasRare:true,rareBreed:'Scups + T-Rox durante evento de Raridade na Ilha do Ar.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Avestruz Mítico da Ilha do Ar. Seu pescoço longo capta frequências inaudíveis ao ouvido comum.'},
+
+{id:'anglow',name:'Anglow',emoji:'🐡',elements:['Mítico','Água'],
+ islands:['Ilha da Água','Ilha Mítica'],
+ breeding:`Na Ilha da Água: Scups + Pummel.\nChance baixa.\n⚠️ Teleporte para a Ilha Mítica no nível 15.`,breedTime:'23 horas',
+ hasRare:true,rareBreed:'Scups + Pummel durante evento de Raridade na Ilha da Água.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Peixe Mítico bioluminescente da Ilha da Água. Ilumina as profundezas com melodias hipnóticas.'},
+
+{id:'hyehehe',name:'Hyehehe',emoji:'🐾',elements:['Mítico','Terra'],
+ islands:['Ilha da Terra','Ilha Mítica'],
+ breeding:`Na Ilha da Terra: Thumpies + PomPom.\nChance baixa.\n⚠️ Teleporte para a Ilha Mítica no nível 15.`,breedTime:'23 horas',
+ hasRare:true,rareBreed:'Thumpies + PomPom durante evento de Raridade na Ilha da Terra.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Hiena Mítica da Ilha da Terra. Suas risadas carregam ritmos hipnóticos de percussão.'},
+
+{id:'buzzinga',name:'Buzzinga',emoji:'🐝',elements:['Mítico','Fogo'],
+ islands:['Refúgio de Fogo','Ilha Mítica'],
+ breeding:`No Refúgio de Fogo: Reedling + Barrb.\nChance baixa.\n⚠️ Teleporte para a Ilha Mítica no nível 15.`,breedTime:'23 horas',
+ hasRare:true,rareBreed:'Reedling + Barrb durante evento de Raridade no Refúgio de Fogo.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Abelha Mítica de fogo do Refúgio de Fogo. Suas asas em chamas produzem harmonias ardentes.'},
+
+{id:'cherubble',name:'Cherubble',emoji:'👼',elements:['Mítico','Fogo'],
+ islands:['Oásis de Fogo','Ilha Mítica'],
+ breeding:`No Oásis de Fogo: Congle + Woolabee.\nChance baixa.\n⚠️ Teleporte para a Ilha Mítica no nível 15.`,breedTime:'18 horas',
+ hasRare:true,rareBreed:'Congle + Woolabee durante evento de Raridade no Oásis de Fogo.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Querubim Mítico do Oásis de Fogo. Criatura angelical com asas de chama que sussurra músicas celestiais.'},
+
+// ═══ SONHO (Dreamythicals — exclusivos da Ilha Mítica) ═══════════════════════
+{id:'cataliszt',name:'Cataliszt',emoji:'✴️',elements:['Sonho'],
+ islands:['Ilha Mítica'],
+ breeding:'Não pode ser procriado. Compre com moedas na Ilha Mítica.',breedTime:null,
+ hasRare:true,rareBreed:'Disponível em eventos de Raridade.',
+ hasEpic:false,
+ notes:'Monstro-único do elemento Sonho. Catalisador mágico que desperta o potencial onírico dos Míticos.'},
+
+{id:'bleatnik',name:'Bleatnik',emoji:'🐏',elements:['Sonho','Mítico'],
+ islands:['Ilha Mítica'],
+ breeding:"Cataliszt + G'joob na Ilha Mítica.",breedTime:'28 horas 45 minutos',
+ hasRare:true,rareBreed:"Cataliszt + G'joob durante evento de Raridade.",
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:"Dreamythical nascido da fusão de Cataliszt e G'joob. Bezerro onírico de elementos Sonho+Mítico."},
+
+{id:'cranchee',name:'Cranchee',emoji:'🦀',elements:['Sonho','Mítico'],
+ islands:['Ilha Mítica'],
+ breeding:'Cataliszt + Strombonin na Ilha Mítica.',breedTime:'28 horas 45 minutos',
+ hasRare:true,rareBreed:'Cataliszt + Strombonin durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dreamythical nascido da fusão de Cataliszt e Strombonin. Caranguejo onírico com garras musicais.'},
+
+{id:'sporerow',name:'Sporerow',emoji:'🍄',elements:['Sonho','Mítico'],
+ islands:['Ilha Mítica'],
+ breeding:'Cataliszt + Yawstrich na Ilha Mítica.',breedTime:'28 horas 45 minutos',
+ hasRare:true,rareBreed:'Cataliszt + Yawstrich durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dreamythical nascido da fusão de Cataliszt e Yawstrich. Espora voadora que espalha melodias pelo ar.'},
+
+{id:'pinghound',name:'Pinghound',emoji:'🐕',elements:['Sonho','Mítico'],
+ islands:['Ilha Mítica'],
+ breeding:'Cataliszt + Anglow na Ilha Mítica.',breedTime:'28 horas 45 minutos',
+ hasRare:true,rareBreed:'Cataliszt + Anglow durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dreamythical nascido da fusão de Cataliszt e Anglow. Cão onírico que ecoa pings musicais pelas profundezas.'},
+
+{id:'wheezel',name:'Wheezel',emoji:'🌀',elements:['Sonho','Mítico'],
+ islands:['Ilha Mítica'],
+ breeding:'Cataliszt + Hyehehe na Ilha Mítica.',breedTime:'28 horas 45 minutos',
+ hasRare:true,rareBreed:'Cataliszt + Hyehehe durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dreamythical nascido da fusão de Cataliszt e Hyehehe. Redemoinho onírico que sussurra harmonias hipnóticas.'},
+
+{id:'knurv',name:'Knurv',emoji:'🦔',elements:['Sonho','Mítico'],
+ islands:['Ilha Mítica'],
+ breeding:'Cataliszt + Buzzinga na Ilha Mítica.',breedTime:'28 horas 45 minutos',
+ hasRare:true,rareBreed:'Cataliszt + Buzzinga durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dreamythical nascido da fusão de Cataliszt e Buzzinga. Ouriço onírico com espinhos de som ardente.'},
+
+{id:'shlep',name:'shLep',emoji:'🐇',elements:['Sonho','Mítico'],
+ islands:['Ilha Mítica'],
+ breeding:'Cataliszt + Cherubble na Ilha Mítica.',breedTime:'28 horas 45 minutos',
+ hasRare:true,rareBreed:'Cataliszt + Cherubble durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Dreamythical nascido da fusão de Cataliszt e Cherubble. Lebre onírica que salta entre dimensões de melodia.'},
+
+// ═══ SANTUÁRIO MÁGICO (híbridos de múltiplos elementos mágicos) ══════════════
+{id:'cahoot',name:'Cahoot',emoji:'🦉',elements:['Luz','Psíquico'],
+ islands:['Santuário Mágico'],
+ breeding:'Fluoress + Theremind no Santuário Mágico.',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Fluoress + Theremind durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Híbrido duplo Luz+Psíquico exclusivo do Santuário Mágico. Lança visuais telepáticos luminosos enquanto canta.'},
+
+{id:'roarick',name:'Roarick',emoji:'🦁',elements:['Luz','Osso'],
+ islands:['Santuário Mágico'],
+ breeding:'Fluoress + Clackula no Santuário Mágico.',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Fluoress + Clackula durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Híbrido duplo Luz+Osso exclusivo do Santuário Mágico. Ruge com melodias brilhantes de ossada iluminada.'},
+
+{id:'knucklehead',name:'Knucklehead',emoji:'✊',elements:['Luz','Fada'],
+ islands:['Santuário Mágico'],
+ breeding:'Fluoress + Floot Fly no Santuário Mágico.',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Fluoress + Floot Fly durante evento de Raridade.',
+ hasEpic:false,
+ notes:'Híbrido duplo Luz+Fada exclusivo do Santuário Mágico. Punho feérico luminoso que bate ritmos mágicos.'},
+
+{id:'deja-jin',name:'Déjà-Jin',emoji:'🌀',elements:['Fada','Psíquico'],
+ islands:['Santuário Mágico'],
+ breeding:'Floot Fly + Theremind no Santuário Mágico.',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Floot Fly + Theremind durante evento de Raridade.',
+ hasEpic:false,
+ notes:'Híbrido duplo Fada+Psíquico exclusivo do Santuário Mágico. Cria loops de déjà-vu sonoros feérico-mentais.'},
+
+{id:'gday',name:"G'day",emoji:'🦘',elements:['Fada','Osso','Luz'],
+ islands:['Santuário Mágico'],
+ breeding:'Knucklehead + Clackula  •  ou  •  Roarick + Floot Fly no Santuário Mágico.',breedTime:'36 horas',
+ hasRare:true,rareBreed:"Knucklehead + Clackula durante evento de Raridade.",
+ hasEpic:false,
+ notes:'Monstro triplo Fada+Osso+Luz do Santuário Mágico. Toca didgeridoo feérico com sons de aurora mágica.'},
+
+{id:'enchantling',name:'Enchantling',emoji:'🧿',elements:['Fada','Luz','Psíquico','Osso'],
+ islands:['Santuário Mágico'],
+ breeding:'Larvaluss + Fluoress  •  ou  •  dois duplos de elementos opostos.',breedTime:'48 horas',
+ hasRare:true,rareBreed:'Larvaluss + Fluoress durante evento de Raridade.',
+ hasEpic:false,
+ notes:'Monstro quádruplo dos 4 elementos mágicos — Fada, Luz, Psíquico e Osso. O ser mais poderoso do Santuário Mágico.'},
+
+// ═══ ATELIÊ ETÉREO (multi-etéreos exclusivos) ════════════════════════════════
+{id:'yooreek',name:'Yooreek',emoji:'👾',elements:['Plasma','Sombra','Meca'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinar dois etéreos de elementos diferentes no Ateliê Etéreo.\nEx.: Ghazt + Grumpyre + Reebro.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 1 do Ateliê. Criatura de Plasma, Sombra e Meca.'},
+
+{id:'meebkin',name:'Meebkin',emoji:'🟣',elements:['Plasma','Cristal','Gosma'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de etéreos no Ateliê Etéreo.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 1 do Ateliê. Pequena criatura de Plasma, Cristal e Gosma.'},
+
+{id:'blarret',name:'Blarret',emoji:'🔵',elements:['Sombra','Meca','Cristal'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de etéreos no Ateliê Etéreo.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 1 do Ateliê. Criatura de Sombra, Meca e Cristal.'},
+
+{id:'gaddzooks',name:'Gaddzooks',emoji:'💚',elements:['Meca','Cristal','Gosma'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de etéreos no Ateliê Etéreo.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 1 do Ateliê. Criatura de Meca, Cristal e Gosma.'},
+
+{id:'auglur',name:'Auglur',emoji:'🟤',elements:['Plasma','Sombra','Gosma'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de etéreos no Ateliê Etéreo.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 1 do Ateliê. Criatura de Plasma, Sombra e Gosma.'},
+
+{id:'flasque',name:'Flasque',emoji:'🫙',elements:['Plasma','Meca','Gosma'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de etéreos no Ateliê Etéreo.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 2 do Ateliê. Frasco de Plasma, Meca e Gosma.'},
+
+{id:'nitebear',name:'Nitebear',emoji:'🐻',elements:['Sombra','Cristal','Gosma'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de etéreos no Ateliê Etéreo.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 2 do Ateliê. Urso noturno de Sombra, Cristal e Gosma.'},
+
+{id:'piplash',name:'Piplash',emoji:'🌊',elements:['Plasma','Sombra','Cristal'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de etéreos no Ateliê Etéreo.',breedTime:'24–48 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 3 do Ateliê. Criatura aquática de Plasma, Sombra e Cristal.'},
+
+{id:'whaill',name:'Whaill',emoji:'🐋',elements:['Plasma','Sombra','Meca','Cristal'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de quatro etéreos no Ateliê Etéreo.',breedTime:'48–72 horas',
+ hasRare:true,rareBreed:'Combos quad de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo quádruplo — Wave 2 do Ateliê. Baleia de quatro elementos etéreos.'},
+
+{id:'vhenshun',name:'Vhenshun',emoji:'🌋',elements:['Sombra','Meca','Cristal','Gosma'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação de quatro etéreos no Ateliê Etéreo.',breedTime:'48–72 horas',
+ hasRare:true,rareBreed:'Combos quad de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo quádruplo — Wave 3 do Ateliê. Criatura vulcânica de Sombra, Meca, Cristal e Gosma.'},
+
+{id:'pentumbra',name:'Pentumbra',emoji:'🌑',elements:['Plasma','Sombra','Meca','Cristal','Gosma'],
+ islands:['Ateliê Etéreo'],
+ breeding:'Combinação dos cinco etéreos no Ateliê Etéreo.',breedTime:'72+ horas',
+ hasRare:true,rareBreed:'Combos quíntuplos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo quíntuplo — combina todos os 5 elementos etéreos. O ser mais poderoso do Ateliê Etéreo.'},
+// ═══ NATURAIS TRIPLOS – Quibble (Frio+Ar+Água) ═══════════════════════════════
+{id:'quibble',name:'Quibble',emoji:'🌬️',elements:['Frio','Ar','Água'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha de Ouro'],
+ breeding:'Maw + Pango  •  ou  •  Reedling + Mammott',breedTime:'24 horas',
+ hasRare:true,rareBreed:'Maw + Pango durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Natural triplo de Frio+Ar+Água. Criatura de nuvem gelada que produz acordes de vento hipnóticos.'},
+
+// ═══ FOGO – TRIPLOS ADICIONAIS ════════════════════════════════════════════════
+{id:'barrb',name:'Barrb',emoji:'🌵',elements:['Planta','Ar','Fogo'],
+ islands:['Refúgio de Fogo','Ilha de Âmbar'],
+ breeding:'Glowl + Potbelly  •  ou  •  Kayna + Dandidoo',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Glowl + Potbelly durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro triplo Planta+Ar+Fogo do Refúgio de Fogo. Cacto flamejante voador com melodias de brisa ardente.'},
+
+{id:'woolabee',name:'Woolabee',emoji:'🐑',elements:['Ar','Frio','Fogo'],
+ islands:['Oásis de Fogo','Ilha de Âmbar'],
+ breeding:'Glowl + Mammott  •  ou  •  Kayna + Pango',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Glowl + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro triplo Ar+Frio+Fogo do Oásis de Fogo. Ovelha de lã flamejante que ecoa harmonias de vento gelado.'},
+
+{id:'ziggurab',name:'Ziggurab',emoji:'🏛️',elements:['Terra','Frio','Fogo'],
+ islands:['Ilha das Fadas','Ilha de Âmbar'],
+ breeding:'Stogg + Mammott  •  ou  •  Kayna + Drumpler',breedTime:'20 horas',
+ hasRare:true,rareBreed:'Stogg + Mammott durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Monstro triplo Terra+Frio+Fogo da Ilha das Fadas e Ilha de Âmbar. Zigurate vulcânico de pedra gelada que ressoa com frequências ancestrais.'},
+
+// ═══ DIPSTERS (7 monstros, 1 por nota musical) ════════════════════════════════
+{id:'dipster-do',name:'Dipster Dó',emoji:'🎵',elements:['Dipster'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Refúgio de Fogo','Oásis de Fogo','Ilha da Luz','Ilha Psíquica','Ilha das Fadas','Ilha dos Ossos','Ilha Etérea','Ilha de Âmbar'],
+ breeding:'Não pode ser procriado. Dipsters aparecem espontaneamente em espaços livres da ilha — sem custo, sem ação necessária.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Dipster nota Dó. Um dos 7 monstrinhos que surgem automaticamente. Cada um representa uma nota da escala musical.'},
+
+{id:'dipster-re',name:'Dipster Ré',emoji:'🎶',elements:['Dipster'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Refúgio de Fogo','Oásis de Fogo','Ilha da Luz','Ilha Psíquica','Ilha das Fadas','Ilha dos Ossos','Ilha Etérea','Ilha de Âmbar'],
+ breeding:'Não pode ser procriado. Aparece espontaneamente em espaços livres.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Dipster nota Ré. Surge automaticamente em espaços livres da ilha.'},
+
+{id:'dipster-mi',name:'Dipster Mi',emoji:'♩',elements:['Dipster'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Refúgio de Fogo','Oásis de Fogo','Ilha da Luz','Ilha Psíquica','Ilha das Fadas','Ilha dos Ossos','Ilha Etérea','Ilha de Âmbar'],
+ breeding:'Não pode ser procriado. Aparece espontaneamente em espaços livres.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Dipster nota Mi. Surge automaticamente em espaços livres da ilha.'},
+
+{id:'dipster-fa',name:'Dipster Fá',emoji:'🎼',elements:['Dipster'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Refúgio de Fogo','Oásis de Fogo','Ilha da Luz','Ilha Psíquica','Ilha das Fadas','Ilha dos Ossos','Ilha Etérea','Ilha de Âmbar'],
+ breeding:'Não pode ser procriado. Aparece espontaneamente em espaços livres.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Dipster nota Fá. Surge automaticamente em espaços livres da ilha.'},
+
+{id:'dipster-sol',name:'Dipster Sol',emoji:'☀️',elements:['Dipster'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Refúgio de Fogo','Oásis de Fogo','Ilha da Luz','Ilha Psíquica','Ilha das Fadas','Ilha dos Ossos','Ilha Etérea','Ilha de Âmbar'],
+ breeding:'Não pode ser procriado. Aparece espontaneamente em espaços livres.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Dipster nota Sol. Surge automaticamente em espaços livres da ilha.'},
+
+{id:'dipster-la',name:'Dipster Lá',emoji:'🔔',elements:['Dipster'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Refúgio de Fogo','Oásis de Fogo','Ilha da Luz','Ilha Psíquica','Ilha das Fadas','Ilha dos Ossos','Ilha Etérea','Ilha de Âmbar'],
+ breeding:'Não pode ser procriado. Aparece espontaneamente em espaços livres.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Dipster nota Lá. Surge automaticamente em espaços livres da ilha.'},
+
+{id:'dipster-ti',name:'Dipster Ti',emoji:'🎤',elements:['Dipster'],
+ islands:['Ilha das Plantas','Ilha do Frio','Ilha do Ar','Ilha da Água','Ilha da Terra','Refúgio de Fogo','Oásis de Fogo','Ilha da Luz','Ilha Psíquica','Ilha das Fadas','Ilha dos Ossos','Ilha Etérea','Ilha de Âmbar'],
+ breeding:'Não pode ser procriado. Aparece espontaneamente em espaços livres.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Dipster nota Ti. O sétimo e mais agudo dos Dipsters. Surge automaticamente em espaços livres da ilha.'},
+];
+
+// ── ISLANDS ──────────────────────────────────────────────────────────────────
+const islands=[
+{id:'plant',name:'Ilha das Plantas',imgFile:'Plant_Island.png',emoji:'🌿',color:'#14532d',
+ desc:'A primeira ilha do jogo, rica em vegetação tropical. Onde toda aventura musical começa.',
+ monsters:['Noggin','Mammott','Toe Jammer','Tweedle','Potbelly','Furcorn','Oaktopus','Maw','Fwog','Drumpler','Shrubb','Dandidoo','Cybop','Pango','Reedling','Quibble','Bowgart','T-Rox','Congle','PomPom','Spunge','Shellbeat','Pummel','Thumpies','Scups','Deedge','Clamble','Quarrister','Entbrat','Wubbox','Ghazt','Shugabush',"G'joob",'Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'cold',name:'Ilha do Frio',imgFile:'Cold_Island.png',emoji:'❄️',color:'#1e3a5f',
+ desc:'Coberta de neve e gelo eterno. Lar de criaturas adaptadas ao frio extremo.',
+ monsters:['Mammott','Tweedle','Potbelly','Toe Jammer','Furcorn','Oaktopus','Maw','Dandidoo','Pango','Reedling','Quibble','Bowgart','Spunge','Thumpies','Deedge','Wubbox','Grumpyre','Strombonin','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'air',name:'Ilha do Ar',imgFile:'Air_Island.png',emoji:'💨',color:'#374151',
+ desc:'Ilha flutuante nas nuvens, habitada por criaturas do vento e do céu.',
+ monsters:['Tweedle','Noggin','Mammott','Toe Jammer','Maw','Fwog','Drumpler','Cybop','Pango','Reedling','Quibble','T-Rox','Congle','Scups','Quarrister','Wubbox','Reebro','Whisp','Yawstrich','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'water',name:'Ilha da Água',imgFile:'Water_Island.png',emoji:'🌊',color:'#164e63',
+ desc:'Recife tropical com criaturas aquáticas e das profundezas marinhas.',
+ monsters:['Toe Jammer','Tweedle','Potbelly','Noggin','Oaktopus','Fwog','Shrubb','Dandidoo','Cybop','Reedling','PomPom','Spunge','Shellbeat','Scups','Wubbox','Jeeode','Anglow','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'earth',name:'Ilha da Terra',imgFile:'Earth_Island.png',emoji:'⛰️',color:'#451a03',
+ desc:'Ilha vulcânica de penhascos e grutas onde ressoam as batidas mais pesadas.',
+ monsters:['Noggin','Mammott','Tweedle','Potbelly','Furcorn','Shrubb','Drumpler','Dandidoo','Cybop','Pango','Congle','PomPom','Pummel','Thumpies','Deedge','Clamble','Quarrister','Wubbox','Humbug','Hyehehe','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'gold',name:'Ilha de Ouro',imgFile:'Gold_Island.png',emoji:'🏆',color:'#78350f',
+ desc:'A ilha mais valiosa, onde todos os monstros naturais convivem em harmonia dourada.',
+ monsters:['Noggin','Mammott','Toe Jammer','Tweedle','Potbelly','Furcorn','Oaktopus','Maw','Fwog','Drumpler','Shrubb','Dandidoo','Cybop','Pango','Reedling','Quibble','Bowgart','T-Rox','Congle','PomPom','Spunge','Shellbeat','Pummel','Thumpies','Scups','Deedge','Clamble','Quarrister','Entbrat','Wubbox','Shugabush','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'ethereal',name:'Ilha Etérea',imgFile:'Ethereal_Island.png',emoji:'👻',color:'#2e1065',
+ desc:'Dimensão mística acessível por portal. Lar dos raríssimos monstros etéreos.',
+ monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Nebulob','Whisp','Wubbox','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'shugabush',name:'Ilha Shugabush',imgFile:'Shugabush_Island.png',emoji:'🎸',color:'#365314',
+ desc:'Ilha secreta de música country, acessível levando o Shugabush da Ilha das Plantas.',
+ monsters:['Shugabush','Shugabass','Shugabeats','Shugavox','Shugabuzz','Shugitar','Shugajo','Shugarock']},
+
+{id:'tribal',name:'Ilha Tribal',imgFile:'Tribal_Island.png',emoji:'🥁',color:'#7c2d12',
+ desc:'Ilha cerimonial onde você posiciona monstros para compor músicas tribais únicas.',
+ monsters:['Noggin','Mammott','Toe Jammer','Tweedle','Potbelly','Furcorn','Oaktopus','Maw','Fwog','Drumpler','Shrubb','Dandidoo','Cybop','Pango','Reedling']},
+
+{id:'wublin',name:'Ilha Wublin',imgFile:'Wublin_Island.png',emoji:'⚙️',color:'#1e293b',
+ desc:'Ilha mecânica dos Wublins — 49 autômatos musicais ativados por ovos de monstros.',
+ monsters:['Zynth','Poewk','Thwok','Dwumrohl','Zuuker','Screemu','Tympa','Dermit','Gheegur','Whajje','Creepuscule','Blipsqueak','Scargo','Astropod','Pixolotl','Bona-Petite','Maulch','Fleechwurm','Brump','Wubbox']},
+
+{id:'faerie',name:'Ilha das Fadas',imgFile:'Faerie_Island.png',emoji:'🧚',color:'#4a044e',
+ desc:'Ilha Mágica dos elementos Terra, Frio, Fogo e Fada. Habitada por criaturas feéricas encantadas.',
+ monsters:['Noggin','Mammott','Kayna','Floot Fly','Larvaluss','Frondley','Bridg-it','Cantorell','Mushaboom','Clavi Gnat','Ziggurab','Ffidyll','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'bone',name:'Ilha dos Ossos',imgFile:'Bone_Island.png',emoji:'💀',color:'#1c1917',
+ desc:'Ilha Mágica dos elementos Terra, Água, Fogo e Osso. Lar de criaturas esqueléticas místicas.',
+ monsters:['Noggin','Toe Jammer','Kayna','Clackula','Phangler','Yelmut','Tiawa','Drummidary','Incisaur','Clavavera','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'light',name:'Ilha da Luz',imgFile:'Light_Island.png',emoji:'✨',color:'#422006',
+ desc:'Ilha Mágica dos elementos Planta, Frio, Fogo e Luz. Permanentemente iluminada, sem elementos de Ar, Água ou Terra.',
+ monsters:['Potbelly','Mammott','Kayna','Fluoress','Gob','Bulbo','Pluckbill','TooToo','Spytrap','Fiddlement',"Blow't",'Whiz-bang','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'psychic',name:'Ilha Psíquica',imgFile:'Psychic_Island.png',emoji:'🔮',color:'#500724',
+ desc:'Ilha Mágica dos elementos Planta, Água, Fogo e Psíquico. Sem elementos de Frio, Ar ou Terra.',
+ monsters:['Potbelly','Toe Jammer','Kayna','Theremind','Boskus','Sooza','Flowah','Bisonorus',"Boo'qwurm",'Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'celestial',name:'Ilha Celestial',imgFile:'Celestial_Island.png',emoji:'🌙',color:'#0c0a1e',
+ desc:'Ilha sideral habitada por monstros Celestiais de altíssimo nível.',
+ monsters:[]},
+
+{id:'firehaven',name:'Refúgio de Fogo',imgFile:'Fire_Haven.png',emoji:'🔥',color:'#450a0a',
+ desc:'Primeira ilha de Fogo (v2.2.4). Lar de monstros vulcânicos com elementos Ar, Planta, Terra, Água e Fogo.',
+ monsters:['Kayna','Stogg','Glowl','Repatillo','Floogull','Barrb','Candelavra','Buzzinga','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'fireoasis',name:'Oásis de Fogo',imgFile:'Fire_Oasis.png',emoji:'🌋',color:'#7c1d1d',
+ desc:'Segunda ilha de Fogo (v2.3.0). Apresenta Phangler (Água+Fogo) e o Mítico Cherubble.',
+ monsters:['Kayna','Phangler','Woolabee','Cherubble','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'amber',name:'Ilha de Âmbar',imgFile:'Amber_Island.png',emoji:'🟠',color:'#78350f',
+ desc:'Ilha pré-histórica encrustada em âmbar com criaturas ancestrais únicas.',
+ monsters:['Kayna','Repatillo','Candelavra','Barrb','Woolabee','Ziggurab','Yelmut','Incisaur','Bisonorus','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'seasonal',name:'Mansão Sazonal',imgFile:'Seasonal_Shanty.png',emoji:'🎉',color:'#1e1b4b',
+ desc:'Ilha de eventos. Todos os monstros sazonais ficam disponíveis aqui o ano todo — ao contrário de outras ilhas onde aparecem apenas em eventos.',
+ monsters:['Yool','Punkleton','Schmoochle','Blabbit','Hoola','Gobbleygourd','Clavavera','Viveine','Carillong','Jam Boree','Whiz-bang','Ffidyll',"Boo'qwurm"]},
+
+{id:'mythical',name:'Ilha Mítica',imgFile:'Mythical_Island.png',emoji:'🐉',color:'#3b0764',
+ desc:'Desbloqueada após comprar o Oásis de Fogo. Recebe Míticos teleportados ao nível 15. Cataliszt + Míticos criam os Dreamythicals exclusivos desta ilha.',
+ monsters:["G'joob",'Strombonin','Yawstrich','Anglow','Hyehehe','Buzzinga','Cherubble','Cataliszt','Bleatnik','Cranchee','Sporerow','Pinghound','Wheezel','Knurv','shLep']},
+
+{id:'magical-sanctum',name:'Santuário Mágico',imgFile:'Magical_Sanctum.png',emoji:'🌟',color:'#3b0048',
+ desc:'Desbloqueado após obter o Refúgio de Fogo. Ilha Teleportadora dos híbridos mágicos — recebe monstros com 2+ elementos mágicos. Os elementos Naturais e Fogo estão ausentes. Monstros produzem Fragmentos (Shards) em vez de moedas.',
+ monsters:['Floot Fly','Fluoress','Theremind','Clackula','Cahoot','Roarick','Knucklehead','Déjà-Jin',"G'day",'Enchantling']},
+
+{id:'ethereal-workshop',name:'Ateliê Etéreo',imgFile:'Ethereal_Workshop.png',emoji:'🔬',color:'#1e1b4b',
+ desc:'Ilha exclusiva para etéreos de múltiplos elementos. Adicionada na versão 4.1.0. Etéreos simples se combinam aqui para criar criaturas triplas, quádruplas e quíntuplas inéditas.',
+ monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Yooreek','Meebkin','Blarret','Gaddzooks','Auglur','Flasque','Nitebear','Piplash','Whaill','Vhenshun','Pentumbra']},
+
+{id:'magical-nexus',name:'Nexo Mágico',imgFile:'Magical_Nexus.png',emoji:'🌐',color:'#1a0533',
+ desc:'Desbloqueado no nível 18. Recebe todos os monstros mágicos (Fada, Luz, Psíquico, Osso) transpostos de suas ilhas ao nível 18. Similar à Ilha de Ouro, mas para monstros mágicos.',
+ monsters:['Floot Fly','Larvaluss','Frondley','Bridg-it','Cantorell','Mushaboom','Clavi Gnat','Fluoress','Gob','Bulbo','Pluckbill','TooToo','Spytrap','Fiddlement',"Blow't",'Theremind','Boskus','Sooza','Flowah','Bisonorus','Clackula','Yelmut','Tiawa','Drummidary','Incisaur']},
+];
+
+// ── RENDER MONSTERS ──────────────────────────────────────────────────────────
+const ELEM_BG={Planta:'#052e16',Frio:'#082f49',Ar:'#1f2937',Água:'#082f49',Terra:'#1c0a00',
+  Fogo:'#1c0505',Plasma:'#1e1b4b',Sombra:'#0f0f1a',Meca:'#1a2a1a',Cristal:'#083344',
+  Gosma:'#1a2e05',Etéreo:'#1e1b4b',Lendário:'#1c1003',Wublin:'#0f1729',Sazonal:'#2d0518',
+  Fada:'#2d0a3e',Luz:'#1c1500',Psíquico:'#0c0a3e',Osso:'#1a1a14',
+  Mítico:'#12001c',Sonho:'#0a0a2e',Dipster:'#1a0a2e'};
+
+let activeFilter='all';
+
+function renderM(){
+  const q=(document.getElementById('q')?.value||'').toLowerCase().trim();
+  const grid=document.getElementById('mgrid');
+  const list=monsters.filter(m=>{
+    const mq=!q||m.name.toLowerCase().includes(q)||m.elements.some(e=>e.toLowerCase().includes(q));
+    const mf=activeFilter==='all'
+      ||(activeFilter==='Etéreo' && m.elements.some(e=>ETHEREAL_ELS.includes(e)))
+      ||(activeFilter!=='Etéreo' && m.elements.includes(activeFilter));
+    return mq&&mf;
+  });
+  grid.innerHTML=list.length?list.map(m=>{
+    const bg=ELEM_BG[m.elements[0]]||'#1c1238';
+    const tags=m.elements.slice(0,3).map(e=>`<span class="etag el-${e}">${e}</span>`).join('');
+    return `<div class="mcard" onclick="openM('${m.id}')">
+      <div class="mcard-img" style="background:${bg}">${imgTag(mImg(m.name),m.emoji)}</div>
+      <div class="mcard-name">${m.name}</div>
+      <div class="etags">${tags}</div>
+    </div>`;
+  }).join(''):`<div style="grid-column:1/-1;text-align:center;color:var(--dim);padding:40px">Nenhum monstro encontrado.</div>`;
+}
+
+function renderFilters(){
+  const opts=[
+    {f:'all',l:'🎵 Todos'},{f:'Planta',l:'🌿 Planta'},{f:'Frio',l:'❄️ Frio'},
+    {f:'Ar',l:'💨 Ar'},{f:'Água',l:'💧 Água'},{f:'Terra',l:'⛰️ Terra'},
+    {f:'Etéreo',l:'👻 Etéreos'},{f:'Fogo',l:'🔥 Fogo'},
+    {f:'Fada',l:'🧚 Fada'},{f:'Luz',l:'✨ Luz'},
+    {f:'Psíquico',l:'🔮 Psíquico'},{f:'Osso',l:'💀 Osso'},
+    {f:'Mítico',l:'🌟 Míticos'},{f:'Sonho',l:'💫 Sonho'},
+    {f:'Lendário',l:'🎸 Shugafam'},{f:'Wublin',l:'⚙️ Wublins'},{f:'Sazonal',l:'🎉 Sazonais'},{f:'Dipster',l:'🎵 Dipsters'}
+  ];
+  document.getElementById('filterBar').innerHTML=opts.map(o=>
+    `<button class="chip${activeFilter===o.f?' on':''}" data-f="${o.f}" onclick="setF('${o.f}')">${o.l}</button>`
+  ).join('');
+}
+function setF(f){activeFilter=f;renderFilters();renderM();}
+
+// ── RENDER ISLANDS ────────────────────────────────────────────────────────────
+function renderI(){
+  document.getElementById('igrid').innerHTML=islands.map(isl=>`
+    <div class="icard" onclick="openI('${isl.id}')" style="background:linear-gradient(145deg,${isl.color}44,var(--card));border-color:${isl.color}77">
+      <div class="icard-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
+      <div class="icard-name">${isl.name}</div>
+      <div class="icard-desc">${isl.desc}</div>
+      <div class="icard-count">${isl.monsters.length>0?`🎵 ${isl.monsters.length} monstros`:'🔍 Variável por evento'}</div>
+    </div>`).join('');
+}
+
+// ── OPEN MONSTER MODAL ────────────────────────────────────────────────────────
+function openM(id){
+  const m=monsters.find(x=>x.id===id);
+  if(!m)return;
+  const tags=m.elements.map(e=>`<span class="etag el-${e}">${e}</span>`).join(' ');
+  const islandPills=m.islands.map(n=>{
+    const isl=islands.find(x=>x.name===n);
+    return `<span class="pill" onclick="closeAll();setTimeout(()=>openI('${isl?.id||''}'),120)">${n}</span>`;
+  }).join('');
+
+  const baseCard=`<div class="fcard base"><div class="fbadge">⭐ Base</div>
+    <div class="fimg">${imgTag(mImg(m.name),m.emoji)}</div>
+    <div class="fbreed">Forma padrão obtida por procriação ou compra.</div></div>`;
+
+  const rareCard=m.hasRare
+    ?`<div class="fcard rare"><div class="fbadge">💎 Raro</div>
+      <div class="fimg">${imgTag(rImg(m.name),'✨')}</div>
+      <div class="fbreed">${m.rareBreed||'Disponível em eventos de Raridade.'}</div></div>`
+    :`<div class="fcard na-card"><div class="fbadge" style="color:#555">Raro</div>
+      <div class="fimg"><span class="fb" style="display:block;font-size:1.4rem;text-align:center;line-height:56px;color:#444">—</span></div>
+      <div class="fbreed" style="color:#444">Versão Rara não confirmada.</div></div>`;
+
+  const epicCard=m.hasEpic
+    ?`<div class="fcard epic"><div class="fbadge">🔥 Épico</div>
+      <div class="fimg">${imgTag(eImg(m.name),'⭐')}</div>
+      <div class="fbreed">${m.epicBreed||'Disponível em eventos especiais.'}</div></div>`
+    :`<div class="fcard na-card"><div class="fbadge" style="color:#555">Épico</div>
+      <div class="fimg"><span class="fb" style="display:block;font-size:1.4rem;text-align:center;line-height:56px;color:#444">—</span></div>
+      <div class="fbreed" style="color:#444">Versão Épica não existe.</div></div>`;
+
+  const breedHtml=m.breeding.replace(/\n/g,'<br>');
+
+  document.getElementById('mMod').innerHTML=`
+    <button class="mcls" onclick="cls('mOv')">✕</button>
+    <div class="mhdr">
+      <div class="mhdr-img">${imgTag(mImg(m.name),m.emoji)}</div>
+      <div>
+        <div class="mhdr-title">${m.name}</div>
+        <div style="margin-top:5px">${tags}</div>
+        ${m.breedTime?`<div style="margin-top:4px;font-size:.76rem;color:var(--dim)">⏱ Tempo: <strong style="color:var(--text)">${m.breedTime}</strong></div>`:''}
+        ${m.notes?`<div style="margin-top:4px;font-size:.74rem;color:var(--dim)">${m.notes}</div>`:''}
+      </div>
+    </div>
+    <div class="msec"><h3>Formas disponíveis</h3><div class="forms-row">${baseCard}${rareCard}${epicCard}</div></div>
+    <div class="msec"><h3>Como Procriar / Obter</h3><div class="breed-box">${breedHtml}</div></div>
+    <div class="msec"><h3>Ilhas onde habita</h3><div class="pills">${islandPills}</div></div>`;
+  document.getElementById('mOv').classList.add('open');
+}
+
+// ── OPEN ISLAND MODAL ─────────────────────────────────────────────────────────
+function openI(id){
+  const isl=islands.find(x=>x.id===id);
+  if(!isl)return;
+  const msHtml=isl.monsters.length
+    ?isl.monsters.map(name=>{
+        const m=monsters.find(x=>x.name===name);
+        const fb=m?m.emoji:'🎵';
+        const mid=m?m.id:'';
+        return `<div class="ichip" onclick="closeAll();setTimeout(()=>openM('${mid}'),120)">
+          <div class="ichip-img">${m?imgTag(mImg(m.name),fb):`<span class="fb" style="display:block;font-size:1.4rem;line-height:46px;text-align:center">${fb}</span>`}</div>
+          <div class="ichip-name">${name}</div>
+        </div>`;
+      }).join('')
+    :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
+
+  document.getElementById('iMod').innerHTML=`
+    <button class="mcls" onclick="cls('iOv')">✕</button>
+    <div class="imhdr">
+      <div class="imhdr-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
+      <div class="imhdr-title">${isl.name}</div>
+      <div class="imhdr-desc">${isl.desc}</div>
+    </div>
+    <div class="msec"><h3>${isl.monsters.length>0?isl.monsters.length+' monstros — clique para ver detalhes':'Monstros variados por evento'}</h3>
+      <div class="imgrid">${msHtml}</div></div>`;
+  document.getElementById('iOv').classList.add('open');
+}
+
+// ── TABS / MODAL CONTROL ──────────────────────────────────────────────────────
+function showTab(t){
+  document.getElementById('m-tab').classList.toggle('active',t==='m');
+  document.getElementById('i-tab').classList.toggle('active',t==='i');
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['m','i'][i]===t));
+}
+function cls(id,e){if(!e||e.target.classList.contains('overlay'))document.getElementById(id).classList.remove('open');}
+function closeAll(){document.getElementById('mOv').classList.remove('open');document.getElementById('iOv').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderFilters();renderM();renderI();
+</script>
+</body>
+</html>
