@@ -1507,8 +1507,7 @@ function openI(id){
   const musicHtml=isl.ytId
     ?`<div class="msec"><h3>🎵 Trecho da música — 15 seg</h3>
         <div style="margin-top:10px;background:var(--card);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px">
-          <div id="isl-yt-player" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></div>
-          <button id="isl-play-btn" onclick="islPlayMusic()" style="width:52px;height:52px;border-radius:50%;border:none;background:var(--gold);color:#0b0718;font-size:1.35rem;cursor:pointer;flex-shrink:0;transition:transform .15s">▶</button>
+          <button id="isl-play-btn" onclick="islPlayMusic()" disabled style="width:52px;height:52px;border-radius:50%;border:none;background:var(--card2);color:var(--dim);font-size:1.35rem;cursor:wait;flex-shrink:0;transition:all .15s">⟳</button>
           <div style="flex:1;min-width:0">
             <div style="height:6px;background:var(--card2);border-radius:3px;margin-bottom:7px;overflow:hidden">
               <div id="isl-bar" style="width:0%;height:100%;background:var(--gold);border-radius:3px;transition:width .4s linear"></div>
