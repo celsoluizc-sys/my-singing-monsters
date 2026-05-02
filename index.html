@@ -110,7 +110,9 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .msec h3{font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple2);margin-bottom:8px;font-weight:700;border-bottom:1px solid var(--card2);padding-bottom:5px}
 .forms-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .fcard{background:var(--card);border-radius:12px;padding:11px 7px;text-align:center;border:2px solid #2a1f4a}
-.fcard.base{border-color:#f5c518}.fcard.rare{border-color:#38bdf8}.fcard.epic{border-color:#fb923c}
+.fcard.base{border-color:#f5c518}.fcard.rare{border-color:#38bdf8}.fcard.epic{border-color:#fb923c}.fcard.adult{border-color:#c4b5fd}
+.fcard.adult .fbadge{color:#c4b5fd}
+.forms-row.quad{grid-template-columns:repeat(4,1fr)}
 .fbadge{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
 .fcard.base .fbadge{color:#f5c518}.fcard.rare .fbadge{color:#38bdf8}.fcard.epic .fbadge{color:#fb923c}
 .fimg{width:56px;height:56px;border-radius:50%;overflow:hidden;margin:0 auto 6px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
@@ -174,6 +176,7 @@ const IMG_OVERRIDE={
 const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+encodeURIComponent(wn.replace(/ /g,'_')+'.png');};
 const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
 const eImg=n=>W+encodeURIComponent('Epic_'+n.replace(/ /g,'_')+'.png');
+const aImg=n=>W+encodeURIComponent('Adult_'+n.replace(/ /g,'_')+'.png');
 const iImg=f=>W+encodeURIComponent(f);
 const ytThumb=id=>id?`https://img.youtube.com/vi/${id}/maxresdefault.jpg`:'';
 function iImgTag(isl){
