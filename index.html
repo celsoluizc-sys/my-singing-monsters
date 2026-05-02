@@ -141,7 +141,24 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .ichip-name{font-size:.64rem;font-weight:600;color:var(--gold2)}
 
 .na-card{opacity:.38;pointer-events:none}
-@media(max-width:540px){.logo{font-size:1.4rem}.forms-row{grid-template-columns:1fr}.mgrid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr))}}
+
+/* Buildings & Skins grids */
+.bgrid,.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.bcard,.skcard{background:var(--card);border-radius:16px;padding:18px 16px;border:2px solid var(--card2);transition:all .2s}
+.bcard:hover,.skcard:hover{border-color:var(--gold);transform:translateY(-3px)}
+.bcard-icon{font-size:2.8rem;margin-bottom:10px}
+.bcard-name{font-size:1rem;font-weight:800;color:var(--gold2);margin-bottom:6px}
+.bcard-type{display:inline-block;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 9px;border-radius:20px;margin-bottom:8px}
+.bcard-desc{font-size:.79rem;color:var(--dim);line-height:1.55}
+.bcard-tip{margin-top:8px;font-size:.73rem;color:var(--purple2);background:rgba(124,58,237,.1);padding:7px 10px;border-radius:8px;border-left:3px solid var(--purple)}
+.skcard-img{width:80px;height:80px;border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--card2)}
+.skcard-img img{width:100%;height:100%;object-fit:cover}
+.skcard-name{font-size:.95rem;font-weight:800;color:var(--gold2);margin-bottom:4px}
+.skcard-monster{font-size:.75rem;color:var(--purple2);margin-bottom:6px}
+.skcard-how{font-size:.74rem;color:var(--dim);line-height:1.5}
+.sk-section-title{grid-column:1/-1;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--purple2);padding:6px 0 2px;border-bottom:1px solid var(--card2);margin-bottom:4px}
+
+@media(max-width:540px){.logo{font-size:1.4rem}.forms-row{grid-template-columns:1fr}.forms-row.quad{grid-template-columns:repeat(2,1fr)}.mgrid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr))}.bgrid,.sgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -151,6 +168,8 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 <nav class="tabs">
   <button class="tab-btn active" onclick="showTab('m')">🐾 Monstros</button>
   <button class="tab-btn" onclick="showTab('i')">🏝️ Ilhas</button>
+  <button class="tab-btn" onclick="showTab('b')">🏗️ Construções</button>
+  <button class="tab-btn" onclick="showTab('s')">👗 Skins</button>
 </nav>
 <div id="m-tab" class="tab-content active">
   <div class="search-row"><input id="q" type="text" placeholder="🔍  Buscar monstro…" oninput="renderM()"></div>
@@ -159,6 +178,12 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 </div>
 <div id="i-tab" class="tab-content">
   <div class="igrid" id="igrid"></div>
+</div>
+<div id="b-tab" class="tab-content">
+  <div id="bgrid" class="bgrid"></div>
+</div>
+<div id="s-tab" class="tab-content">
+  <div id="sgrid" class="sgrid"></div>
 </div>
 <div class="overlay" id="mOv" onclick="cls('mOv',event)"><div class="modal" id="mMod"></div></div>
 <div class="overlay" id="iOv" onclick="cls('iOv',event)"><div class="modal" id="iMod"></div></div>
