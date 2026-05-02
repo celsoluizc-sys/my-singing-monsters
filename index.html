@@ -1501,7 +1501,15 @@ function openM(id){
       <div class="fimg"><span class="fb" style="display:block;font-size:1.4rem;text-align:center;line-height:56px;color:#444">—</span></div>
       <div class="fbreed" style="color:#444">Versão Épica não existe.</div></div>`;
 
+  const hasAdult=m.hasAdult||m.elements.includes('Celestial');
+  const adultCard=hasAdult
+    ?`<div class="fcard adult"><div class="fbadge">🌟 Adulto</div>
+      <div class="fimg">${imgTag(aImg(m.name),'✨')}</div>
+      <div class="fbreed">Forma adulta — desperta após acumular Ambrosia suficiente na Ilha Celestial.</div></div>`
+    :'';
+
   const breedHtml=m.breeding.replace(/\n/g,'<br>');
+  const formsClass=hasAdult?'forms-row quad':'forms-row';
 
   document.getElementById('mMod').innerHTML=`
     <button class="mcls" onclick="cls('mOv')">✕</button>
@@ -1514,7 +1522,7 @@ function openM(id){
         ${m.notes?`<div style="margin-top:4px;font-size:.74rem;color:var(--dim)">${m.notes}</div>`:''}
       </div>
     </div>
-    <div class="msec"><h3>Formas disponíveis</h3><div class="forms-row">${baseCard}${rareCard}${epicCard}</div></div>
+    <div class="msec"><h3>Formas disponíveis</h3><div class="${formsClass}">${baseCard}${rareCard}${epicCard}${adultCard}</div></div>
     <div class="msec"><h3>Como Procriar / Obter</h3><div class="breed-box">${breedHtml}</div></div>
     <div class="msec"><h3>Ilhas onde habita</h3><div class="pills">${islandPills}</div></div>`;
   document.getElementById('mOv').classList.add('open');
