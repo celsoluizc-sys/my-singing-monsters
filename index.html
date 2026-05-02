@@ -1610,11 +1610,118 @@ function openI(id){
   document.getElementById('iOv').classList.add('open');
 }
 
+// ── BUILDINGS DATA ─────────────────────────────────────────────────────────────
+const buildings=[
+  {icon:'🏛️',name:'Estrutura de Procriação',type:'Essencial',typeColor:'#14532d',
+   desc:'A estrutura principal do jogo. Coloque dois monstros compatíveis aqui para tentar procriar um novo monstro. O ovo resultante vai para o Berçário.',
+   tip:'💡 Mantenha sempre ocupada — cada tentativa demora horas. Use Diamantes para acelerar.'},
+  {icon:'🏰',name:'Estrutura Aprimorada de Procriação',type:'Essencial',typeColor:'#14532d',
+   desc:'Versão premium da Estrutura de Procriação, comprada com Diamantes. Permite uma segunda procriação simultânea na mesma ilha.',
+   tip:'💡 Vale muito o investimento — dobra sua produção de monstros.'},
+  {icon:'🥚',name:'Berçário',type:'Essencial',typeColor:'#14532d',
+   desc:'Onde os ovos ficam após a procriação bem-sucedida. O ovo eclodir leva mais tempo que a procriação. Acelere com Diamantes ou espere.',
+   tip:'💡 Você pode manter até 4 ovos no Berçário ao mesmo tempo (com upgrades).'},
+  {icon:'🏰',name:'Castelo',type:'Produção',typeColor:'#78350f',
+   desc:'O Castelo da ilha gera a moeda principal (moedas de ouro nas ilhas naturais, relíquias nas mágicas, etc.) ao longo do tempo. Clique para coletar. Pode ser tocado pelos monstros ao redor.',
+   tip:'💡 Cada ilha tem um Castelo único — um dos 23 castelos que tocam músicas diferentes.'},
+  {icon:'🏨',name:'Hotel de Monstros',type:'Armazenamento',typeColor:'#1e3a5f',
+   desc:'Armazena monstros extras que não cabem nas ilhas. Monstros no Hotel não produzem moedas mas ficam seguros. Capacidade inicial: 4 monstros. Pode ser expandida.',
+   tip:'💡 Essencial para colecionar sem perder monstros. Leve de volta à ilha a qualquer momento.'},
+  {icon:'🔦',name:'Tocha dos Desejos',type:'Boost',typeColor:'#2e1065',
+   desc:'Colocar uma Tocha dos Desejos em uma ilha e pedir a amigos que a acendam aumenta as chances de procriar monstros raros (Etéreos, etc.). Cada ilha aceita até 4 tochas.',
+   tip:'💡 Adicione amigos no jogo para acender suas tochas — e acenda as deles também!'},
+  {icon:'📦',name:'Wubbox',type:'Especial',typeColor:'#0c4a6e',
+   desc:'Caixa mágica que absorve (boxa) ovos de outros monstros. Nas Ilhas Naturais, precisa de um ovo de cada tipo de monstro da ilha (15 monstros). Na Ilha de Ouro, precisa de 30. Quando completo, acorda e canta.',
+   tip:'⚠️ Os monstros depositados no Wubbox são consumidos permanentemente e não podem ser recuperados!'},
+  {icon:'⚗️',name:'Laboratório',type:'Especial',typeColor:'#451a03',
+   desc:'Permite transformar ovos de monstros comuns em ovos de monstros raros ou épicos (durante eventos específicos). Também usado para criar monstros em certas ilhas especiais.',
+   tip:'💡 Disponível em ilhas como Ilha de Ouro e Ilha Tribal para conversões especiais.'},
+  {icon:'🪨',name:'Totem Tribal',type:'Especial',typeColor:'#7c2d12',
+   desc:'Exclusivo da Ilha Tribal. Você não produz novos monstros aqui — em vez disso, coloca monstros das outras ilhas para criarem a música tribal. O Totem aumenta a produção de moedas.',
+   tip:'💡 A combinação de monstros determina a música tocada — experimente diferentes combinações!'},
+  {icon:'💎',name:'Mine de Cristal / Mina de Ouro',type:'Produção',typeColor:'#1e293b',
+   desc:'Estrutura de produção de moedas passiva presente em certas ilhas. A Mina de Ouro produz moedas douradas continuamente sem precisar de monstros.',
+   tip:'💡 Colete regularmente — as minas têm capacidade máxima de armazenamento.'},
+  {icon:'🌟',name:'Estrutura de Invocação (Star Shop)',type:'Especial',typeColor:'#3b0764',
+   desc:'Presente em ilhas especiais como a Ilha Mítica. Permite invocar monstros específicos usando Estrelitas — a moeda especial ganhas ao escutar as músicas dos amigos.',
+   tip:'💡 A forma mais fácil de obter Míticos sem depender da procriação aleatória.'},
+  {icon:'🪄',name:'Espelho Mágico',type:'Acesso',typeColor:'#4a044e',
+   desc:'Estrutura de transporte presente nas Ilhas Mágicas. Permite teleportar monstros para o Santuário Mágico ou Nexo Mágico quando atingem nível 18.',
+   tip:'💡 Leve seus monstros mágicos de nível 18 para o Nexo para maximizar a produção de moedas.'},
+  {icon:'🏠',name:'Casa dos Monstros',type:'Armazenamento',typeColor:'#1c1238',
+   desc:'Estrutura que aumenta o limite de monstros que podem viver em uma ilha ao mesmo tempo. Cada ilha tem um limite padrão de slots — comprar Casas expande esse número.',
+   tip:'💡 Quanto mais monstros na ilha, mais rica e variada fica a música!'},
+  {icon:'🎪',name:'Mercado de Relíquias',type:'Compra',typeColor:'#78350f',
+   desc:'Presente nas Ilhas Mágicas de Fogo e no Oásis de Fogo. Permite comprar os monstros Quíntuplos (Tuskski, Gnarls, Bowhead, Mimic, Candelavra) usando 500 Relíquias — a moeda especial dessas ilhas.',
+   tip:'💡 Juntar 500 Relíquias demora, mas é a forma mais confiável de obter os Quíntuplos.'},
+  {icon:'🌙',name:'Estação do Nexo',type:'Acesso',typeColor:'#0c0a1e',
+   desc:'Estrutura do Nexo Mágico que conecta todas as Ilhas Mágicas. Permite visualizar quais monstros já foram transportados e gerenciar o Nexo.',
+   tip:'💡 O Nexo Mágico é desbloqueado no nível 18 e reúne todos os monstros mágicos de alto nível.'},
+  {icon:'🎭',name:'Palco de Performance',type:'Especial',typeColor:'#1e1b4b',
+   desc:'Estrutura da Mansão Sazonal. Exibe os monstros sazonais disponíveis e indica quais eventos estão ativos no momento. Os sazonais produzem moedas sazonais especiais.',
+   tip:'💡 Na Mansão Sazonal, todos os sazonais ficam disponíveis o ano todo — aproveite para completar a coleção!'},
+];
+
+// ── SKINS DATA ─────────────────────────────────────────────────────────────────
+const skins=[
+  {section:'🎭 O Sistema de Skins'},
+  {name:'Como funcionam as Skins',monster:'Sistema Geral',how:'As Skins são fantasias visuais para os monstros. Elas alteram a aparência mas não afetam a música nem a produção de moedas. Skins são cosméticos puramente visuais.',icon:'🎨',
+   details:'Skins podem ser compradas na loja durante eventos, ganhas como recompensas de temporada, ou obtidas em caixas surpresa (Chest). Cada skin é exclusiva para um monstro específico.'},
+  {name:'Skins de Evento',monster:'Todos os monstros',how:'Aparecem durante eventos temáticos (Natal, Halloween, Dia dos Namorados, etc.). Ficam disponíveis por tempo limitado — geralmente 1 semana.',icon:'🎪',
+   details:'Exemplo: Skin "Papai Noel" para o Noggin durante o evento de Natal, ou skin "Jack-o-Lantern" para o Potbelly no Halloween.'},
+  {name:'Skins Sazonais',monster:'Monstros sazonais',how:'Skins alternativas para os monstros da Mansão Sazonal. Disponíveis durante o evento temático correspondente.',icon:'🎄',
+   details:'Yool tem uma skin alternativa de Papai Noel Premium, Punkleton tem uma skin mais assustadora, etc. Compradas com moedas de evento ou Diamantes.'},
+  {name:'Skins de Aniversário',monster:'Vários monstros',how:'Lançadas no mês de aniversário do jogo (outubro). Ficam disponíveis apenas durante o evento Anniversary Month.',icon:'🎂',
+   details:'Geralmente incluem skins raras para monstros populares como Ghazt, Entbrat e outros quádruplos. Muito visadas pelos colecionadores.'},
+  {section:'⭐ Formas Especiais'},
+  {name:'Forma Rara (Rare)',monster:'A maioria dos monstros',how:'Durante eventos de Raridade (Rare Event), monstros comuns têm chance de serem procriados como Raros. São visualmente diferentes — geralmente mais brilhantes, com cores invertidas ou detalhes únicos.',icon:'💎',
+   details:'Monstros Raros são obtidos durante janelas de eventos específicas. Eles têm uma aparência única e tocam notas ligeiramente diferentes, enriquecendo a música da ilha.'},
+  {name:'Forma Épica (Epic)',monster:'Monstros selecionados',how:'Obtidos em eventos especiais Epic. Disponíveis na Ilha de Ouro, Ilha Etérea e outras durante eventos. Visualmente são maiores, mais detalhados e com cores completamente diferentes.',icon:'🔥',
+   details:'Épicos são ainda mais raros que Raros e tocam versões aprimoradas das músicas. O Epic Wubbox é especialmente cobiçado pois absorve monstros Épicos.'},
+  {name:'Forma Adulta (Adult Celestial)',monster:'Os 12 Celestiais',how:'Após acumular Ambrosia suficiente (a moeda especial da Ilha Celestial), cada Celestial pode despertar em sua Forma Adulta — uma versão maior, mais elaborada e poderosa.',icon:'🌟',
+   details:'As formas adultas foram adicionadas em agosto de 2023. Cada Celestial tem um mês correspondente: Hornacle (Jan), Furnoss (Fev), Glaishur (Mar), Blasoom (Abr), Syncopite (Mai), Vhamp (Jun), Galvana (Jul), Scaratar (Ago), Torrt (Set), Loodvigg (Out), Attmoz (Nov), Plixie (Dez).'},
+  {section:'💰 Como Obter Skins'},
+  {name:'Loja de Diamantes',monster:'Qualquer monstro',how:'Muitas skins são vendidas diretamente com Diamantes (a moeda premium do jogo). Preços variam de 50 a 200 Diamantes.',icon:'💎',
+   details:'Diamantes são ganhos lentamente no jogo ou comprados com dinheiro real. Use com sabedoria — priorize skins de eventos limitados.'},
+  {name:'Caixas Surpresa (Chest)',monster:'Aleatório',how:'As Chests contêm itens aleatórios incluindo skins, decorações e moedas. Compradas com Diamantes. A raridade da skin determina a probabilidade.',icon:'📦',
+   details:'Há diferentes tipos de Chests com diferentes pools de itens. Verifique sempre o conteúdo possível antes de comprar uma Chest.'},
+  {name:'Recompensas de Temporada',monster:'Vários',how:'O jogo tem um sistema de recompensas por completar objetivos diários/semanais. Certas temporadas têm skins exclusivas como prêmio final.',icon:'🏆',
+   details:'Mantenha o jogo atualizado e participe dos eventos diários para acumular pontos de temporada e desbloquear skins exclusivas sem gastar Diamantes.'},
+  {name:'Eventos de Loading Screen',monster:'Monstros populares',how:'Durante eventos especiais com Loading Screens temáticas, às vezes skins são dadas de graça para todos os jogadores como presente comemorativo.',icon:'🎁',
+   details:'Fique de olho nas redes sociais oficiais do MSM (@MySingingMonsters no Instagram e Twitter) para anúncios de skins grátis.'},
+];
+
+function renderB(){
+  document.getElementById('bgrid').innerHTML=buildings.map(b=>`
+    <div class="bcard">
+      <div class="bcard-icon">${b.icon}</div>
+      <div class="bcard-name">${b.name}</div>
+      <div><span class="bcard-type" style="background:${b.typeColor}44;color:${b.typeColor === '#14532d' ? '#4ade80' : b.typeColor === '#78350f' ? '#fb923c' : b.typeColor === '#2e1065' ? '#a78bfa' : b.typeColor === '#1e3a5f' ? '#93c5fd' : b.typeColor === '#0c4a6e' ? '#38bdf8' : b.typeColor === '#451a03' ? '#fbbf24' : b.typeColor === '#7c2d12' ? '#f97316' : b.typeColor === '#3b0764' ? '#e879f9' : b.typeColor === '#4a044e' ? '#f0abfc' : b.typeColor === '#1c1238' ? '#a78bfa' : b.typeColor === '#1e293b' ? '#94a3b8' : '#f5c518'}">${b.type}</span></div>
+      <div class="bcard-desc">${b.desc}</div>
+      ${b.tip?`<div class="bcard-tip">${b.tip}</div>`:''}
+    </div>`).join('');
+}
+
+function renderS(){
+  document.getElementById('sgrid').innerHTML=skins.map(s=>
+    s.section
+      ?`<div class="sk-section-title">${s.section}</div>`
+      :`<div class="skcard">
+        <div style="font-size:2.2rem;margin-bottom:8px">${s.icon}</div>
+        <div class="skcard-name">${s.name}</div>
+        <div class="skcard-monster">🎵 ${s.monster}</div>
+        <div class="skcard-how" style="margin-bottom:6px;color:var(--text)">${s.how}</div>
+        <div class="skcard-how">${s.details}</div>
+      </div>`
+  ).join('');
+}
+
 // ── TABS / MODAL CONTROL ──────────────────────────────────────────────────────
 function showTab(t){
-  document.getElementById('m-tab').classList.toggle('active',t==='m');
-  document.getElementById('i-tab').classList.toggle('active',t==='i');
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['m','i'][i]===t));
+  ['m','i','b','s'].forEach(id=>{
+    document.getElementById(id+'-tab').classList.toggle('active',id===t);
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['m','i','b','s'][i]===t));
 }
 function stopIslAud(){
   const a=document.getElementById('isle-aud');
