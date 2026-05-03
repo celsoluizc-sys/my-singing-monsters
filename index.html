@@ -1720,10 +1720,11 @@ function renderEggs(){
     const wn=IMG_OVERRIDE[m.name]||m.name;
     return W+encodeURIComponent(wn.replace(/ /g,'_')+'-egg.png');
   };
-  // Wublins não têm ovo (são montados). Dipsters não têm ovo próprio.
+  // Wublins não têm ovo (são montados). Dipsters e Celestiais também excluídos.
   const list=monsters.filter(m=>
     !m.elements.includes('Wublin')&&
-    !m.elements.includes('Dipster')
+    !m.elements.includes('Dipster')&&
+    !m.elements.includes('Celestial')
   );
   const el=document.getElementById('sgrid');
   el.className='egrid';
