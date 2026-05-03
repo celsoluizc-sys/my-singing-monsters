@@ -628,6 +628,12 @@ const monsters=[
  hasEpic:true,epicBreed:'Disponível em eventos especiais.',
  notes:'Cantora feérica de Terra+Frio+Fada. Voz cristalina que ecoa pelas florestas de gelo encantado da Ilha das Fadas.'},
 
+{id:'bblizard',name:'bbli$zard',emoji:'🦎',elements:['Lendário'],
+ islands:['Ilha do Frio'],
+ breeding:'Thumpies + Congle na Ilha do Frio.',breedTime:'1 dia e 11 horas',
+ hasRare:false,hasEpic:false,
+ notes:'Monstro Lendário lançado em dezembro de 2025. Lagartixa-blizzard criada em colaboração com o rapper canadense bbno$. Primeiro Lendário procriável numa Ilha Natural desde Shugabush em 2013.'},
+
 // ═══ SHUGAFAM (Lendários — Ilha Shugabush) ════════════════════════════════════
 {id:'shugabush',name:'Shugabush',emoji:'🎸',elements:['Lendário'],
  islands:['Ilha Shugabush','Ilha das Plantas','Ilha de Ouro'],
@@ -1461,7 +1467,7 @@ const islands=[
 
 {id:'cold',name:'Ilha do Frio',imgFile:'Cold_Island.png',emoji:'❄️',color:'#1e3a5f',ytId:'QUnkXKJ-aO0',castle:'Castle_(Cold)',
  desc:'Coberta de neve e gelo eterno. Lar de criaturas adaptadas ao frio extremo.',
- monsters:['Mammott','Tweedle','Potbelly','Toe Jammer','Furcorn','Oaktopus','Maw','Dandidoo','Pango','Reedling','Quibble','Bowgart','Spunge','Thumpies','Deedge','Wubbox','Grumpyre','Strombonin','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Mammott','Tweedle','Potbelly','Toe Jammer','Furcorn','Oaktopus','Maw','Dandidoo','Pango','Reedling','Quibble','Bowgart','Spunge','Thumpies','Deedge','Wubbox','bbli$zard','Grumpyre','Strombonin','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
 {id:'air',name:'Ilha do Ar',imgFile:'Air_Island.png',emoji:'💨',color:'#374151',ytId:'Ncos2KQhX3s',castle:'Castle_(Air)',
  desc:'Ilha flutuante nas nuvens, habitada por criaturas do vento e do céu.',
@@ -1529,15 +1535,15 @@ const islands=[
 
 {id:'plasma-islet',name:'Isleta de Plasma',imgFile:'Plasma_Islet.png',emoji:'⚡',color:'#4c1d95',ytId:'',castle:'',
  desc:'Isleta Etérea de Plasma. Lar dos etéreos de Plasma e seus duplos/triplos, além do Primordial Lowb. Adicionada na versão 4.7.0.',
- monsters:['Ghazt','Jellbilly','Arackulele','Dragong','Yooreek','Meebkin','Auglur','Piplash','Whaill','Lowb','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Ghazt','Jellbilly','Arackulele','Dragong','Yooreek','Meebkin','Auglur','Piplash','Whaill','Lowb']},
 
 {id:'mech-islet',name:'Isleta Mecânica',imgFile:'Mech_Islet.png',emoji:'⚙️',color:'#1e3a5f',ytId:'',castle:'',
  desc:'Isleta Etérea de Meca. Lar dos etéreos de Meca e seus duplos/triplos, além do Primordial Bogle. Adicionada na versão 4.8.4.',
- monsters:['Reebro','Bellowfish','Arackulele','Kazilleon','Sox','Yooreek','Blarret','Gaddzooks','Flasque','Teeter-Tauter','Whaill','Vhenshun','Bogle','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Reebro','Bellowfish','Arackulele','Kazilleon','Sox','Yooreek','Blarret','Gaddzooks','Flasque','Teeter-Tauter','Whaill','Vhenshun','Bogle']},
 
-{id:'shadow-islet',name:'Isleta de Sombra',imgFile:'Shadow_Islet.png',emoji:'🌑',color:'#1a1a2e',ytId:'',castle:'',
+{id:'shadow-islet',name:'Isleta de Sombra',imgFile:'Shadow_Islet_Map.png',emoji:'🌑',color:'#1a1a2e',ytId:'',castle:'',
  desc:'Isleta Etérea de Sombra. Lar dos etéreos de Sombra e seus duplos/triplos, além do Primordial Fandhul. Adicionada na versão 5.2.0.',
- monsters:['Grumpyre','Kazilleon','Boodoo','Meebkin','Blarret','Nitebear','Piplash',"X'rt",'Vhenshun','Pentumbra','Fandhul','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Grumpyre','Kazilleon','Boodoo','Meebkin','Blarret','Nitebear','Piplash',"X'rt",'Vhenshun','Pentumbra','Fandhul']},
 
 {id:'seasonal',name:'Mansão Sazonal',imgFile:'Seasonal_Shanty.png',emoji:'🎉',color:'#1e1b4b',ytId:'',castle:'Castle_(Seasonal_Shanty)',
  desc:'Ilha de eventos. Todos os monstros sazonais ficam disponíveis aqui o ano todo — ao contrário de outras ilhas onde aparecem apenas em eventos.',
