@@ -77,6 +77,11 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .el-Gosma{background:#1a2e05;color:#bef264}.el-Etéreo{background:#1e1b4b;color:#c084fc}
 .el-Lendário{background:#1c1003;color:#fde68a}.el-Wublin{background:#0f1729;color:#7dd3fc}
 .el-Wubbox{background:#0a1628;color:#60a5fa}
+.el-Controle{background:#2d1b69;color:#c4b5fd}.el-Ilusão{background:#064e3b;color:#6ee7b7}
+.el-Ruína{background:#450a0a;color:#fca5a5}.el-Profundidade{background:#0c1445;color:#93c5fd}
+.el-Titansoul{background:#1c1000;color:#fcd34d}.el-Paranormal{background:#1e0a2e;color:#d8b4fe}
+.chip[data-f="Paranormal"]{border-color:#7c3aed;color:#c4b5fd}.chip[data-f="Paranormal"].on{background:#7c3aed;color:#fff}
+.chip[data-f="Titansoul"]{border-color:#d97706;color:#fcd34d}.chip[data-f="Titansoul"].on{background:#d97706;color:#fff}
 .el-Sazonal{background:#2d0518;color:#f472b6}
 .el-Fada{background:#2d0a3e;color:#f0abfc}.el-Luz{background:#1c1500;color:#fef08a}
 .el-Psíquico{background:#0c0a3e;color:#a5b4fc}.el-Osso{background:#1a1a14;color:#d4d4aa}
@@ -1625,8 +1630,9 @@ const ELEM_BG={Planta:'#052e16',Frio:'#082f49',Ar:'#1f2937',Água:'#082f49',Terr
   Fogo:'#1c0505',Plasma:'#1e1b4b',Sombra:'#0f0f1a',Meca:'#1a2a1a',Cristal:'#083344',
   Gosma:'#1a2e05',Etéreo:'#1e1b4b',Lendário:'#1c1003',Wublin:'#0f1729',Sazonal:'#2d0518',
   Fada:'#2d0a3e',Luz:'#1c1500',Psíquico:'#0c0a3e',Osso:'#1a1a14',
-  Mítico:'#12001c',Sonho:'#0a0a2e',Dipster:'#1a0a2e',Celestial:'#050520'};
+  Mítico:'#12001c',Sonho:'#0a0a2e',Dipster:'#1a0a2e',Celestial:'#050520',Controle:'#2d1b69',Ilusão:'#064e3b',Ruína:'#450a0a',Profundidade:'#0c1445',Titansoul:'#1c1000'};
 
+const PARANORMAL_ELS=['Controle','Ilusão','Ruína','Profundidade'];
 let activeFilter='all';
 
 function renderM(){
@@ -1637,7 +1643,8 @@ function renderM(){
     const mq=!q||m.name.toLowerCase().includes(q)||dn.includes(q)||m.elements.some(e=>e.toLowerCase().includes(q));
     const mf=activeFilter==='all'
       ||(activeFilter==='Etéreo' && m.elements.some(e=>ETHEREAL_ELS.includes(e)))
-      ||(activeFilter!=='Etéreo' && m.elements.includes(activeFilter));
+      ||(activeFilter==='Paranormal' && m.elements.some(e=>PARANORMAL_ELS.includes(e)))
+      ||(activeFilter!=='Etéreo'&&activeFilter!=='Paranormal' && m.elements.includes(activeFilter));
     return mq&&mf;
   });
   grid.innerHTML=list.length?list.map(m=>{
@@ -1661,7 +1668,7 @@ function renderFilters(){
     {f:'Fada',l:'🧚 Fada'},{f:'Luz',l:'✨ Luz'},
     {f:'Psíquico',l:'🔮 Psíquico'},{f:'Osso',l:'💀 Osso'},
     {f:'Mítico',l:'🌟 Míticos'},{f:'Sonho',l:'💫 Sonho'},
-    {f:'Lendário',l:'🎸 Shugafam'},{f:'Wublin',l:'⚙️ Wublins'},{f:'Wubbox',l:'📦 Wubbox'},{f:'Sazonal',l:'🎉 Sazonais'},{f:'Dipster',l:'🎵 Dipsters'},{f:'Celestial',l:'🌙 Celestiais'}
+    {f:'Lendário',l:'🎸 Lendários'},{f:'Wublin',l:'⚙️ Wublins'},{f:'Wubbox',l:'📦 Wubbox'},{f:'Sazonal',l:'🎉 Sazonais'},{f:'Dipster',l:'🎵 Dipsters'},{f:'Celestial',l:'🌙 Celestiais'},{f:'Titansoul',l:'⚡ Titansouls'},{f:'Paranormal',l:'👁️ Paranormais'}
   ];
   document.getElementById('filterBar').innerHTML=opts.map(o=>
     `<button class="chip${activeFilter===o.f?' on':''}" data-f="${o.f}" onclick="setF('${o.f}')">${o.l}</button>`
