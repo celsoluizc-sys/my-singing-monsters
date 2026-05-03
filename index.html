@@ -158,8 +158,16 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .skcard-monster{font-size:.75rem;color:var(--purple2);margin-bottom:6px}
 .skcard-how{font-size:.74rem;color:var(--dim);line-height:1.5}
 .sk-section-title{grid-column:1/-1;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--purple2);padding:6px 0 2px;border-bottom:1px solid var(--card2);margin-bottom:4px}
+.forms-row.two-col{grid-template-columns:repeat(2,1fr);max-width:340px;margin:0 auto}
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}
+.egg-card{background:var(--card);border-radius:12px;padding:10px 6px 8px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.egg-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.egg-img{width:62px;height:62px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.egg-img img{width:100%;height:100%;object-fit:contain}
+.egg-img .fb{font-size:2rem;display:none}
+.egg-name{font-size:.67rem;font-weight:700;color:var(--gold2);line-height:1.2}
 
-@media(max-width:540px){.logo{font-size:1.4rem}.forms-row{grid-template-columns:1fr}.forms-row.quad{grid-template-columns:repeat(2,1fr)}.mgrid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr))}.bgrid,.sgrid{grid-template-columns:1fr}}
+@media(max-width:540px){.logo{font-size:1.4rem}.forms-row{grid-template-columns:1fr}.forms-row.quad{grid-template-columns:repeat(2,1fr)}.mgrid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr))}.bgrid,.sgrid{grid-template-columns:1fr}.egrid{grid-template-columns:repeat(auto-fill,minmax(72px,1fr))}}
 </style>
 </head>
 <body>
@@ -170,7 +178,7 @@ header::before{content:'';position:absolute;inset:0;background:radial-gradient(e
   <button class="tab-btn active" onclick="showTab('m')">🐾 Monstros</button>
   <button class="tab-btn" onclick="showTab('i')">🏝️ Ilhas</button>
   <button class="tab-btn" onclick="showTab('b')">🏗️ Construções</button>
-  <button class="tab-btn" onclick="showTab('s')">👗 Skins</button>
+  <button class="tab-btn" onclick="showTab('s')">🥚 Ovos</button>
 </nav>
 <div id="m-tab" class="tab-content active">
   <div class="search-row"><input id="q" type="text" placeholder="🔍  Buscar monstro…" oninput="renderM()"></div>
