@@ -234,6 +234,22 @@ function iImgTag(isl){
 function imgTag(src,fb,cls=''){
   return `<img src="${src}" alt="" loading="lazy" class="${cls}" onerror="this.style.display='none';this.nextSibling.style.display='block'"><span class="fb" style="display:none">${fb}</span>`;
 }
+// Minor-form img: tries {Name}_Minor.png first, then Minor_{Name}.png, then shows emoji
+function imgTagMinor(n){
+  const s1=W+encodeURIComponent(n.replace(/ /g,'_')+'_Minor.png');
+  const s2=W+encodeURIComponent('Minor_'+n.replace(/ /g,'_')+'.png');
+  return `<img src="${s1}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){this.style.display='none';this.nextSibling.style.display='block'}"><span class="fb" style="display:none">🌑</span>`;
+}
+// Island img: tries primary imgFile, then imgFileAlt, then emoji
+function iImgTagForIsl(isl){
+  const s1=iImg(isl.imgFile);
+  const s2=isl.imgFileAlt?iImg(isl.imgFileAlt):'';
+  const fb=isl.emoji;
+  if(s2){
+    return `<img src="${s1}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){this.style.display='none';this.nextSibling.style.display='block'}"><span class="fb" style="display:none">${fb}</span>`;
+  }
+  return imgTag(s1,fb);
+}
 
 // Ethereal elements (all classified as "Etéreo" for filtering)
 const ETHEREAL_ELS=['Etéreo','Plasma','Sombra','Meca','Cristal','Gosma'];
@@ -1853,7 +1869,7 @@ function openM(id){
     <div class="fbreed">Forma Maior — aparece no Carnaval Paranormal durante o dia.</div></div>`;
 
   const minorCard=`<div class="fcard rare"><div class="fbadge">🌑 Menor</div>
-    <div class="fimg">${imgTag(minorImg(m.name),'🌑')}</div>
+    <div class="fimg">${imgTagMinor(m.name)}</div>
     <div class="fbreed">Forma Menor — aparece no Carnaval Paranormal à noite. Design e som alternativos.</div></div>`;
 
   let formsContent, formsClass;
