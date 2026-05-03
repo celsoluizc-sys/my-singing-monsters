@@ -1682,12 +1682,19 @@ const ADULT_SHOWCASE=[
   {name:'Attmoz',e:'🌫️',m:'Novembro'},{name:'Plixie',e:'✨',m:'Dezembro'},
 ];
 
+function bImgHtml(file,fb){
+  const src=W+encodeURIComponent(file);
+  return `<img src="${src}" alt="${fb}" loading="lazy"
+    style="width:100%;height:100%;object-fit:contain;padding:6px"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;font-size:2rem;line-height:72px;text-align:center;width:100%">${fb}</span>`;
+}
 function renderB(){
   document.getElementById('bgrid').innerHTML=buildings.map(b=>`
     <div class="bcard">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
         <div style="width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0;background:var(--card2);display:flex;align-items:center;justify-content:center">
-          ${imgTag(W+encodeURIComponent(b.img),'🏗️','')}</div>
+          ${bImgHtml(b.img,'🏗️')}</div>
         <div>
           <div class="bcard-name" style="margin-bottom:4px">${b.name}</div>
           <span class="bcard-type" style="background:${b.tc}22;color:${b.tc};border:1px solid ${b.tc}44">${b.type}</span>
@@ -1743,9 +1750,9 @@ function showTab(t){
 function stopIslAud(){
   const a=document.getElementById('isle-aud');
   if(a){a.pause();a.currentTime=0;}
-  // Also stop any YT iframe by removing its src (forces stop)
-  const fr=document.querySelector('#iMod iframe');
-  if(fr){const s=fr.src;fr.src='';fr.src=s;}
+  // Stop sandboxed YT iframe by blanking its src, then restoring (stops audio)
+  const fr=document.querySelector('#iMod iframe[sandbox]');
+  if(fr){const s=fr.src;fr.src='about:blank';setTimeout(()=>{fr.src=s;},50);}
 }
 function cls(id,e){
   if(!e||e.target.classList.contains('overlay')){
