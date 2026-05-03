@@ -1448,6 +1448,60 @@ const islands=[
  monsters:['Floot Fly','Larvaluss','Frondley','Bridg-it','Cantorell','Mushaboom','Clavi Gnat','Fluoress','Gob','Bulbo','Pluckbill','TooToo','Spytrap','Fiddlement',"Blow't",'Theremind','Boskus','Sooza','Flowah','Bisonorus','Clackula','Yelmut','Tiawa','Drummidary','Incisaur']},
 ];
 
+// ── NOMES EM PORTUGUÊS ────────────────────────────────────────────────────────
+// Nomes usados pela comunidade brasileira; para os demais o nome em inglês é mantido
+const PT={
+  // Naturais simples
+  'Noggin':'Noggin','Mammott':'Mamute','Toe Jammer':'Dedão','Tweedle':'Trinador',
+  'Potbelly':'Barrigudo','Furcorn':'Furcorn','Kayna':'Kayna',
+  // Naturais duplos
+  'Bowgart':'Bowgart','Maw':'Bocarra','T-Rox':'T-Rox','Clamble':'Clamble',
+  'Pummel':'Soquete','Scups':'Escama','Pango':'Pango','Cybop':'Cybop',
+  'Dandidoo':'Dandidoo','Quibble':'Quibble','Riff':'Riff',
+  'Spunge':'Bucha','Fwog':'Sapo','Oaktopus':'Polvoquero','Shellbeat':'Conchadeira',
+  // Naturais triplos
+  'Entbrat':'Entbrat','Reedling':'Reedling','Congle':'Congle','PomPom':'PomPom',
+  'Thumpies':'Thumpies','Quarrister':'Quarrister',
+  // Etéreos
+  'Ghazt':'Ghazt','Grumpyre':'Grumpyre','Reebro':'Reebro','Jeeode':'Jeeode',
+  'Humbug':'Humbug','Yooreek':'Yooreek',
+  // Sazonais
+  'Yool':'Yool','Punkleton':'Punkleton','Schmoochle':'Schmoochle',
+  'Blabbit':'Coelhinho','Hoola':'Hoola','Gobbleygourd':'Cabaça',
+  'Carillong':'Carilhão','Clavavera':'Clavavera','Viveine':'Viveine',
+  'Jam Boree':'Jam Boree','Ffidyll':'Ffidyll',
+  // Lendários / Shugafam
+  'Shugabush':'Shugabush',
+  // Wublins
+  'Boodoo':'Boodoo','Bellowfish':'Peflofante','Brump':'Brump','Poewk':'Poewk',
+  'Dwumrohl':'Dwumrohl','Zuffle':'Zuffle','Tympa':'Tympa','Screemu':'Screemu',
+  'Whajje':'Whajje','Creepuscule':'Creepúsculo','Windbag':'Saco-de-Vento',
+  'Attacco':'Attacco','Dermit':'Dermit','Banjaw':'Banjaw','Flum\'oxus':"Flum'oxus",
+  // Fogo
+  'Stogg':'Stogg','Glowl':'Glowl','Repatillo':'Repatilo','Floogull':'Floogull',
+  'Barrb':'Barrb','Woolabee':'Woolabee','Ziggurab':'Ziggurab','Candelavra':'Candelavra',
+  'Buzzinga':'Buzzinga','Phangler':'Phangler','Yelmut':'Yelmut','Incisaur':'Incisaur',
+  // Mágicos
+  'Floot Fly':'Floot Fly','Fluoress':'Fluoress','Theremind':'Theremind',
+  'Clackula':'Clackula','Cahoot':'Cahoot','Roarick':'Roarick',
+  'Knucklehead':'Cabeçada','Déjà-Jin':'Déjà-Jin',
+  // Míticos
+  "G'joob":"G'joob",'Strombonin':'Strombonin','Yawstrich':'Yawstrich',
+  'Anglow':'Anglow','Hyehehe':'Hyehehe','Cataliszt':'Cataliszt',
+  'Bleatnik':'Bleatnik','Cranchee':'Cranchee','Sporerow':'Sporerow',
+  'Pinghound':'Cão-Latido','Wheezel':'Wheezel','Knurv':'Knurv',
+  'shLep':'shLep','Cherubble':'Cherubble',
+  // Quíntuplos
+  'Tuskski':'Tuskski','Gnarls':'Gnarls','Bowhead':'Bowhead','Mimic':'Mímico',
+  // Celestiais
+  'Hornacle':'Hornacle','Furnoss':'Furnoss','Glaishur':'Glaishur',
+  'Blasoom':'Blasoom','Syncopite':'Syncopite','Vhamp':'Vhamp',
+  'Galvana':'Galvana','Scaratar':'Scaratar','Torrt':'Torrt',
+  'Loodvigg':'Loodvigg','Attmoz':'Attmoz','Plixie':'Plixie',
+};
+// Retorna o nome em PT se disponível, senão o nome original
+const ptName=n=>PT[n]||n;
+
 // ── RENDER MONSTERS ──────────────────────────────────────────────────────────
 const ELEM_BG={Planta:'#052e16',Frio:'#082f49',Ar:'#1f2937',Água:'#082f49',Terra:'#1c0a00',
   Fogo:'#1c0505',Plasma:'#1e1b4b',Sombra:'#0f0f1a',Meca:'#1a2a1a',Cristal:'#083344',
