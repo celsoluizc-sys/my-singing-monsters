@@ -1615,12 +1615,14 @@ function openM(id){
 
   const breedHtml=m.breeding.replace(/\n/g,'<br>');
 
+  const dn=ptName(m.name);
   document.getElementById('mMod').innerHTML=`
     <button class="mcls" onclick="cls('mOv')">✕</button>
     <div class="mhdr">
       <div class="mhdr-img">${imgTag(mImg(m.name),m.emoji)}</div>
       <div>
-        <div class="mhdr-title">${m.name}</div>
+        <div class="mhdr-title">${dn}</div>
+        ${dn!==m.name?`<div style="font-size:.78rem;color:var(--dim);margin-top:1px">${m.name}</div>`:''}
         <div style="margin-top:5px">${tags}</div>
         ${m.breedTime?`<div style="margin-top:4px;font-size:.76rem;color:var(--dim)">⏱ Tempo: <strong style="color:var(--text)">${m.breedTime}</strong></div>`:''}
         ${m.notes?`<div style="margin-top:4px;font-size:.74rem;color:var(--dim)">${m.notes}</div>`:''}
@@ -1772,7 +1774,7 @@ function renderEggs(){
           onerror="this.style.display='none';this.nextSibling.style.display='block'">
         <span class="fb" style="display:none">${m.emoji}</span>
       </div>
-      <div class="egg-name">${m.name}</div>
+      <div class="egg-name">${ptName(m.name)}</div>
     </div>`).join('');
 }
 
