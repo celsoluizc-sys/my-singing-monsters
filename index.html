@@ -216,6 +216,7 @@ const IMG_OVERRIDE={
 };
 const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+encodeURIComponent(wn.replace(/ /g,'_')+'.png');};
 const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
+const minorImg=n=>W+encodeURIComponent('Minor_'+n.replace(/ /g,'_')+'.png');
 const eImg=n=>W+encodeURIComponent('Epic_'+n.replace(/ /g,'_')+'.png');
 const aImg=n=>W+encodeURIComponent('Adult_'+n.replace(/ /g,'_')+'.png');
 const iImg=f=>W+encodeURIComponent(f);
@@ -1661,7 +1662,7 @@ const islands=[
  desc:'Isleta Etérea de Meca. Lar dos etéreos de Meca e seus duplos/triplos, além do Primordial Bogle. Adicionada na versão 4.8.4.',
  monsters:['Reebro','Bellowfish','Arackulele','Kazilleon','Sox','Yooreek','Blarret','Gaddzooks','Flasque','Teeter-Tauter','Whaill','Vhenshun','Bogle']},
 
-{id:'shadow-islet',name:'Isleta de Sombra',imgFile:'Shadow_Islet_Map.png',emoji:'🌑',color:'#1a1a2e',ytId:'',castle:'',
+{id:'shadow-islet',name:'Isleta de Sombra',imgFile:'Shadow_Islet.png',emoji:'🌑',color:'#1a1a2e',ytId:'',castle:'',
  desc:'Isleta Etérea de Sombra. Lar dos etéreos de Sombra e seus duplos/triplos, além do Primordial Fandhul. Adicionada na versão 5.2.0.',
  monsters:['Grumpyre','Kazilleon','Boodoo','Meebkin','Blarret','Nitebear','Piplash',"X'rt",'Vhenshun','Pentumbra','Fandhul']},
 
@@ -1844,9 +1845,22 @@ function openM(id){
       <div class="fbreed">Forma adulta — desperta após acumular Ambrosia suficiente na Ilha Celestial.</div></div>`
     :'';
 
-  // Celestiais só têm forma Base e Adulta (sem Raro/Épico)
+  // Paranormais têm Forma Maior e Menor; Celestiais têm Base+Adulto
+  const isParanormal=m.elements.some(e=>PARANORMAL_ELS.includes(e));
+
+  const majorCard=`<div class="fcard base"><div class="fbadge">🎭 Maior</div>
+    <div class="fimg">${imgTag(mImg(m.name),m.emoji)}</div>
+    <div class="fbreed">Forma Maior — aparece no Carnaval Paranormal durante o dia.</div></div>`;
+
+  const minorCard=`<div class="fcard rare"><div class="fbadge">🌑 Menor</div>
+    <div class="fimg">${imgTag(minorImg(m.name),'🌑')}</div>
+    <div class="fbreed">Forma Menor — aparece no Carnaval Paranormal à noite. Design e som alternativos.</div></div>`;
+
   let formsContent, formsClass;
-  if(isCelestial){
+  if(isParanormal){
+    formsContent=majorCard+minorCard;
+    formsClass='forms-row two-col';
+  }else if(isCelestial){
     formsContent=baseCard+adultCard;
     formsClass='forms-row two-col';
   }else if(hasAdult){
