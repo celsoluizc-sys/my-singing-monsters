@@ -1591,37 +1591,16 @@ function openI(id){
       }).join('')
     :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
 
-  // Music: castle jingle SEMPRE disponível via wiki + YouTube façade opcional
+  // Música: apenas o jingle do castelo via wiki (YouTube desativou embedding = erro 153)
   const castleBase=isl.castle?`${W}${isl.castle.replace(/ /g,'_')}`:null;
-
-  // Jingle do castelo — áudio direto da wiki, sempre funciona
-  const castleAud=castleBase
-    ?`<div style="margin-bottom:4px;font-size:.68rem;color:var(--dim)">🔔 Jingle do castelo:</div>
-      <audio id="isle-aud" controls preload="none"
-        style="width:100%;border-radius:10px;accent-color:var(--gold)">
-        <source src="${castleBase}.mp3" type="audio/mpeg">
-        <source src="${castleBase}.ogg" type="audio/ogg">
-      </audio>`
-    :'';
-
-  // Música completa — façade: thumbnail + ▶; iframe SEM sandbox para máxima compatibilidade.
-  // Clicar no título do player dentro do vídeo pode abrir nova aba — comportamento normal de embed.
-  const ytEmbed=isl.ytId
-    ?`<div style="margin-top:${castleBase?'12':'0'}px;margin-bottom:4px;font-size:.68rem;color:var(--dim)">🎵 Música completa — toque ▶ para ouvir aqui mesmo:</div>
-      <div id="ytf-${isl.id}"
-        style="position:relative;border-radius:12px;overflow:hidden;cursor:pointer;background:#000;width:100%;padding-top:56.25%"
-        onclick="loadYtIframe(this,'${isl.ytId}')">
-        <img src="https://img.youtube.com/vi/${isl.ytId}/hqdefault.jpg"
-          alt="Toque para ouvir"
-          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)">
-          <div style="width:64px;height:64px;background:rgba(200,0,0,.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;color:#fff;box-shadow:0 4px 20px rgba(0,0,0,.6);pointer-events:none">▶</div>
-        </div>
+  const musicHtml=castleBase
+    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
+        <audio id="isle-aud" controls preload="none"
+          style="width:100%;border-radius:10px;accent-color:var(--gold)">
+          <source src="${castleBase}.mp3" type="audio/mpeg">
+          <source src="${castleBase}.ogg" type="audio/ogg">
+        </audio>
       </div>`
-    :'';
-
-  const musicHtml=(castleBase||isl.ytId)
-    ?`<div class="msec"><h3>🎵 Música da ilha</h3>${castleAud}${ytEmbed}</div>`
     :'';
 
   document.getElementById('iMod').innerHTML=`
