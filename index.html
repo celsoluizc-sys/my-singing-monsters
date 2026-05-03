@@ -480,11 +480,96 @@ const monsters=[
  hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
  hasEpic:false,notes:'Nebulosa cósmica que combina todos os elementos etéreos.'},
 
+
+// ═══ ETÉREOS DUPLOS ═══════════════════════════════════════════════════════════
+{id:'bellowfish',name:'Bellowfish',emoji:'🐡',elements:['Meca','Cristal'],
+ islands:['Ilha Etérea','Isleta Mecânica'],
+ breeding:'Reebro + Jeeode na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Reebro + Jeeode durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Meca+Cristal. Peixe-balão mecânico que ressoa com sons cristalinos.'},
+
+{id:'jellbilly',name:'Jellbilly',emoji:'🫧',elements:['Plasma','Cristal'],
+ islands:['Ilha Etérea','Isleta de Plasma'],
+ breeding:'Ghazt + Jeeode na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Ghazt + Jeeode durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Plasma+Cristal. Medusa de Plasma que ecoa com timbres de cristal etéreo.'},
+
+{id:'arackulele',name:'Arackulele',emoji:'🕷️',elements:['Plasma','Meca'],
+ islands:['Ilha Etérea','Isleta de Plasma','Isleta Mecânica'],
+ breeding:'Ghazt + Reebro na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Ghazt + Reebro durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Plasma+Meca. Aranha mecânica de Plasma que toca como um ukulele.'},
+
+{id:'kazilleon',name:'Kazilleon',emoji:'🦎',elements:['Sombra','Meca'],
+ islands:['Ilha Etérea','Isleta Mecânica','Isleta de Sombra'],
+ breeding:'Grumpyre + Reebro na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Grumpyre + Reebro durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Sombra+Meca. Camaleão mecânico das sombras que emite acordes metálicos sombrios.'},
+
+{id:'sox',name:'Sox',emoji:'🧦',elements:['Meca','Gosma'],
+ islands:['Ilha Etérea','Isleta Mecânica'],
+ breeding:'Reebro + Humbug na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Reebro + Humbug durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Meca+Gosma. Mecanismo viscoso que produz sons estranhos e grudados.'},
+
+{id:'dragong',name:'Dragong',emoji:'🐉',elements:['Plasma','Gosma'],
+ islands:['Ilha Etérea','Isleta de Plasma'],
+ breeding:'Ghazt + Humbug na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Ghazt + Humbug durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Plasma+Gosma. Dragão plasmático que cospe melodias viscosas e espectrais.'},
+
+{id:'boodoo',name:'Boodoo',emoji:'🪆',elements:['Sombra','Cristal'],
+ islands:['Ilha Etérea','Isleta de Sombra'],
+ breeding:'Grumpyre + Jeeode na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Grumpyre + Jeeode durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Sombra+Cristal. Boneco vodu cristalino que entoa cantos sombrios.'},
+
+{id:'fung-pray',name:'Fung Pray',emoji:'🍄',elements:['Cristal','Gosma'],
+ islands:['Ilha Etérea'],
+ breeding:'Jeeode + Humbug na Ilha Etérea. Chance muito baixa (~1%).',breedTime:'36 horas (se bem-sucedido)',
+ hasRare:true,rareBreed:'Jeeode + Humbug durante evento de Raridade.',
+ hasEpic:true,epicBreed:'Disponível em eventos especiais.',
+ notes:'Etéreo duplo Cristal+Gosma. Fungo cristalino que medita e emite tons de campanula etérea.'},
+
 {id:'whisp',name:'Whisp',emoji:'💫',elements:['Plasma','Sombra'],
  islands:['Ilha Etérea','Ilha do Ar'],
  breeding:`Combine Ghazt + Grumpyre na Ilha Etérea.\nChance muito baixa.`,breedTime:'36 horas (se bem-sucedido)',
  hasRare:true,rareBreed:'Ghazt + Grumpyre durante evento de Raridade.',
  hasEpic:false,notes:'Fogo-fátuo espectral que combina Plasma e Sombra em trilhas fantasmagóricas.'},
+
+
+// ═══ PRIMORDIAIS (Isletas Etéreas) ════════════════════════════════════════════
+{id:'lowb',name:'Lowb',emoji:'🌱',elements:['Planta'],
+ islands:['Isleta de Plasma'],
+ breeding:'Não pode ser procriado. Obtido ao completar objetivos na Isleta de Plasma.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Primordial do elemento Planta. Habita a Isleta de Plasma e projeta felicidade para todos os monstros do mesmo tipo de qualquer lugar da isleta — similar à Árvore da Unidade.'},
+
+{id:'bogle',name:'Bogle',emoji:'🌬️',elements:['Ar'],
+ islands:['Isleta Mecânica'],
+ breeding:'Não pode ser procriado. Obtido ao completar objetivos na Isleta Mecânica.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Primordial do elemento Ar. Habita a Isleta Mecânica e projeta felicidade para todos os monstros do mesmo tipo de qualquer lugar da isleta.'},
+
+{id:'fandhul',name:'Fandhul',emoji:'❄️',elements:['Frio'],
+ islands:['Isleta de Sombra'],
+ breeding:'Não pode ser procriado. Obtido ao completar objetivos na Isleta de Sombra.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Primordial do elemento Frio. Habita a Isleta de Sombra e projeta felicidade para todos os monstros do mesmo tipo de qualquer lugar da isleta.'},
+
+// ═══ LENDÁRIO 5.4.0 ═══════════════════════════════════════════════════════════
+{id:'t-pirainha',name:'T-Pirainha',emoji:'🎤',elements:['Lendário'],
+ islands:['Ilha da Água'],
+ breeding:'Não pode ser procriado. Obtido exclusivamente como recompensa do Ato "Waveform" no Clubbox. Lançado na versão 5.4.0 em colaboração com o rapper T-Pain.',breedTime:null,
+ hasRare:false,hasEpic:false,
+ notes:'Monstro Lendário lançado na versão 5.4.0 (abril 2026). Pirainha rapper criada em colaboração com T-Pain, exclusiva do Clubbox.'},
 
 // ═══ FOGO ══════════════════════════════════════════════════════════════════════
 {id:'kayna',name:'Kayna',emoji:'🔥',elements:['Fogo'],
@@ -1162,6 +1247,19 @@ const monsters=[
  hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
  hasEpic:false,notes:'Etéreo triplo — Wave 3 do Ateliê. Criatura aquática de Plasma, Sombra e Cristal.'},
 
+
+{id:'xrt',name:"X'rt",emoji:'❌',elements:['Sombra','Cristal','Gosma'],
+ islands:['Ateliê Etéreo','Isleta de Sombra'],
+ breeding:'Combinação de 3 Meebs (Shadow + Crystal + Poison) no Sintetizador do Ateliê Etéreo.',breedTime:'30 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 4 do Ateliê. Criatura de Sombra, Cristal e Gosma que emite sons alienígenas.'},
+
+{id:'teeter-tauter',name:'Teeter-Tauter',emoji:'⚖️',elements:['Meca','Cristal','Gosma'],
+ islands:['Ateliê Etéreo','Isleta Mecânica'],
+ breeding:'Combinação de 3 Meebs (Mech + Crystal + Poison) no Sintetizador do Ateliê Etéreo. Taxa de sucesso mais baixa de todos os etéreos triplos.',breedTime:'30 horas',
+ hasRare:true,rareBreed:'Combos de etéreos durante evento de Raridade.',
+ hasEpic:false,notes:'Etéreo triplo — Wave 5 do Ateliê. O último e mais instável dos etéreos triplos. Gangorra Meca+Cristal+Gosma.'},
+
 {id:'whaill',name:'Whaill',emoji:'🐋',elements:['Plasma','Sombra','Meca','Cristal'],
  islands:['Ateliê Etéreo'],
  breeding:'Combinação de quatro etéreos no Ateliê Etéreo.',breedTime:'48–72 horas',
@@ -1371,7 +1469,7 @@ const islands=[
 
 {id:'water',name:'Ilha da Água',imgFile:'Water_Island.png',emoji:'🌊',color:'#164e63',ytId:'no0Ksnf5Eqw',castle:'Castle_(Water)',
  desc:'Recife tropical com criaturas aquáticas e das profundezas marinhas.',
- monsters:['Toe Jammer','Tweedle','Potbelly','Noggin','Oaktopus','Fwog','Shrubb','Dandidoo','Cybop','Reedling','PomPom','Spunge','Shellbeat','Scups','Wubbox','Jeeode','Anglow','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Toe Jammer','Tweedle','Potbelly','Noggin','Oaktopus','Fwog','Shrubb','Dandidoo','Cybop','Reedling','PomPom','Spunge','Shellbeat','Scups','Wubbox','T-Pirainha','Jeeode','Anglow','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
 {id:'earth',name:'Ilha da Terra',imgFile:'Earth_Island.png',emoji:'⛰️',color:'#451a03',ytId:'AfmckwTkiJs',castle:'Castle_(Earth)',
  desc:'Ilha vulcânica de penhascos e grutas onde ressoam as batidas mais pesadas.',
@@ -1383,7 +1481,7 @@ const islands=[
 
 {id:'ethereal',name:'Ilha Etérea',imgFile:'Ethereal_Island.png',emoji:'👻',color:'#2e1065',ytId:'',castle:'Castle_(Ethereal)',
  desc:'Dimensão mística acessível por portal. Lar dos raríssimos monstros etéreos.',
- monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Nebulob','Whisp','Wubbox','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+ monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Nebulob','Whisp','Bellowfish','Jellbilly','Arackulele','Kazilleon','Sox','Dragong','Boodoo','Fung Pray','Wubbox','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
 {id:'shugabush',name:'Ilha Shugabush',imgFile:'Shugabush_Island.png',emoji:'🎸',color:'#365314',ytId:'',castle:'',
  desc:'Ilha secreta de música country, acessível levando o Shugabush da Ilha das Plantas.',
@@ -1429,6 +1527,18 @@ const islands=[
  desc:'Ilha pré-histórica encrustada em âmbar com criaturas ancestrais únicas.',
  monsters:['Kayna','Stogg','Glowl','Repatillo','Floogull','Barrb','Woolabee','Ziggurab','Phangler','Yelmut','Incisaur','Bisonorus','Tuskski','Gnarls','Bowhead','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
 
+{id:'plasma-islet',name:'Isleta de Plasma',imgFile:'Plasma_Islet.png',emoji:'⚡',color:'#4c1d95',ytId:'',castle:'',
+ desc:'Isleta Etérea de Plasma. Lar dos etéreos de Plasma e seus duplos/triplos, além do Primordial Lowb. Adicionada na versão 4.7.0.',
+ monsters:['Ghazt','Jellbilly','Arackulele','Dragong','Yooreek','Meebkin','Auglur','Piplash','Whaill','Lowb','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'mech-islet',name:'Isleta Mecânica',imgFile:'Mech_Islet.png',emoji:'⚙️',color:'#1e3a5f',ytId:'',castle:'',
+ desc:'Isleta Etérea de Meca. Lar dos etéreos de Meca e seus duplos/triplos, além do Primordial Bogle. Adicionada na versão 4.8.4.',
+ monsters:['Reebro','Bellowfish','Arackulele','Kazilleon','Sox','Yooreek','Blarret','Gaddzooks','Flasque','Teeter-Tauter','Whaill','Vhenshun','Bogle','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
+{id:'shadow-islet',name:'Isleta de Sombra',imgFile:'Shadow_Islet.png',emoji:'🌑',color:'#1a1a2e',ytId:'',castle:'',
+ desc:'Isleta Etérea de Sombra. Lar dos etéreos de Sombra e seus duplos/triplos, além do Primordial Fandhul. Adicionada na versão 5.2.0.',
+ monsters:['Grumpyre','Kazilleon','Boodoo','Meebkin','Blarret','Nitebear','Piplash',"X'rt",'Vhenshun','Pentumbra','Fandhul','Dipster Dó','Dipster Ré','Dipster Mi','Dipster Fá','Dipster Sol','Dipster Lá','Dipster Ti']},
+
 {id:'seasonal',name:'Mansão Sazonal',imgFile:'Seasonal_Shanty.png',emoji:'🎉',color:'#1e1b4b',ytId:'',castle:'Castle_(Seasonal_Shanty)',
  desc:'Ilha de eventos. Todos os monstros sazonais ficam disponíveis aqui o ano todo — ao contrário de outras ilhas onde aparecem apenas em eventos.',
  monsters:['Yool','Punkleton','Schmoochle','Blabbit','Hoola','Gobbleygourd','Clavavera','Viveine','Carillong','Jam Boree','Whiz-bang','Ffidyll',"Boo'qwurm"]},
@@ -1443,7 +1553,7 @@ const islands=[
 
 {id:'ethereal-workshop',name:'Ateliê Etéreo',imgFile:'Ethereal_Workshop.png',emoji:'🔬',color:'#1e1b4b',ytId:'',castle:'Castle_(Ethereal_Workshop)',
  desc:'Ilha exclusiva para etéreos de múltiplos elementos. Adicionada na versão 4.1.0. Etéreos simples se combinam aqui para criar criaturas triplas, quádruplas e quíntuplas inéditas.',
- monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Yooreek','Meebkin','Blarret','Gaddzooks','Auglur','Flasque','Nitebear','Piplash','Whaill','Vhenshun','Pentumbra']},
+ monsters:['Ghazt','Grumpyre','Reebro','Jeeode','Humbug','Yooreek','Meebkin','Blarret','Gaddzooks','Auglur','Flasque','Nitebear','Piplash',"X'rt",'Teeter-Tauter','Whaill','Vhenshun','Pentumbra']},
 
 {id:'magical-nexus',name:'Nexo Mágico',imgFile:'Magical_Nexus.png',emoji:'🌐',color:'#1a0533',ytId:'',castle:'Castle_(Magical_Nexus)',
  desc:'Desbloqueado no nível 18. Recebe todos os monstros mágicos (Fada, Luz, Psíquico, Osso) transpostos de suas ilhas ao nível 18. Similar à Ilha de Ouro, mas para monstros mágicos.',
