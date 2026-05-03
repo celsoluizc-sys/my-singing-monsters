@@ -1729,43 +1729,29 @@ function renderB(){
     </div>`).join('');
 }
 
-function skCard(name,e,imgFn,label,labelColor,sub){
-  const imgUrl=imgFn(name);
-  return `<div class="skcard" style="border-color:${labelColor}55">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <div style="width:60px;height:60px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--card2);border:2px solid ${labelColor}">
-        <img src="${imgUrl}" alt="${e}" loading="lazy"
-          style="width:100%;height:100%;object-fit:cover;display:block"
-          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=\\'font-size:1.5rem;display:flex;align-items:center;justify-content:center;width:100%;height:100%\\'>${e}</span>')"
-        ></div>
-      <div>
-        <div class="skcard-name">${name}</div>
-        <div style="font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:${labelColor}">${label}</div>
-        ${sub?`<div style="font-size:.68rem;color:var(--dim);margin-top:2px">${sub}</div>`:''}
+function renderEggs(){
+  // URL do ovo: NomeMonstro_Egg.png na wiki do MSM
+  const eggUrl=m=>{
+    const wn=IMG_OVERRIDE[m.name]||m.name;
+    return W+wn.replace(/ /g,'_')+'_Egg.png';
+  };
+  // Wublins não têm ovo (são montados). Dipsters não têm ovo próprio.
+  const list=monsters.filter(m=>
+    !m.elements.includes('Wublin')&&
+    !m.elements.includes('Dipster')
+  );
+  const el=document.getElementById('sgrid');
+  el.className='egrid';
+  el.innerHTML=list.map(m=>`
+    <div class="egg-card" onclick="openM('${m.id}')">
+      <div class="egg-img">
+        <img src="${eggUrl(m)}" alt="${m.emoji}" loading="lazy"
+          style="width:100%;height:100%;object-fit:contain"
+          onerror="this.style.display='none';this.nextSibling.style.display='block'">
+        <span class="fb" style="display:none">${m.emoji}</span>
       </div>
-    </div>
-  </div>`;
-}
-
-function renderS(){
-  const rSection=`<div class="sk-section-title">💎 Formas Raras — ${RARE_SHOWCASE.length} monstros com versão Rara</div>`
-    +RARE_SHOWCASE.map(x=>skCard(x.name,x.e,rImg,'💎 Raro','#38bdf8','')).join('');
-  const eSection=`<div class="sk-section-title">🔥 Formas Épicas — disponíveis em eventos especiais</div>`
-    +EPIC_SHOWCASE.map(x=>skCard(x.name,x.e,eImg,'🔥 Épico','#fb923c','')).join('');
-  const aSection=`<div class="sk-section-title">🌟 Formas Adultas — os 12 Celestiais despertos</div>`
-    +ADULT_SHOWCASE.map(x=>skCard(x.name,x.e,aImg,'🌟 Adulto','#c4b5fd',x.m)).join('');
-  const infoSection=`<div class="sk-section-title">🎭 Skins de Evento — cosméticos exclusivos por tempo limitado</div>
-    <div class="bcard" style="grid-column:1/-1;border-color:#a78bfa55">
-      <div class="bcard-desc" style="font-size:.83rem;line-height:1.7">
-        Além das formas Rara, Épica e Adulta mostradas acima, o jogo tem <strong style="color:var(--gold2)">Skins cosméticas</strong> — fantasias que mudam a aparência visual do monstro sem afetar a música ou moedas. Skins são obtidas:<br><br>
-        💎 <strong style="color:var(--gold2)">Loja com Diamantes</strong> — compra direta durante eventos<br>
-        📦 <strong style="color:var(--gold2)">Caixas Surpresa (Chests)</strong> — drops aleatórios comprados com Diamantes<br>
-        🏆 <strong style="color:var(--gold2)">Recompensas de Temporada</strong> — completando objetivos diários/semanais<br>
-        🎁 <strong style="color:var(--gold2)">Presentes de Eventos</strong> — skins gratuitas em datas comemorativas do jogo<br><br>
-        Eventos sazonais têm skins temáticas: Yool (Natal), Punkleton (Halloween), Schmoochle (Dia dos Namorados), etc.
-      </div>
-    </div>`;
-  document.getElementById('sgrid').innerHTML=rSection+eSection+aSection+infoSection;
+      <div class="egg-name">${m.name}</div>
+    </div>`).join('');
 }
 
 // ── TABS / MODAL CONTROL ──────────────────────────────────────────────────────
