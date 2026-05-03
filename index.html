@@ -216,7 +216,7 @@ const IMG_OVERRIDE={
 };
 const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+encodeURIComponent(wn.replace(/ /g,'_')+'.png');};
 const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
-const minorImg=n=>W+encodeURIComponent('Minor_'+n.replace(/ /g,'_')+'.png');
+const minorImg=n=>W+encodeURIComponent(n.replace(/ /g,'_')+'_Minor.png');
 const eImg=n=>W+encodeURIComponent('Epic_'+n.replace(/ /g,'_')+'.png');
 const aImg=n=>W+encodeURIComponent('Adult_'+n.replace(/ /g,'_')+'.png');
 const iImg=f=>W+encodeURIComponent(f);
