@@ -1678,11 +1678,11 @@ const islands=[
  desc:'Isleta Etérea de Meca. Lar dos etéreos de Meca e seus duplos/triplos, além do Primordial Bogle. Adicionada na versão 4.8.4.',
  monsters:['Reebro','Bellowfish','Arackulele','Kazilleon','Sox','Yooreek','Blarret','Gaddzooks','Flasque','Teeter-Tauter','Whaill','Vhenshun','Bogle']},
 
-{id:'shadow-islet',name:'Isleta de Sombra',imgFile:'Shadow_Islet.png',emoji:'🌑',color:'#1a1a2e',ytId:'',castle:'',
+{id:'shadow-islet',name:'Isleta de Sombra',imgFile:'Shadow_Islet.png',imgFileAlt:'Shadow_Islet_Map.png',emoji:'🌑',color:'#1a1a2e',ytId:'',castle:'',
  desc:'Isleta Etérea de Sombra. Lar dos etéreos de Sombra e seus duplos/triplos, além do Primordial Fandhul. Adicionada na versão 5.2.0.',
  monsters:['Grumpyre','Kazilleon','Boodoo','Meebkin','Blarret','Nitebear','Piplash',"X'rt",'Vhenshun','Pentumbra','Fandhul']},
 
-{id:'paironormal-carnival',name:'Carnaval Paranormal',imgFile:'Paironormal_Carnival.png',emoji:'👁️',color:'#1a0a2e',ytId:'',castle:'Castle_(Paironormal_Carnival)',
+{id:'paironormal-carnival',name:'Carnaval Paranormal',imgFile:'Paironormal_Carnival.png',imgFileAlt:'Paironormal_Carnival_Map.png',emoji:'👁️',color:'#1a0a2e',ytId:'',castle:'Castle_(Paironormal_Carnival)',
  desc:'Ilha sombria com os 4 elementos Paranormais: Controle, Ilusão, Ruína e Profundidade. Lar de criaturas paranormais com formas Maior e Menor.',
  monsters:['Hairionette','Owlesque','Arcorina','Shhimmer','Scallyrags','Dakktyl','eRmA gUrDy','Jerm','Galymph','Illoost']},
 
@@ -1816,7 +1816,7 @@ function setF(f){activeFilter=f;renderFilters();renderM();}
 function renderI(){
   document.getElementById('igrid').innerHTML=islands.map(isl=>`
     <div class="icard" onclick="openI('${isl.id}')" style="background:linear-gradient(145deg,${isl.color}44,var(--card));border-color:${isl.color}77">
-      <div class="icard-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
+      <div class="icard-img">${iImgTagForIsl(isl)}</div>
       <div class="icard-name">${isl.name}</div>
       <div class="icard-desc">${isl.desc}</div>
       <div class="icard-count">${isl.monsters.length>0?`🎵 ${isl.monsters.length} monstros`:'🔍 Variável por evento'}</div>
@@ -1927,7 +1927,7 @@ function openI(id){
   document.getElementById('iMod').innerHTML=`
     <button class="mcls" onclick="cls('iOv')">✕</button>
     <div class="imhdr">
-      <div class="imhdr-img">${imgTag(iImg(isl.imgFile),isl.emoji)}</div>
+      <div class="imhdr-img">${iImgTagForIsl(isl)}</div>
       <div class="imhdr-title">${isl.name}</div>
       <div class="imhdr-desc">${isl.desc}</div>
     </div>
