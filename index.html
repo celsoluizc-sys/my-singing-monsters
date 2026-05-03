@@ -1753,12 +1753,22 @@ function showTab(t){
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['m','i','b','s'][i]===t));
 }
+function loadYtIframe(container,ytId){
+  container.style.cursor='default';
+  container.innerHTML=`<iframe
+    src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&color=white"
+    sandbox="allow-scripts allow-same-origin allow-presentation allow-fullscreen"
+    allow="autoplay;encrypted-media;picture-in-picture"
+    allowfullscreen
+    style="width:100%;height:100%;border:none;display:block">
+  </iframe>`;
+}
 function stopIslAud(){
   const a=document.getElementById('isle-aud');
   if(a){a.pause();a.currentTime=0;}
-  // Stop sandboxed YT iframe by blanking its src, then restoring (stops audio)
-  const fr=document.querySelector('#iMod iframe[sandbox]');
-  if(fr){const s=fr.src;fr.src='about:blank';setTimeout(()=>{fr.src=s;},50);}
+  // Stop facade iframe (if user already clicked play) by blanking src
+  const fr=document.querySelector('#iMod iframe');
+  if(fr)fr.src='';
 }
 function cls(id,e){
   if(!e||e.target.classList.contains('overlay')){
