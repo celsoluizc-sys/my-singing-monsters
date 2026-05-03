@@ -1570,28 +1570,30 @@ function openI(id){
       }).join('')
     :`<div style="color:var(--dim);font-size:.83rem;padding:10px">Lista de monstros variável nesta ilha.</div>`;
 
-  // Music: prefer YouTube embed (plays in-page). Castle audio as secondary info.
+  // Music: sandboxed YT embed (no allow-popups = links can't open YouTube)
+  // + castle audio for islands without a YouTube video
   const castleBase=isl.castle?`${W}${isl.castle.replace(/ /g,'_')}`:null;
   const ytEmbed=isl.ytId
     ?`<iframe
-        src="https://www.youtube-nocookie.com/embed/${isl.ytId}?controls=1&rel=0&modestbranding=1&iv_load_policy=3&color=white"
+        src="https://www.youtube-nocookie.com/embed/${isl.ytId}?controls=1&rel=0&modestbranding=1&iv_load_policy=3&color=white&showinfo=0&fs=0"
+        sandbox="allow-scripts allow-same-origin allow-presentation"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        style="width:100%;height:180px;border:none;border-radius:12px;margin-top:8px;display:block"
-        loading="lazy"
+        style="width:100%;height:200px;border:none;border-radius:12px;margin-top:8px;display:block"
         title="Música da ${isl.name}">
-      </iframe>`
-    :'';
-  const musicHtml=isl.ytId||castleBase
-    ?`<div class="msec"><h3>🎵 Música da ilha</h3>
-        ${ytEmbed}
-        ${!isl.ytId&&castleBase?`
-          <audio id="isle-aud" controls preload="none"
-            style="width:100%;border-radius:10px;margin-top:8px;accent-color:var(--gold)">
-            <source src="${castleBase}.mp3" type="audio/mpeg">
-            <source src="${castleBase}.ogg" type="audio/ogg">
-          </audio>`:``}
+      </iframe>
+      <div style="margin-top:5px;font-size:.68rem;color:var(--dim);text-align:center">
+        🎵 Música completa — clique ▶ para tocar aqui mesmo
       </div>`
+    :'';
+  const castleAud=(!isl.ytId&&castleBase)
+    ?`<audio id="isle-aud" controls preload="none"
+        style="width:100%;border-radius:10px;margin-top:8px;accent-color:var(--gold)">
+        <source src="${castleBase}.mp3" type="audio/mpeg">
+        <source src="${castleBase}.ogg" type="audio/ogg">
+      </audio>`
+    :'';
+  const musicHtml=(isl.ytId||castleBase)
+    ?`<div class="msec"><h3>🎵 Música da ilha</h3>${ytEmbed}${castleAud}</div>`
     :'';
 
   document.getElementById('iMod').innerHTML=`
