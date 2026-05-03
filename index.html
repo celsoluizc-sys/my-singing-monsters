@@ -1730,10 +1730,11 @@ function renderB(){
 }
 
 function renderEggs(){
-  // URL do ovo: NomeMonstro_Egg.png na wiki do MSM
+  // Formato confirmado da wiki MSM: NomeMonstro-egg.png (hífen, minúsculo)
+  // Exemplo real: Noggin-egg.png, Toe_Jammer-egg.png, Déjà-Jin-egg.png
   const eggUrl=m=>{
     const wn=IMG_OVERRIDE[m.name]||m.name;
-    return W+wn.replace(/ /g,'_')+'_Egg.png';
+    return W+encodeURIComponent(wn.replace(/ /g,'_')+'-egg.png');
   };
   // Wublins não têm ovo (são montados). Dipsters não têm ovo próprio.
   const list=monsters.filter(m=>
