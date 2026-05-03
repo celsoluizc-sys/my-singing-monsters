@@ -1545,7 +1545,7 @@ function renderFilters(){
     {f:'Fada',l:'🧚 Fada'},{f:'Luz',l:'✨ Luz'},
     {f:'Psíquico',l:'🔮 Psíquico'},{f:'Osso',l:'💀 Osso'},
     {f:'Mítico',l:'🌟 Míticos'},{f:'Sonho',l:'💫 Sonho'},
-    {f:'Lendário',l:'🎸 Shugafam'},{f:'Wublin',l:'⚙️ Wublins'},{f:'Sazonal',l:'🎉 Sazonais'},{f:'Dipster',l:'🎵 Dipsters'},{f:'Celestial',l:'🌙 Celestiais'}
+    {f:'Lendário',l:'🎸 Shugafam'},{f:'Wublin',l:'⚙️ Wublins'},{f:'Wubbox',l:'📦 Wubbox'},{f:'Sazonal',l:'🎉 Sazonais'},{f:'Dipster',l:'🎵 Dipsters'},{f:'Celestial',l:'🌙 Celestiais'}
   ];
   document.getElementById('filterBar').innerHTML=opts.map(o=>
     `<button class="chip${activeFilter===o.f?' on':''}" data-f="${o.f}" onclick="setF('${o.f}')">${o.l}</button>`
