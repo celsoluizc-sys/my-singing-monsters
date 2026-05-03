@@ -1515,7 +1515,8 @@ function renderM(){
   const q=(document.getElementById('q')?.value||'').toLowerCase().trim();
   const grid=document.getElementById('mgrid');
   const list=monsters.filter(m=>{
-    const mq=!q||m.name.toLowerCase().includes(q)||m.elements.some(e=>e.toLowerCase().includes(q));
+    const dn=ptName(m.name).toLowerCase();
+    const mq=!q||m.name.toLowerCase().includes(q)||dn.includes(q)||m.elements.some(e=>e.toLowerCase().includes(q));
     const mf=activeFilter==='all'
       ||(activeFilter==='Etéreo' && m.elements.some(e=>ETHEREAL_ELS.includes(e)))
       ||(activeFilter!=='Etéreo' && m.elements.includes(activeFilter));
@@ -1524,9 +1525,11 @@ function renderM(){
   grid.innerHTML=list.length?list.map(m=>{
     const bg=ELEM_BG[m.elements[0]]||'#1c1238';
     const tags=m.elements.slice(0,3).map(e=>`<span class="etag el-${e}">${e}</span>`).join('');
+    const dn=ptName(m.name);
     return `<div class="mcard" onclick="openM('${m.id}')">
       <div class="mcard-img" style="background:${bg}">${imgTag(mImg(m.name),m.emoji)}</div>
-      <div class="mcard-name">${m.name}</div>
+      <div class="mcard-name">${dn}</div>
+      ${dn!==m.name?`<div style="font-size:.58rem;color:var(--dim);margin-top:-3px;margin-bottom:2px">${m.name}</div>`:''}
       <div class="etags">${tags}</div>
     </div>`;
   }).join(''):`<div style="grid-column:1/-1;text-align:center;color:var(--dim);padding:40px">Nenhum monstro encontrado.</div>`;
