@@ -217,11 +217,12 @@ const IMG_OVERRIDE={
   'Poppete':'Poppette','Periscop':'Periscorp',
   'HippityHop':'HippityHop','Plinkajou':'Plinkajou',
 };
-const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+encodeURIComponent(wn.replace(/ /g,'_')+'.png');};
-const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
-const minorImg=n=>W+encodeURIComponent(n.replace(/ /g,'_')+'_Minor.png');
-const eImg=n=>W+encodeURIComponent('Epic_'+n.replace(/ /g,'_')+'.png');
-const aImg=n=>W+encodeURIComponent('Adult_'+n.replace(/ /g,'_')+'.png');
+const wEnc=s=>encodeURIComponent(s).replace(/%27/g,"'");
+const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+wEnc(wn.replace(/ /g,'_')+'.png');};
+const rImg=n=>W+wEnc('Rare_'+n.replace(/ /g,'_')+'.png');
+const minorImg=n=>W+wEnc(n.replace(/ /g,'_')+'_Minor.png');
+const eImg=n=>W+wEnc('Epic_'+n.replace(/ /g,'_')+'.png');
+const aImg=n=>W+wEnc('Adult_'+n.replace(/ /g,'_')+'.png');
 const iImg=f=>W+encodeURIComponent(f);
 const ytThumb=id=>id?`https://img.youtube.com/vi/${id}/maxresdefault.jpg`:'';
 function iImgTag(isl){
@@ -244,8 +245,8 @@ function imgTag(src,fb,cls=''){
 function imgTagM(n,fb,cls=''){
   const wn=(typeof IMG_OVERRIDE!=='undefined'&&IMG_OVERRIDE[n])||n;
   const nm=wn.replace(/ /g,'_');
-  const s1=W+encodeURIComponent(nm+'.png');
-  const s2=W+encodeURIComponent(nm+'_(Monster).png');
+  const s1=W+encodeURIComponent(nm+'.png').replace(/%27/g,"'");
+  const s2=W+encodeURIComponent(nm+'_(Monster).png').replace(/%27/g,"'");
   // img starts hidden; span (emoji) starts visible
   // onload: hide span + show img only if naturalWidth is real (>=10px)
   // onerror on s1: try s2; onerror on s2: give up (emoji stays visible)
