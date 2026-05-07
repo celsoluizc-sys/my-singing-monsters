@@ -235,19 +235,21 @@ function iImgTag(isl){
 }
 
 function imgTag(src,fb,cls=''){
-  // onload: hide if naturalWidth===0 (URL resolved but returned no image) or naturalWidth<2 (1x1 placeholder)
-  const fail="this.style.display='none';this.nextSibling.style.display='block'";
-  return `<img src="${src}" alt="" loading="lazy" class="${cls}" onerror="${fail}" onload="if(!this.naturalWidth||this.naturalWidth<2){${fail}}"><span class="fb" style="display:none">${fb}</span>`;
+  // emoji-first: img hidden by default, shown only on successful load (naturalWidth>=10)
+  return `<img src="${src}" alt="" loading="lazy" class="${cls}" style="display:none" onerror="this.remove()" onload="if(this.naturalWidth>=10){this.style.display='';this.nextSibling.style.display='none'}"><span class="fb" style="display:block;font-size:1.6rem;line-height:56px;text-align:center">${fb}</span>`;
 }
-// Monster main image with 2-try: {Name}.png → {Name}_(Monster).png → emoji
-// Also catches Fandom's silent placeholder redirect (naturalWidth<2)
+// Monster main image: emoji shows by DEFAULT; hidden only when real image loads OK.
+// This reliably handles Fandom's "missing file" redirect (which returns a valid-looking placeholder,
+// bypassing onerror). Tries {Name}.png first, then {Name}_(Monster).png.
 function imgTagM(n,fb,cls=''){
   const wn=(typeof IMG_OVERRIDE!=='undefined'&&IMG_OVERRIDE[n])||n;
   const nm=wn.replace(/ /g,'_');
   const s1=W+encodeURIComponent(nm+'.png');
   const s2=W+encodeURIComponent(nm+'_(Monster).png');
-  const fail="this.style.display='none';this.nextSibling.style.display='block'";
-  return `<img src="${s1}" alt="" loading="lazy" class="${cls}" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){${fail}}" onload="if(this.naturalWidth<2){this.onerror=null;this.src='${s2}';this.onload=function(){if(this.naturalWidth<2){${fail}}};this.onerror=function(){${fail}}}"><span class="fb" style="display:none">${fb}</span>`;
+  // img starts hidden; span (emoji) starts visible
+  // onload: hide span + show img only if naturalWidth is real (>=10px)
+  // onerror on s1: try s2; onerror on s2: give up (emoji stays visible)
+  return `<img src="${s1}" alt="" loading="lazy" class="${cls}" style="display:none" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){this.remove()}" onload="if(this.naturalWidth>=10){this.style.display='';this.nextSibling.style.display='none'}else{this.onerror=null;this.src='${s2}';this.onerror=function(){this.remove()};this.onload=function(){if(this.naturalWidth>=10){this.style.display='';this.previousSibling?void 0:this.parentNode.querySelectorAll('.fb').forEach(s=>s.style.display='none')}}}"><span class="fb" style="display:block;font-size:1.6rem;line-height:56px;text-align:center">${fb}</span>`;
 }
 // Minor-form img: tries 4 patterns then falls back to major-form image
 function imgTagMinor(n){
