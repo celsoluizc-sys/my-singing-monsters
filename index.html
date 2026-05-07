@@ -240,13 +240,14 @@ function imgTag(src,fb,cls=''){
   return `<img src="${src}" alt="" loading="lazy" class="${cls}" onerror="${fail}" onload="if(!this.naturalWidth||this.naturalWidth<2){${fail}}"><span class="fb" style="display:none">${fb}</span>`;
 }
 // Monster main image with 2-try: {Name}.png → {Name}_(Monster).png → emoji
+// Also catches Fandom's silent placeholder redirect (naturalWidth<2)
 function imgTagM(n,fb,cls=''){
   const wn=(typeof IMG_OVERRIDE!=='undefined'&&IMG_OVERRIDE[n])||n;
   const nm=wn.replace(/ /g,'_');
   const s1=W+encodeURIComponent(nm+'.png');
   const s2=W+encodeURIComponent(nm+'_(Monster).png');
   const fail="this.style.display='none';this.nextSibling.style.display='block'";
-  return `<img src="${s1}" alt="" loading="lazy" class="${cls}" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){${fail}}" onload="if(!this.naturalWidth||this.naturalWidth<2){this.src='${s2}';this.onload=function(){if(!this.naturalWidth||this.naturalWidth<2){${fail}}}}"><span class="fb" style="display:none">${fb}</span>`;
+  return `<img src="${s1}" alt="" loading="lazy" class="${cls}" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){${fail}}" onload="if(this.naturalWidth<2){this.onerror=null;this.src='${s2}';this.onload=function(){if(this.naturalWidth<2){${fail}}};this.onerror=function(){${fail}}}"><span class="fb" style="display:none">${fb}</span>`;
 }
 // Minor-form img: tries 4 patterns then falls back to major-form image
 function imgTagMinor(n){
