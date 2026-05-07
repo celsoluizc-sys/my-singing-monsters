@@ -213,6 +213,9 @@ const IMG_OVERRIDE={
   "G'joob":"G'joob","G'day":"G'day","Blow't":"Blow't","Boo'qwurm":"Boo'qwurm",
   'Clavi Gnat':'Clavi_Gnat','Floot Fly':'Floot_Fly',
   'Jam Boree':'Jam_Boree','Whiz-bang':'Whiz-bang',
+  // Psychic Island monsters — wiki may use different filenames
+  'Poppete':'Poppete','Periscop':'Periscop',
+  'HippityHop':'HippityHop','Plinkajou':'Plinkajou',
 };
 const mImg=n=>{const wn=IMG_OVERRIDE[n]||n;return W+encodeURIComponent(wn.replace(/ /g,'_')+'.png');};
 const rImg=n=>W+encodeURIComponent('Rare_'+n.replace(/ /g,'_')+'.png');
@@ -232,7 +235,18 @@ function iImgTag(isl){
 }
 
 function imgTag(src,fb,cls=''){
-  return `<img src="${src}" alt="" loading="lazy" class="${cls}" onerror="this.style.display='none';this.nextSibling.style.display='block'"><span class="fb" style="display:none">${fb}</span>`;
+  // onload: hide if naturalWidth===0 (URL resolved but returned no image) or naturalWidth<2 (1x1 placeholder)
+  const fail="this.style.display='none';this.nextSibling.style.display='block'";
+  return `<img src="${src}" alt="" loading="lazy" class="${cls}" onerror="${fail}" onload="if(!this.naturalWidth||this.naturalWidth<2){${fail}}"><span class="fb" style="display:none">${fb}</span>`;
+}
+// Monster main image with 2-try: {Name}.png → {Name}_(Monster).png → emoji
+function imgTagM(n,fb,cls=''){
+  const wn=(typeof IMG_OVERRIDE!=='undefined'&&IMG_OVERRIDE[n])||n;
+  const nm=wn.replace(/ /g,'_');
+  const s1=W+encodeURIComponent(nm+'.png');
+  const s2=W+encodeURIComponent(nm+'_(Monster).png');
+  const fail="this.style.display='none';this.nextSibling.style.display='block'";
+  return `<img src="${s1}" alt="" loading="lazy" class="${cls}" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){${fail}}" onload="if(!this.naturalWidth||this.naturalWidth<2){this.src='${s2}';this.onload=function(){if(!this.naturalWidth||this.naturalWidth<2){${fail}}}}"><span class="fb" style="display:none">${fb}</span>`;
 }
 // Minor-form img: tries 4 patterns then falls back to major-form image
 function imgTagMinor(n){
@@ -2046,7 +2060,7 @@ function renderM(){
     const tags=m.elements.slice(0,3).map(e=>`<span class="etag el-${e}">${e}</span>`).join('');
     const dn=ptName(m.name);
     return `<div class="mcard" onclick="openM('${m.id}')">
-      <div class="mcard-img" style="background:${bg}">${imgTag(mImg(m.name),m.emoji)}</div>
+      <div class="mcard-img" style="background:${bg}">${imgTagM(m.name,m.emoji)}</div>
       <div class="mcard-name">${dn}</div>
       ${dn!==m.name?`<div style="font-size:.58rem;color:var(--dim);margin-top:-3px;margin-bottom:2px">${m.name}</div>`:''}
       <div class="etags">${tags}</div>
@@ -2092,7 +2106,7 @@ function openM(id){
   }).join('');
 
   const baseCard=`<div class="fcard base"><div class="fbadge">⭐ Base</div>
-    <div class="fimg">${imgTag(mImg(m.name),m.emoji)}</div>
+    <div class="fimg">${imgTagM(m.name,m.emoji)}</div>
     <div class="fbreed">Forma padrão obtida por procriação ou compra.</div></div>`;
 
   const rareCard=m.hasRare
@@ -2123,7 +2137,7 @@ function openM(id){
   const isParanormal=m.elements.some(e=>PARANORMAL_ELS.includes(e));
 
   const majorCard=`<div class="fcard base"><div class="fbadge">🎭 Maior</div>
-    <div class="fimg">${imgTag(mImg(m.name),m.emoji)}</div>
+    <div class="fimg">${imgTagM(m.name,m.emoji)}</div>
     <div class="fbreed">Forma Maior — aparece no Carnaval Paranormal durante o dia.</div></div>`;
 
   const minorCard=`<div class="fcard rare"><div class="fbadge">🌑 Menor</div>
@@ -2151,7 +2165,7 @@ function openM(id){
   document.getElementById('mMod').innerHTML=`
     <button class="mcls" onclick="cls('mOv')">✕</button>
     <div class="mhdr">
-      <div class="mhdr-img">${imgTag(mImg(m.name),m.emoji)}</div>
+      <div class="mhdr-img">${imgTagM(m.name,m.emoji)}</div>
       <div>
         <div class="mhdr-title">${dn}</div>
         ${dn!==m.name?`<div style="font-size:.78rem;color:var(--dim);margin-top:1px">${m.name}</div>`:''}
