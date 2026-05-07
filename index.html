@@ -249,7 +249,7 @@ function imgTagM(n,fb,cls=''){
   // img starts hidden; span (emoji) starts visible
   // onload: hide span + show img only if naturalWidth is real (>=10px)
   // onerror on s1: try s2; onerror on s2: give up (emoji stays visible)
-  return `<img src="${s1}" alt="" loading="lazy" class="${cls}" style="display:none" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){this.remove()}" onload="if(this.naturalWidth>=10){this.style.display='';this.nextSibling.style.display='none'}else{this.onerror=null;this.src='${s2}';this.onerror=function(){this.remove()};this.onload=function(){if(this.naturalWidth>=10){this.style.display='';this.previousSibling?void 0:this.parentNode.querySelectorAll('.fb').forEach(s=>s.style.display='none')}}}"><span class="fb" style="display:block;font-size:1.6rem;line-height:56px;text-align:center">${fb}</span>`;
+  return `<img src="${s1}" alt="" class="${cls}" style="display:none" onerror="this.onerror=null;this.src='${s2}';this.onerror=function(){this.remove()}" onload="if(this.naturalWidth>=10){this.style.display='';this.nextSibling.style.display='none'}else{this.onerror=null;this.src='${s2}';this.onerror=function(){this.remove()};this.onload=function(){if(this.naturalWidth>=10){this.style.display='';this.previousSibling?void 0:this.parentNode.querySelectorAll('.fb').forEach(s=>s.style.display='none')}}}"><span class="fb" style="display:block;font-size:1.6rem;line-height:56px;text-align:center">${fb}</span>`;
 }
 // Minor-form img: tries 4 patterns then falls back to major-form image
 function imgTagMinor(n){
